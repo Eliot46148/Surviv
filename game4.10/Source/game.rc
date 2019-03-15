@@ -122,7 +122,7 @@ IDB_MAP8                BITMAP                  "..\\res\\bmp00006.bmp"
 
 IDB_MAP9                BITMAP                  "..\\res\\bmp00007.bmp"
 
-IDB_LAWN                BITMAP                  "C:\\Users\\xy152\\Desktop\\Assets\\floor.bmp"
+IDB_LAWN                BITMAP                  "..\\Assets\\floor.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
