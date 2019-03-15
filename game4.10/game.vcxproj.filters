@@ -129,6 +129,7 @@
     <ClCompile Include="Source\CBouncingBall.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BasicObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -167,8 +168,8 @@
     <ClInclude Include="Source\CBouncingBall.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="MAP.h">
-      <Filter>MFC</Filter>
+    <ClInclude Include="Source\BasicObject.h">
+      <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
