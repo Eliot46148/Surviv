@@ -422,6 +422,7 @@ void CGameStateRun::OnShow()
 }
 CGameMap::CGameMap():X(10),Y(10),MW(556),MH(556)
 {
+	isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
 }
 void CGameMap::LoadBitMap()
 {	
