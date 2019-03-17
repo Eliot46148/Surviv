@@ -129,7 +129,9 @@
     <ClCompile Include="Source\CBouncingBall.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BasicObject.cpp" />
+    <ClCompile Include="Source\BasicObject.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
