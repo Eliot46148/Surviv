@@ -9,16 +9,21 @@
 namespace game_framework {
 void BasicObject::OnMove()
 {
-	if (!(can_move && is_alive))
-		return;
-	if (isMovingLeft)
-		x -= speed;
-	if (isMovingRight)
-		x += speed;
-	if (isMovingUp)
-		y -= speed;
-	if (isMovingDown)
-		y += speed;
+    if (!(can_move && is_alive))
+        return;
+
+    if (isMovingLeft)
+        x -= speed;
+
+    if (isMovingRight)
+        x += speed;
+
+    if (isMovingUp)
+        y -= speed;
+
+    if (isMovingDown)
+        y += speed;
+}
 void BasicObject::OnShow()
 {
     if (is_alive)
@@ -34,19 +39,19 @@ void BasicObject::SetXY(int nx, int ny)
 }
 void BasicObject::SetMovingUP(bool flag)
 {
-	isMovingUp = flag;
+    isMovingUp = flag;
 }
 void BasicObject::SetMovingDown(bool flag)
 {
-	isMovingDown = flag;
+    isMovingDown = flag;
 }
 void BasicObject::SetMovingLeft(bool flag)
 {
-	isMovingLeft = flag;
+    isMovingLeft = flag;
 }
 void BasicObject::SetMovingRight(bool flag)
 {
-	isMovingRight = flag;
+    isMovingRight = flag;
 }
 bool BasicObject::isAlive()
 {
