@@ -1,10 +1,11 @@
 #include "stdafx.h"
-#include "BasicObject.h"
 #include "Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
+#include "BasicObject.h"
+
 
 namespace game_framework {
 void BasicObject::OnMove()
