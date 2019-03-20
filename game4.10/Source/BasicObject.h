@@ -14,6 +14,7 @@ namespace game_framework {
 		bool isAlive();
 		bool isThourghable();
 		bool isBreakable();
+
 		virtual void LoadBitMap() = 0;
 	protected:
 		CMovingBitmap bmp;		

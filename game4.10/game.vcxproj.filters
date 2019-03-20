@@ -132,6 +132,12 @@
     <ClCompile Include="Source\BasicObject.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\items.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\persona.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -171,6 +177,12 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\BasicObject.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\items.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\persona.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
