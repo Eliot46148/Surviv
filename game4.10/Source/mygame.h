@@ -41,6 +41,7 @@
 #include "CEraser.h"
 #include "CBall.h"
 #include "CBouncingBall.h"
+#include "Map.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -71,7 +72,7 @@ namespace game_framework {
 		CMovingBitmap logo;								// csie的logo
 	};
 
-	class CGameMap {									// 處理地圖
+	/*class CGameMap {									// 處理地圖
 	public:
 		CGameMap();
 		void LoadBitMap();
@@ -91,7 +92,7 @@ namespace game_framework {
 		bool isMovingLeft;								// 是否正在往左移動
 		bool isMovingRight;								// 是否正在往右移動
 		bool isMovingUp;								// 是否正在往上移動
-	};
+	};*/
 
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
@@ -123,7 +124,8 @@ namespace game_framework {
 		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		//CBouncingBall   bball;		// 反覆彈跳的球
-		CGameMap gamemap;
+		//CGameMap gamemap;
+		Map map;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -17,7 +17,7 @@ namespace game_framework {
 
 		virtual void LoadBitMap() = 0;
 	protected:
-		CMovingBitmap bmp;		
+		CMovingBitmap bmp;
 		int speed;
 		int HP;
 		int size;

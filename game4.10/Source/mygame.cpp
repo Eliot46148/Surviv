@@ -79,8 +79,13 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
+<<<<<<< HEAD
 	//logo.LoadBitmap(IDB_BACKGROUND);
 	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+=======
+	logo.LoadBitmap(IDB_BACKGROUND);
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+>>>>>>> bf82c8a26e1782e7793b624b7239395acea60458
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -220,9 +225,9 @@ void CGameStateRun::OnBeginState()
 	//help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
-	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
-	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
-	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
+	//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
+	//CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
+	//CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -247,7 +252,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動擦子
 	//
 	eraser.OnMove();
-	gamemap.OnMove();
+	map.OnMove();
+
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -299,7 +305,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//corner.ShowBitmap(background);							// 將corner貼到background
 	//bball.LoadBitmap();										// 載入圖形
 	hits_left.LoadBitmap();	
-	gamemap.LoadBitMap();
+	map.LoadBitMap();
+
 	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
 	CAudio::Instance()->Load(AUDIO_NTUT,  "sounds\\ntut.mid");	// 載入編號2的聲音ntut.mid
@@ -316,23 +323,21 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_DOWN  = 0x53; // keyboard下箭頭
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(true);
-		gamemap.SetMovingRight(true);
+		map.SetMovingRight(true);
 
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(true);
-		gamemap.SetMovingLeft(true);
+		map.SetMovingLeft(true);
 
 	}
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(true);
-		gamemap.SetMovingDown(true);
-
+		map.SetMovingDown(true);
 	}
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(true);
-		gamemap.SetMovingUp(true);
-
+		map.SetMovingUP(true);
 	}
 }
 
@@ -344,25 +349,21 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_DOWN  = 0x53; // keyboard下箭頭
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(false);
-		gamemap.SetMovingRight(false);
-
+		map.SetMovingRight(false);
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(false);
-		gamemap.SetMovingLeft(false);
-
+		map.SetMovingLeft(false);
 	}
 
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(false);
-		gamemap.SetMovingDown(false);
-
+		map.SetMovingDown(false);
 	}
 
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(false);
-		gamemap.SetMovingUp(false);
-
+		map.SetMovingUP(false);
 	}
 
 }
@@ -410,7 +411,7 @@ void CGameStateRun::OnShow()
 	/*for (int i=0; i < NUMBALLS; i++)
 		ball[i].OnShow();		*/		// 貼上第i號球
 	//bball.OnShow();						// 貼上彈跳的球
-	gamemap.OnShow();
+	map.OnShow();
 	eraser.OnShow();					// 貼上擦子
 	//
 	//  貼上左上及右下角落的圖
@@ -420,60 +421,5 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 }
-CGameMap::CGameMap():X(10),Y(10),MW(556),MH(556)
-{
-	isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
-}
-void CGameMap::LoadBitMap()
-{	
-	Lawn.LoadBitmap(166);
-	/*MAP[0].LoadBitmap(IDB_MAP1);
-	MAP[1].LoadBitmap(IDB_MAP2);
-	MAP[2].LoadBitmap(IDB_MAP3);
-	MAP[3].LoadBitmap(IDB_MAP4);
-	MAP[4].LoadBitmap(IDB_MAP5);
-	MAP[5].LoadBitmap(IDB_MAP6);
-	MAP[6].LoadBitmap(IDB_MAP7);
-	MAP[7].LoadBitmap(IDB_MAP8);
-	MAP[8].LoadBitmap(IDB_MAP9);*/
-}
-void CGameMap::OnShow()
-{
-	for(int i=0;i<3;i++)
-		for (int j = 0; j < 3; j++) {
-			Lawn.SetTopLeft(X + MW * i, Y + MH * j);
-			Lawn.ShowBitmap();
-		}
-}
-void CGameMap::OnMove()
-{
-	const int STEP_SIZE = 10;
-	if (isMovingLeft)
-		X -= STEP_SIZE;
-	if (isMovingRight)
-		X += STEP_SIZE;
-	if (isMovingUp)
-		Y -= STEP_SIZE;
-	if (isMovingDown)
-		Y += STEP_SIZE;
-}
-void CGameMap::SetMovingDown(bool flag)
-{
-	isMovingDown = flag;
-}
 
-void CGameMap::SetMovingLeft(bool flag)
-{
-	isMovingLeft = flag;
-}
-
-void CGameMap::SetMovingRight(bool flag)
-{
-	isMovingRight = flag;
-}
-
-void CGameMap::SetMovingUp(bool flag)
-{
-	isMovingUp = flag;
-}
 }
