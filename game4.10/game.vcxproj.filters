@@ -132,7 +132,12 @@
     <ClCompile Include="Source\BasicObject.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map.cpp" />
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Box.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -177,6 +182,9 @@
     <ClInclude Include="Source\Map.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Box.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -215,6 +223,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="C:\Users\xy152\Desktop\Assets\floor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Box01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\floor.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

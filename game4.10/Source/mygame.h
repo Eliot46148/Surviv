@@ -42,6 +42,7 @@
 #include "CBall.h"
 #include "CBouncingBall.h"
 #include "Map.h"
+#include "Box.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -126,6 +127,7 @@ namespace game_framework {
 		//CBouncingBall   bball;		// ¤ÏÂÐ¼u¸õªº²y
 		//CGameMap gamemap;
 		Map map;
+		Box box;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

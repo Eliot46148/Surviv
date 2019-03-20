@@ -3,6 +3,7 @@
 namespace game_framework {
 	class BasicObject {
 	public:
+		BasicObject();
 		void OnMove();
 		void OnShow();
 		void SetXY(int nx, int ny);
@@ -19,7 +20,7 @@ namespace game_framework {
 		CMovingBitmap bmp;
 		int speed;
 		int HP;
-		int size;
+		int Height,Width;
 		int x, y, dx, dy;
 		bool can_breakable, can_thourghable, is_alive, can_move;
 		bool isMovingDown, isMovingLeft, isMovingRight, isMovingUp;

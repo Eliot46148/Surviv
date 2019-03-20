@@ -248,7 +248,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	eraser.OnMove();
 	map.OnMove();
-
+	box.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -301,6 +301,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//bball.LoadBitmap();										// 載入圖形
 	hits_left.LoadBitmap();	
 	map.LoadBitMap();
+	box.LoadBitMap();
 
 	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
@@ -319,20 +320,22 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(true);
 		map.SetMovingRight(true);
-
+		box.SetMovingRight(true);
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(true);
 		map.SetMovingLeft(true);
-
+		box.SetMovingLeft(true);
 	}
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(true);
 		map.SetMovingDown(true);
+		box.SetMovingDown(true);
 	}
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(true);
 		map.SetMovingUP(true);
+		box.SetMovingUP(true);
 	}
 }
 
@@ -345,32 +348,40 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(false);
 		map.SetMovingRight(false);
+		box.SetMovingRight(false);
+
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(false);
 		map.SetMovingLeft(false);
+		box.SetMovingLeft(false);
+
 	}
 
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(false);
 		map.SetMovingDown(false);
+		box.SetMovingDown(false);
+
 	}
 
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(false);
 		map.SetMovingUP(false);
+		box.SetMovingUP(false);
+
 	}
 
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	eraser.SetMovingLeft(true);
+	//eraser.SetMovingLeft(true);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	eraser.SetMovingLeft(false);
+	//eraser.SetMovingLeft(false);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -380,12 +391,12 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	eraser.SetMovingRight(true);
+	//eraser.SetMovingRight(true);
 }
 
 void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	eraser.SetMovingRight(false);
+	//eraser.SetMovingRight(false);
 }
 
 
@@ -405,9 +416,10 @@ void CGameStateRun::OnShow()
 	hits_left.ShowBitmap();
 	/*for (int i=0; i < NUMBALLS; i++)
 		ball[i].OnShow();		*/		// 貼上第i號球
-	//bball.OnShow();						// 貼上彈跳的球
+	//bball.OnShow();					// 貼上彈跳的球
 	map.OnShow();
-	eraser.OnShow();					// 貼上擦子
+	eraser.OnShow();				    // 貼上擦子
+	box.OnShow();
 	//
 	//  貼上左上及右下角落的圖
 	//

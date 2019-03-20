@@ -11,8 +11,9 @@ game_framework::Map::Map()
 {
 	x = 10;
 	y = 10;
-	size = 556;
-	speed = 10;
+	Height = 556;
+	Width = 556;
+	speed = DEFAULT_OBJECTIVE_SPEED;
 	can_breakable = false;
 	can_thourghable = true;
 	is_alive = true;
@@ -29,7 +30,7 @@ void game_framework::Map::OnShow()
 {
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++) {
-			bmp.SetTopLeft(x + size * i, y + size * j);
+			bmp.SetTopLeft(x + Width * i, y + Height * j);
 			bmp.ShowBitmap();
 		}
 }

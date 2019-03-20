@@ -75,6 +75,8 @@
 #define SHOW_GAME_CYCLE_TIME false		// 是否在debug mode顯示cycle time
 #define ENABLE_GAME_PAUSE	 false		// 是否允許以 Ctrl-Q 暫停遊戲
 #define ENABLE_AUDIO		 true		// 啟動音效介面
+#define DEFAULT_OBJECTIVE_SPEED   10	// 預設地圖移動速度
+#define DEFAULT_CHACRATER_SPEED   10	// 預設腳色移動速度
 
 /////////////////////////////////////////////////////////////////////////////
 // 定義CGame及CGameState所使用的三個狀態常數

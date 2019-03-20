@@ -8,7 +8,23 @@
 
 
 namespace game_framework {
-void BasicObject::OnMove()
+	BasicObject::BasicObject()
+	{
+		x = 0;
+		y = 0;
+		dx = 0;
+		dy = 0;
+		Height = 556;
+		Width = 556;
+		HP = 10;
+		speed = DEFAULT_OBJECTIVE_SPEED;
+		can_breakable = false;
+		can_thourghable = true;
+		is_alive = true;
+		can_move = true;
+		isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
+	}
+	void BasicObject::OnMove()
 {
     if (!(can_move && is_alive))
         return;

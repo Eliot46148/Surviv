@@ -259,6 +259,7 @@
   <ItemGroup>
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\BasicObject.cpp" />
+    <ClCompile Include="Source\Box.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
@@ -307,6 +308,7 @@
   <ItemGroup>
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\BasicObject.h" />
+    <ClInclude Include="Source\Box.h" />
     <ClInclude Include="Source\CBall.h" />
     <ClInclude Include="Source\CBouncingBall.h" />
     <ClInclude Include="Source\CEraser.h" />
@@ -328,6 +330,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\floor.bmp" />
     <Image Include="C:\Users\xy152\Desktop\Assets\floor.bmp" />
     <Image Include="res\bitmap3.bmp" />
     <Image Include="res\bitmap4.bmp" />
@@ -338,6 +341,7 @@
     <Image Include="res\bmp00005.bmp" />
     <Image Include="res\bmp00006.bmp" />
     <Image Include="res\bmp00007.bmp" />
+    <Image Include="RES\Box01.bmp" />
     <Image Include="res\map2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
