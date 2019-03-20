@@ -79,8 +79,13 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
+<<<<<<< HEAD
+	//logo.LoadBitmap(IDB_BACKGROUND);
+	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+=======
 	logo.LoadBitmap(IDB_BACKGROUND);
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+>>>>>>> bf82c8a26e1782e7793b624b7239395acea60458
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -110,8 +115,8 @@ void CGameStateInit::OnShow()
 	//
 	// 貼上logo
 	//
-	logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
-	logo.ShowBitmap();
+	//logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
+	//logo.ShowBitmap();
 	//
 	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 	//
