@@ -43,6 +43,8 @@
 #include "CBouncingBall.h"
 #include "Map.h"
 #include "Box.h"
+#include "persona.h"
+#include "items.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -128,6 +130,8 @@ namespace game_framework {
 		//CGameMap gamemap;
 		Map map;
 		Box box;
+		persona player1;
+		items its;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

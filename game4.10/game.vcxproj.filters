@@ -132,25 +132,14 @@
     <ClCompile Include="Source\BasicObject.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Source\Map.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
     <ClCompile Include="Source\Box.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-=======
-<<<<<<< HEAD
-    <ClCompile Include="Source\items.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\persona.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-=======
-    <ClCompile Include="Source\Map.cpp" />
->>>>>>> bf82c8a26e1782e7793b624b7239395acea60458
->>>>>>> fbebdaee4535440bab08204666989abc31b4ffe9
+    <ClCompile Include="Source\items.cpp" />
+    <ClCompile Include="Source\persona.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -192,19 +181,14 @@
     <ClInclude Include="Source\BasicObject.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\items.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\persona.h">
-=======
     <ClInclude Include="Source\Map.h">
->>>>>>> bf82c8a26e1782e7793b624b7239395acea60458
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Box.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\items.h" />
+    <ClInclude Include="Source\persona.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -249,6 +233,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\floor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\pistol01.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -58,6 +58,10 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
+#include "BasicObject.h"
+#include "items.h"
+#include "persona.h"
+
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
@@ -79,13 +83,10 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
-<<<<<<< HEAD
+
+
 	//logo.LoadBitmap(IDB_BACKGROUND);
-	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
-=======
-	logo.LoadBitmap(IDB_BACKGROUND);
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
->>>>>>> bf82c8a26e1782e7793b624b7239395acea60458
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -220,7 +221,8 @@ void CGameStateRun::OnBeginState()
 		ball[i].SetDelay(x_pos);
 		ball[i].SetIsAlive(true);
 	}*/
-	eraser.Initialize();
+	//eraser.Initialize();
+	
 	//background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
 	//help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
@@ -228,6 +230,7 @@ void CGameStateRun::OnBeginState()
 	//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	//CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	//CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
+
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -251,9 +254,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動擦子
 	//
-	eraser.OnMove();
+	//eraser.OnMove();
+	player1.OnMove();
 	map.OnMove();
 	box.OnMove();
+	its.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -290,7 +295,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	/*int i;
 	for (i = 0; i < NUMBALLS; i++)	
 		ball[i].LoadBitmap();*/								// 載入第i個球的圖形
-	eraser.LoadBitmap();
+	//eraser.LoadBitmap();
 	// background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -307,6 +312,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	hits_left.LoadBitmap();	
 	map.LoadBitMap();
 	box.LoadBitMap();
+	its.LoadBitMap();
+	player1.LoadBitMap();
+
 
 	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
@@ -322,25 +330,36 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x57; // keyboard上箭頭
 	const char KEY_RIGHT = 0x44; // keyboard右箭頭
 	const char KEY_DOWN  = 0x53; // keyboard下箭頭
+	//const char KEY_DOWN = 0x58; // keyboard下箭頭
+	const char KEY_GET = 0x46; // keyboard下箭頭
+
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(true);
 		map.SetMovingRight(true);
-		box.SetMovingRight(true);
+		box.SetMovingRight(true); 
+		its.SetMovingRight(true);
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(true);
 		map.SetMovingLeft(true);
 		box.SetMovingLeft(true);
+		its.SetMovingLeft(true);
 	}
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(true);
 		map.SetMovingDown(true);
 		box.SetMovingDown(true);
+		its.SetMovingDown(true);
 	}
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(true);
 		map.SetMovingUP(true);
 		box.SetMovingUP(true);
+		its.SetMovingUP(true);
+	}
+	if (nChar == KEY_GET) 
+	{
+		player1.SetGetting(true);
 	}
 }
 
@@ -350,33 +369,42 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x57; // keyboard上箭頭
 	const char KEY_RIGHT = 0x44; // keyboard右箭頭
 	const char KEY_DOWN  = 0x53; // keyboard下箭頭
+	//const char KEY_DOWN = 0x58; // keyboard下箭頭
+	const char KEY_GET = 0x46; // keyboard下箭頭
+
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(false);
 		map.SetMovingRight(false);
 		box.SetMovingRight(false);
-
+		its.SetMovingRight(false);
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(false);
 		map.SetMovingLeft(false);
 		box.SetMovingLeft(false);
+		its.SetMovingLeft(false);
 
 	}
-
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(false);
 		map.SetMovingDown(false);
 		box.SetMovingDown(false);
+		its.SetMovingDown(false);
 
 	}
-
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(false);
 		map.SetMovingUP(false);
 		box.SetMovingUP(false);
+		its.SetMovingUP(false);
 
 	}
-
+	if (nChar == KEY_GET)
+	{
+		if(player1.isGetting()&&(its.GetX()>=player1.GetX()&&its.GetX()<=player1.GetX()+30)&& (its.GetY() >= player1.GetY() && its.GetY() <= player1.GetY() + 30))
+			its.SetAlive(false);
+		player1.SetGetting(false);
+	}
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -423,8 +451,11 @@ void CGameStateRun::OnShow()
 		ball[i].OnShow();		*/		// 貼上第i號球
 	//bball.OnShow();					// 貼上彈跳的球
 	map.OnShow();
-	eraser.OnShow();				    // 貼上擦子
+	//eraser.OnShow();				    // 貼上擦子
+	player1.OnShow();
 	box.OnShow();
+	if (its.isAlive())
+		its.OnShow();
 	//
 	//  貼上左上及右下角落的圖
 	//

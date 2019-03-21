@@ -70,6 +70,18 @@ void BasicObject::SetMovingRight(bool flag)
 {
     isMovingRight = flag;
 }
+void BasicObject::SetAlive(bool flag)
+{
+	is_alive = flag;
+}
+int BasicObject::GetX()
+{
+	return x;
+}
+int BasicObject::GetY()
+{
+	return y;
+}
 bool BasicObject::isAlive()
 {
     return is_alive;

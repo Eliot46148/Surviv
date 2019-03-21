@@ -5,12 +5,16 @@ namespace game_framework {
 	public:
 		BasicObject();
 		void OnMove();
-		void OnShow();
+		virtual void OnShow();
 		void SetXY(int nx, int ny);
 		void SetMovingUP(bool flag);
 		void SetMovingDown(bool flag);
 		void SetMovingLeft(bool flag);
 		void SetMovingRight(bool flag);
+		void SetAlive(bool flag);
+		int GetX();
+		int GetY();
+
 
 		bool isAlive();
 		bool isThourghable();

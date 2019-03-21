@@ -1,10 +1,11 @@
 #pragma once
+#include "BasicObject.h"
 namespace game_framework {
 class items : public BasicObject
 {
     public:
-
-    private:
-
+		items();
+		void LoadBitMap();
+		void OnShow();
 };
 }
