@@ -21,6 +21,8 @@ void game_framework::items::LoadBitMap()
 
 void game_framework::items::OnShow()
 {
-	bmp.SetTopLeft(x, y);
-	bmp.ShowBitmap(0.4);
+	if (isAlive()) {
+		bmp.SetTopLeft(x, y);
+		bmp.ShowBitmap(0.4);
+	}
 }

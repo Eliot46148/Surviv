@@ -8,19 +8,10 @@
 #include "items.h"
 #include "persona.h"
 
-game_framework::persona::persona()
+game_framework::persona::persona():BasicObject()
 {
-    speed = 10;
-    HP = 100;
-    Height = 556;
-    Width = 556;
     x = 290;
     y = 210;
-    can_breakable = true;
-    can_thourghable = false;
-    is_alive = true;
-    can_move = true;
-    isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
 }
 
 void game_framework::persona::CatchItem()
@@ -29,7 +20,7 @@ void game_framework::persona::CatchItem()
 
 void game_framework::persona::LoadBitMap()
 {
-    bmp.LoadBitmap(IDB_PLAYER, RGB(0, 0, 0));			// 載入球的圖形
+    bmp.LoadBitmap(IDB_PLAYER, RGB(0, 0, 0));			
 }
 
 void game_framework::persona::OnShow()
@@ -49,4 +40,29 @@ void game_framework::persona::SetGetting(bool flag)
 bool game_framework::persona::isGetting()
 {
 	return is_Gettting;
+}
+
+bool game_framework::persona::isCan_Right()
+{
+	return isMovingRight;
+}
+
+bool game_framework::persona::isCan_Left()
+{
+	return isMovingLeft;
+}
+
+bool game_framework::persona::isCan_Down()
+{
+	return isMovingUp;
+}
+
+bool game_framework::persona::isCan_UP()
+{
+	return isMovingUp;
+}
+
+void game_framework::persona::setCan_move(bool flag)
+{
+	can_move = flag;
 }

@@ -30,6 +30,5 @@ namespace game_framework {
 		bool can_breakable, can_thourghable, is_alive, can_move;
 		bool isMovingDown, isMovingLeft, isMovingRight, isMovingUp;
 
-
 	};
 }

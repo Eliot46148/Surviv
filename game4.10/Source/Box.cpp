@@ -15,6 +15,12 @@ game_framework::Box::Box() : BasicObject()
 	can_thourghable = false;
 }
 
+game_framework::Box::Box(int x, int y):Box()
+{
+	this->x = x;
+	this->y = y;
+}
+
 void game_framework::Box::LoadBitMap()
 {
 	bmp.LoadBitmap(167);
@@ -22,11 +28,19 @@ void game_framework::Box::LoadBitMap()
 
 void game_framework::Box::OnShow()
 {
-	for (int i=0;i<3;i++)
-		for (int j = 0; j < 3; j++) {
-			bmp.SetTopLeft(x + i * 100, y + j * 100);
-			bmp.ShowBitmap();
-		}
+
+	bmp.SetTopLeft(x, y);
+	bmp.ShowBitmap(3);
+}
+
+int game_framework::Box::GetHeight()
+{
+	return Height;
+}
+
+int game_framework::Box::GetWidth()
+{
+	return Width;
 }
 
 

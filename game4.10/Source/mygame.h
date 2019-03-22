@@ -129,7 +129,7 @@ namespace game_framework {
 		//CBouncingBall   bball;		// ¤ÏÂÐ¼u¸õªº²y
 		//CGameMap gamemap;
 		Map map;
-		Box box;
+		vector<Box> box;
 		persona player1;
 		items its;
 	};

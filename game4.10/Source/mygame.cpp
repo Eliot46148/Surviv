@@ -197,10 +197,14 @@ CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)
 {
 	//ball = new CBall [NUMBALLS];
+	/*for (int i = 0; i < 3; i++)
+		box.push_back(Box(100+i*100,100));*/
+	box.push_back(Box(100, 100));
 }
 
 CGameStateRun::~CGameStateRun()
-{
+{	
+
 	//delete [] ball;
 }
 
@@ -214,17 +218,8 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
-	/*for (int i = 0; i < NUMBALLS; i++) {				// 設定球的起始座標
-		int x_pos = i % BALL_PER_ROW;
-		int y_pos = i / BALL_PER_ROW;
-		ball[i].SetXY(x_pos * BALL_GAP + BALL_XY_OFFSET, y_pos * BALL_GAP + BALL_XY_OFFSET);
-		ball[i].SetDelay(x_pos);
-		ball[i].SetIsAlive(true);
-	}*/
-	//eraser.Initialize();
-	
-	//background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
-	//help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
+
+
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
 	//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
@@ -238,27 +233,38 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 如果希望修改cursor的樣式，則將下面程式的commment取消即可
 	//
-	// SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));
-	//
-	// 移動背景圖的座標
-	//
-	/*if (background.Top() > SIZE_Y)
-		background.SetTopLeft(60 ,-background.Height());
-	background.SetTopLeft(background.Left(),background.Top()+1);*/
-	//
-	// 移動球
-	//
-	/*int i;
-	for (i=0; i < NUMBALLS; i++)
-		ball[i].OnMove();*/
-	//
-	// 移動擦子
-	//
-	//eraser.OnMove();
+	//SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));
+
 	player1.OnMove();
 	map.OnMove();
-	box.OnMove();
+	for(int i=0 ;i < static_cast<int>(box.size());i++)
+		box.at(i).OnMove();
 	its.OnMove();
+	/*
+	for (int i = 0; i < static_cast<int>(box.size()); i++) {
+		if (player1.GetX() >= box.at(i).GetX() && player1.GetX() <= (box.at(i).GetX() + box.at(i).GetWidth()) && player1.GetY() >= box.at(i).GetY() && player1.GetY() <= (box.at(i).GetY() + box.at(i).GetHeight())) 
+		{
+			player1.setCan_move(false);
+		}
+		else
+			player1.setCan_move(true);*/
+	player1.SetMovingRight(1);
+	player1.SetMovingDown(1);
+	player1.SetMovingLeft(1);
+	player1.SetMovingUP(1);
+
+	for (int i = 0; i<static_cast<int>(box.size()); i++) {
+		if ((player1.GetX() + 50 >= box.at(i).GetX() && player1.GetX() + 50 <= box.at(i).GetX() + box.at(i).GetWidth()*3) && box.at(i).GetHeight() * 3 +20>=abs(player1.GetY()-box.at(i).GetY()))
+			player1.SetMovingRight(0);
+		if ((player1.GetX() - 10 >= box.at(i).GetX() && player1.GetX() - 10 <= box.at(i).GetX() + box.at(i).GetWidth() * 3) && box.at(i).GetHeight() * 3+20 >= abs(player1.GetY() - box.at(i).GetY()))
+			player1.SetMovingLeft(0);
+
+		if ((player1.GetY() + 50 >= box.at(i).GetY() && player1.GetY() + 50 <= box.at(i).GetY() + box.at(i).GetHeight()*3) && box.at(i).GetWidth() * 3 +20>= abs(player1.GetX() - box.at(i).GetX()))
+			player1.SetMovingDown(0);
+		if ((player1.GetY() - 10 >= box.at(i).GetY() && player1.GetY() - 10 <= box.at(i).GetY() + box.at(i).GetHeight()*3) && box.at(i).GetWidth() * 3 +20>= abs(player1.GetX() - box.at(i).GetX()))
+			player1.SetMovingUP(0);
+	}
+
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -305,13 +311,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 繼續載入其他資料
 	//
-	//help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 載入說明的圖形
 	corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
-	//corner.ShowBitmap(background);							// 將corner貼到background
-	//bball.LoadBitmap();										// 載入圖形
 	hits_left.LoadBitmap();	
 	map.LoadBitMap();
-	box.LoadBitMap();
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		box[i].LoadBitMap();
 	its.LoadBitMap();
 	player1.LoadBitMap();
 
@@ -333,30 +337,34 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//const char KEY_DOWN = 0x58; // keyboard下箭頭
 	const char KEY_GET = 0x46; // keyboard下箭頭
 
-	if (nChar == KEY_LEFT) {
-		//eraser.SetMovingLeft(true);
-		map.SetMovingRight(true);
-		box.SetMovingRight(true); 
-		its.SetMovingRight(true);
-	}
-	if (nChar == KEY_RIGHT) {
-		//eraser.SetMovingRight(true);
-		map.SetMovingLeft(true);
-		box.SetMovingLeft(true);
-		its.SetMovingLeft(true);
-	}
-	if (nChar == KEY_UP) {
-		//eraser.SetMovingUp(true);
-		map.SetMovingDown(true);
-		box.SetMovingDown(true);
-		its.SetMovingDown(true);
-	}
-	if (nChar == KEY_DOWN) {
-		//eraser.SetMovingDown(true);
-		map.SetMovingUP(true);
-		box.SetMovingUP(true);
-		its.SetMovingUP(true);
-	}
+		if (nChar == KEY_LEFT && player1.isCan_Left()) {
+			//eraser.SetMovingLeft(true);
+			map.SetMovingRight(true);
+			for (int i = 0; i < static_cast<int>(box.size()); i++)
+				box[i].SetMovingRight(true);
+			its.SetMovingRight(true);
+		}
+		if (nChar == KEY_RIGHT&& player1.isCan_Right()) {
+			//eraser.SetMovingRight(true);
+			map.SetMovingLeft(true);
+			for (int i = 0; i < static_cast<int>(box.size()); i++)
+				box[i].SetMovingLeft(true);
+			its.SetMovingLeft(true);
+		}
+		if (nChar == KEY_UP &&player1.isCan_UP()) {
+			//eraser.SetMovingUp(true);
+			map.SetMovingDown(true);
+			for (int i = 0; i < static_cast<int>(box.size()); i++)
+				box[i].SetMovingDown(true);
+			its.SetMovingDown(true);
+		}
+		if (nChar == KEY_DOWN && player1.isCan_Down()) {
+			//eraser.SetMovingDown(true);
+			map.SetMovingUP(true);
+			for (int i = 0; i < static_cast<int>(box.size()); i++)
+				box[i].SetMovingUP(true);
+			its.SetMovingUP(true);
+		}
 	if (nChar == KEY_GET) 
 	{
 		player1.SetGetting(true);
@@ -375,27 +383,31 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_LEFT) {
 		//eraser.SetMovingLeft(false);
 		map.SetMovingRight(false);
-		box.SetMovingRight(false);
+		for (int i = 0; i < static_cast<int>(box.size()); i++)
+			box[i].SetMovingRight(false);
 		its.SetMovingRight(false);
 	}
 	if (nChar == KEY_RIGHT) {
 		//eraser.SetMovingRight(false);
 		map.SetMovingLeft(false);
-		box.SetMovingLeft(false);
+		for (int i = 0; i < static_cast<int>(box.size()); i++)
+			box[i].SetMovingLeft(false);
 		its.SetMovingLeft(false);
 
 	}
 	if (nChar == KEY_UP) {
 		//eraser.SetMovingUp(false);
 		map.SetMovingDown(false);
-		box.SetMovingDown(false);
+		for (int i = 0; i < static_cast<int>(box.size()); i++)
+			box[i].SetMovingDown(false);
 		its.SetMovingDown(false);
 
 	}
 	if (nChar == KEY_DOWN) {
 		//eraser.SetMovingDown(false);
 		map.SetMovingUP(false);
-		box.SetMovingUP(false);
+		for (int i = 0; i < static_cast<int>(box.size()); i++)
+			box[i].SetMovingUP(false);
 		its.SetMovingUP(false);
 
 	}
@@ -453,9 +465,9 @@ void CGameStateRun::OnShow()
 	map.OnShow();
 	//eraser.OnShow();				    // 貼上擦子
 	player1.OnShow();
-	box.OnShow();
-	if (its.isAlive())
-		its.OnShow();
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		box[i].OnShow();
+	its.OnShow();
 	//
 	//  貼上左上及右下角落的圖
 	//
