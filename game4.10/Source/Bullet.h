@@ -2,11 +2,11 @@
 #include "BasicObject.h"
 
 namespace game_framework {
-class Box : public BasicObject
+class Bullet : public BasicObject
 {
     public:
-        Box();
-        Box(int x, int y);
+        Bullet();
+        Bullet(int x, int y);
         void LoadBitMap();
         void OnShow();
 };

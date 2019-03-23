@@ -260,6 +260,7 @@
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\BasicObject.cpp" />
     <ClCompile Include="Source\Box.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\BasicObject.h" />
     <ClInclude Include="Source\Box.h" />
+    <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\CBall.h" />
     <ClInclude Include="Source\CBouncingBall.h" />
     <ClInclude Include="Source\CEraser.h" />
@@ -346,6 +348,7 @@
     <Image Include="res\bmp00006.bmp" />
     <Image Include="res\bmp00007.bmp" />
     <Image Include="RES\Box01.bmp" />
+    <Image Include="RES\Bullet01.bmp" />
     <Image Include="res\map2.bmp" />
     <Image Include="RES\pistol01.bmp" />
     <Image Include="RES\player.bmp" />

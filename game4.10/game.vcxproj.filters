@@ -144,6 +144,9 @@
     <ClCompile Include="Source\persona.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -197,6 +200,9 @@
     <ClInclude Include="Source\persona.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Bullet.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -247,6 +253,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\pistol01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Bullet01.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

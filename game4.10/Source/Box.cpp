@@ -7,40 +7,27 @@
 #include "Box.h"
 
 game_framework::Box::Box() : BasicObject()
-{	
-	x = 100;
-	y = 100;
-	Height = 33;
-	Width = 34;
-	can_thourghable = false;
+{
+    x = 100;
+    y = 100;
+    Height = 34;
+    Width = 34;
+    can_thourghable = false;
 }
 
-game_framework::Box::Box(int x, int y):Box()
+game_framework::Box::Box(int x, int y): Box()
 {
-	this->x = x;
-	this->y = y;
+    this->x = x;
+    this->y = y;
 }
 
 void game_framework::Box::LoadBitMap()
 {
-	bmp.LoadBitmap(167);
+    bmp.LoadBitmap(167);
 }
 
 void game_framework::Box::OnShow()
 {
-
-	bmp.SetTopLeft(x, y);
-	bmp.ShowBitmap(3);
+    bmp.SetTopLeft(x, y);
+    bmp.ShowBitmap(3);
 }
-
-int game_framework::Box::GetHeight()
-{
-	return Height;
-}
-
-int game_framework::Box::GetWidth()
-{
-	return Width;
-}
-
-
