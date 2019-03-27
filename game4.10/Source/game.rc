@@ -130,7 +130,7 @@ IDB_PLAYER              BITMAP                  "..\\RES\\player.bmp"
 
 IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
-IDB_BULLET              BITMAP                  "D:\\орн▒\\OOP\\Sruviv\\game4.10\\RES\\Bullet01.bmp"
+IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

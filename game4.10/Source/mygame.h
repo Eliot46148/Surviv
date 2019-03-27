@@ -6,6 +6,8 @@
 #include "persona.h"
 #include "items.h"
 #include "Bullet.h"
+#include "shotBullet.h"
+#include <math.h>
 
 namespace game_framework {
 
@@ -57,12 +59,13 @@ class CGameStateRun : public CGameState
         void OnMove();									// 移動遊戲元素
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
-        CMovingBitmap	corner;		// 角落圖
+        CMovingBitmap	corner;							// 角落圖
         Map map;
         vector<Box> box;
         vector<items> item;
         persona player1;
         vector<Bullet> bullet;
+		vector<shotBullet> shotbullets;
 };
 
 /////////////////////////////////////////////////////////////////////////////

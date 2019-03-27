@@ -228,6 +228,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
         bullet.at(i).OnMove();
+
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+		shotbullets.at(i).OnMove();
 }
 //OnMove要寫未完最後修
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -409,15 +412,23 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	if (!player1.isReloading()) {
+		player1.SetReloading(true);
+		int x = point.x-320;
+		int y = point.y-240;
+		double r = sqrt(x*x +y*y);
+		shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
+	player1.SetReloading(false);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-    // 沒事。如果需要處理滑鼠移動的話，寫code在這裡
+	player1.setFacingPosition(point.x, point.y);
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -447,6 +458,8 @@ void CGameStateRun::OnShow()
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
         bullet[i].OnShow();
 
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+		shotbullets[i].OnShow();
     //
     //  貼上左上及右下角落的圖
     //

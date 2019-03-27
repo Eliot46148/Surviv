@@ -147,6 +147,9 @@
     <ClCompile Include="Source\Bullet.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\shotBullet.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -201,6 +204,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Bullet.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\shotBullet.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

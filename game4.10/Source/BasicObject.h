@@ -4,23 +4,23 @@ namespace game_framework {
 class BasicObject
 {
     public:
-        BasicObject();
+		 BasicObject();
         void OnMove();
         virtual void OnShow();
-        void SetXY(int nx, int ny);
-        void SetMovingUP(bool flag);
-        void SetMovingDown(bool flag);
-        void SetMovingLeft(bool flag);
-        void SetMovingRight(bool flag);
-        void SetAlive(bool flag);
-        int GetX();
-        int GetY();
-        int GetHeight();
-        int GetWidth();
+		virtual void SetXY(int nx, int ny);
+		virtual void SetMovingUP(bool flag);
+		virtual void SetMovingDown(bool flag);
+		virtual void SetMovingLeft(bool flag);
+		virtual void SetMovingRight(bool flag);
+		virtual void SetAlive(bool flag);
+		virtual int GetX();
+		virtual int GetY();
+		virtual int GetHeight();
+		virtual int GetWidth();
 
-        bool isAlive();
-        bool isThourghable();
-        bool isBreakable();
+		virtual bool isAlive();
+		virtual bool isThourghable();
+		virtual bool isBreakable();
 
         virtual void LoadBitMap() = 0;
     protected:

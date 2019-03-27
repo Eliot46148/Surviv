@@ -10,11 +10,13 @@
 
 game_framework::persona::persona(): BasicObject()
 {
-    x = 290;
-    y = 290;
+    x = 320;
+    y = 240;
     bullet = 0;
     Height = 64;
     Width = 64;
+	facingX = 0;
+	facingY = 0;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -41,9 +43,19 @@ void game_framework::persona::SetGetting(bool flag)
     is_Gettting = flag;
 }
 
+void game_framework::persona::SetReloading(bool flag)
+{
+	is_Reloading = flag;
+}
+
 bool game_framework::persona::isGetting()
 {
     return is_Gettting;
+}
+
+bool game_framework::persona::isReloading()
+{
+	return is_Reloading;
 }
 
 bool game_framework::persona::isCan_Right()
@@ -74,4 +86,20 @@ void game_framework::persona::setCan_move(bool flag)
 void game_framework::persona::setBullet(int num)
 {
     bullet += num;
+}
+
+void game_framework::persona::setFacingPosition(int x, int y)
+{
+	facingX = x;
+	facingY = y;
+}
+
+int game_framework::persona::getFacingX()
+{
+	return facingX;
+}
+
+int game_framework::persona::getFacingY()
+{
+	return facingY;
 }
