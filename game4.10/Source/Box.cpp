@@ -8,8 +8,8 @@
 
 game_framework::Box::Box() : BasicObject()
 {
-    x = 100;
-    y = 100;
+    x = 98;
+    y = 98;
     Height = 34;
     Width = 34;
     can_thourghable = false;

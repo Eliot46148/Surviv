@@ -28,6 +28,7 @@ void BasicObject::OnMove()
 {
     if (!(can_move && is_alive))
         return;
+	
 
     if (isMovingLeft)
         x -= speed;

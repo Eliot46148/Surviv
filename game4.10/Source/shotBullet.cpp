@@ -31,6 +31,17 @@ void game_framework::shotBullet::OnMove()
 {	
 	x += dx;
 	y += dy;
+	if (isMovingLeft)
+		x -= DEFAULT_OBJECTIVE_SPEED;
+
+	if (isMovingRight)
+		x += DEFAULT_OBJECTIVE_SPEED;
+
+	if (isMovingUp)
+		y -= DEFAULT_OBJECTIVE_SPEED;
+
+	if (isMovingDown)
+		y += DEFAULT_OBJECTIVE_SPEED;
 }
 
 

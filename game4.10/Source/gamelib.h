@@ -68,7 +68,7 @@
 
 #define SIZE_X				 640		// 設定遊戲畫面的解析度為640x480
 #define SIZE_Y				 480		// 註：若不使用標準的解析度，則不能切換到全螢幕
-#define OPEN_AS_FULLSCREEN	 false		// 是否以全螢幕方式開啟遊戲
+#define OPEN_AS_FULLSCREEN	 true		// 是否以全螢幕方式開啟遊戲
 #define SHOW_LOAD_PROGRESS   true		// 是否顯示loading(OnInit)的進度
 #define DEFAULT_BG_COLOR	 RGB(0,0,0)	// 遊戲畫面預設的背景顏色(黑色)
 #define GAME_CYCLE_TIME		 33		    // 每33ms跑一次Move及Show(每秒30次)
@@ -78,7 +78,6 @@
 #define DEFAULT_OBJECTIVE_SPEED   10	// 預設地圖移動速度
 #define DEFAULT_CHACRATER_SPEED   10	// 預設角色移動速度
 #define DEFAULT_BULLET_SPEED	  20	// 預設子彈移動速度
-#define pi 0.017456
 
 /////////////////////////////////////////////////////////////////////////////
 // 定義CGame及CGameState所使用的三個狀態常數

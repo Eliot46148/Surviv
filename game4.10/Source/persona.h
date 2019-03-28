@@ -18,6 +18,8 @@ class persona : public BasicObject
 		void setFacingPosition(int,int);
 		int getFacingX();
 		int getFacingY();
+		int getHasitemNum();
+		int getBullet();
         bool isGetting();
 		bool isReloading();
         bool isCan_Right();

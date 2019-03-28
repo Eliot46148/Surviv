@@ -8,6 +8,7 @@
 #include "items.h"
 #include "persona.h"
 
+class items;
 game_framework::persona::persona(): BasicObject()
 {
     x = 320;
@@ -103,3 +104,16 @@ int game_framework::persona::getFacingY()
 {
 	return facingY;
 }
+
+int game_framework::persona::getHasitemNum()
+{
+	return (int)hasitem.size();
+}
+
+int game_framework::persona::getBullet()
+{
+	return bullet;
+}
+
+
+
