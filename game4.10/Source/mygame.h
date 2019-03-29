@@ -47,6 +47,7 @@ class CGameStateRun : public CGameState
         CGameStateRun(CGame* g);
         ~CGameStateRun();
         void OnBeginState();							// 設定每次重玩所需的變數
+        void ChangeMovingMode(int _where, bool type);
         void OnInit();  								// 遊戲的初值及圖形設定
         void OnKeyDown(UINT, UINT, UINT);
         void OnKeyUp(UINT, UINT, UINT);
@@ -65,7 +66,7 @@ class CGameStateRun : public CGameState
         vector<items> item;
         persona player1;
         vector<Bullet> bullet;
-		vector<shotBullet> shotbullets;
+        vector<shotBullet> shotbullets;
 };
 
 /////////////////////////////////////////////////////////////////////////////
