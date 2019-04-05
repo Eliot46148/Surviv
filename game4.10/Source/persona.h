@@ -1,6 +1,7 @@
 #pragma once
 #include "BasicObject.h"
 #include "items.h"
+#include "Box.h"
 
 
 namespace game_framework {
@@ -9,6 +10,7 @@ class persona : public BasicObject
     public:
         persona();
         void CatchItem(items take);
+		bool HitObstacle(Box * box, int _where);
         virtual void LoadBitMap();
         virtual void OnShow();
         void SetGetting(bool flag);

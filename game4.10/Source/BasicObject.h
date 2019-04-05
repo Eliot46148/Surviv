@@ -4,33 +4,40 @@ namespace game_framework {
 class BasicObject
 {
     public:
-		 BasicObject();
-        void OnMove();
-        virtual void OnShow();
-		virtual void SetXY(int nx, int ny);
-		virtual void SetMovingUP(bool flag);
-		virtual void SetMovingDown(bool flag);
-		virtual void SetMovingLeft(bool flag);
-		virtual void SetMovingRight(bool flag);
-		virtual void SetAlive(bool flag);
-		virtual int GetX();
-		virtual int GetY();
-		virtual int GetHeight();
-		virtual int GetWidth();
+        BasicObject();								//初始化
+        void OnMove();								//物件的移動
 
-		virtual bool isAlive();
-		virtual bool isThourghable();
-		virtual bool isBreakable();
+        void onShow();
+        void setMovingMode(int, bool);
 
-        virtual void LoadBitMap() = 0;
+        virtual void SetXY(int nx, int ny);			//設定XY座標
+
+        virtual void LoadBitMap() = 0;				//載入BMP圖檔
+        virtual void SetAlive(bool flag);			//設定是否存活
+
+        virtual bool isAlive();						//是否存活
+        virtual bool isBreakable();					//可否破壞
+
+        virtual int GetX();							//取得X座標
+        virtual int GetY();							//取得Y座標
+        virtual int GetHeight();					//取得高度
+        virtual int GetWidth();						//取得寬度
+
+
     protected:
-        CMovingBitmap bmp;
-        int speed;
-        int HP;
-        int Height, Width;
-        int x, y, dx, dy;
-        bool can_breakable, can_thourghable, is_alive, can_move;
-        bool isMovingDown, isMovingLeft, isMovingRight, isMovingUp;
+        CMovingBitmap bmp;							//BMP圖檔
+        int speed;									//速度
+        int HP;										//生命
+        int Height, Width;							//寬與高
+        int x, y, dx, dy;								//x,y座標
+        float showMagnification;					//顯示比例
+        bool can_breakable;							//可以破壞
+        bool is_alive;								//存活
+        bool can_move;								//可移動
+        bool isMovingDown;							//向下移動
+        bool isMovingLeft;							//向左移動
+        bool isMovingRight;							//向右移動
+        bool isMovingUp;							//向上移動
 
 };
 }

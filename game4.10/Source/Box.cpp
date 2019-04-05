@@ -12,7 +12,7 @@ game_framework::Box::Box() : BasicObject()
     y = 98;
     Height = 34;
     Width = 34;
-    can_thourghable = false;
+    showMagnification = 3;
 }
 
 game_framework::Box::Box(int x, int y): Box()
@@ -24,10 +24,4 @@ game_framework::Box::Box(int x, int y): Box()
 void game_framework::Box::LoadBitMap()
 {
     bmp.LoadBitmap(167);
-}
-
-void game_framework::Box::OnShow()
-{
-    bmp.SetTopLeft(x, y);
-    bmp.ShowBitmap(3);
 }

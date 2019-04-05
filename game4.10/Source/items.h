@@ -6,10 +6,10 @@ class items : public BasicObject
 {
     public:
         items();
-        items(int x, int y);
+        items(int x, int y, int id, float showsize);
         void LoadBitMap();
-        void OnShow();
     private:
-        int damage = 10;
+        int itemsdamage;
+		int itemsID;
 };
 }

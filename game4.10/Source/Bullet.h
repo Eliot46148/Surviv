@@ -8,6 +8,5 @@ class Bullet : public BasicObject
         Bullet();
         Bullet(int x, int y);
         void LoadBitMap();
-        void OnShow();
 };
 }

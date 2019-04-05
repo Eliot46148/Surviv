@@ -15,7 +15,6 @@ game_framework::Map::Map()
 	Width = 556;
 	speed = DEFAULT_OBJECTIVE_SPEED;
 	can_breakable = false;
-	can_thourghable = true;
 	is_alive = true;
 	can_move = true;
 	isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;

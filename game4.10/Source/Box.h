@@ -8,6 +8,5 @@ class Box : public BasicObject
         Box();
         Box(int x, int y);
         void LoadBitMap();
-        void OnShow();
 };
 }

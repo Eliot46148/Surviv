@@ -19,16 +19,15 @@ BasicObject::BasicObject()
     HP = 10;
     speed = DEFAULT_OBJECTIVE_SPEED;
     can_breakable = false;
-    can_thourghable = true;
     is_alive = true;
     can_move = true;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
+    showMagnification = 1;
 }
 void BasicObject::OnMove()
 {
     if (!(can_move && is_alive))
         return;
-	
 
     if (isMovingLeft)
         x -= speed;
@@ -42,34 +41,42 @@ void BasicObject::OnMove()
     if (isMovingDown)
         y += speed;
 }
-void BasicObject::OnShow()
+void BasicObject::onShow()
 {
     if (is_alive)
     {
-        bmp.SetTopLeft(x, y );
-        bmp.ShowBitmap();
+        bmp.SetTopLeft(x, y);
+        bmp.ShowBitmap(showMagnification);
+    }
+}
+void BasicObject::setMovingMode(int path, bool flag)
+{
+    switch (path)
+    {
+        case 1:
+            isMovingUp = flag;
+            break;
+
+        case 2:
+            isMovingDown = flag;
+            break;
+
+        case 3:
+            isMovingLeft = flag;
+            break;
+
+        case 4:
+            isMovingRight = flag;
+            break;
+
+        default:
+            break;
     }
 }
 void BasicObject::SetXY(int nx, int ny)
 {
     x = nx;
     y = ny;
-}
-void BasicObject::SetMovingUP(bool flag)
-{
-    isMovingUp = flag;
-}
-void BasicObject::SetMovingDown(bool flag)
-{
-    isMovingDown = flag;
-}
-void BasicObject::SetMovingLeft(bool flag)
-{
-    isMovingLeft = flag;
-}
-void BasicObject::SetMovingRight(bool flag)
-{
-    isMovingRight = flag;
 }
 void BasicObject::SetAlive(bool flag)
 {
@@ -85,19 +92,15 @@ int BasicObject::GetY()
 }
 int BasicObject::GetHeight()
 {
-    return Height;
+    return (int)(Height * showMagnification);
 }
 int BasicObject::GetWidth()
 {
-    return Width;
+    return (int)(Width * showMagnification);
 }
 bool BasicObject::isAlive()
 {
     return is_alive;
-}
-bool BasicObject::isThourghable()
-{
-    return can_thourghable;
 }
 bool BasicObject::isBreakable()
 {

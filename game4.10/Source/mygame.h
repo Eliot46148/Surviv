@@ -63,7 +63,7 @@ class CGameStateRun : public CGameState
         CMovingBitmap	corner;							// ¨¤¸¨¹Ï
         Map map;
         vector<Box> box;
-        vector<items> item;
+		vector<items> item;
         persona player1;
         vector<Bullet> bullet;
         vector<shotBullet> shotbullets;

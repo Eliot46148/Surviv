@@ -121,9 +121,12 @@ CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
     box.push_back(Box(100, 100));	//加入一個箱子
-    item.push_back(items(400, 400));
-    item.push_back(items(450, 450));
-    bullet.push_back(Bullet(400, 100));
+    box.push_back(Box(200, 200));
+    item.push_back(items(400, 400, 1, (float)0.4));
+    item.push_back(items(450, 450, 1, (float)0.4));
+
+    for (int i = 0; i < 30; i++)
+        bullet.push_back(Bullet(rand() % (1800 + 1), rand() % (1800 + 1)));
 }
 
 CGameStateRun::~CGameStateRun()
@@ -137,59 +140,14 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::ChangeMovingMode(int _where, bool type)
 {
-    switch (_where)
-    {
-        case 1:
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-                box[j].SetMovingUP(type);
+    for (int j = 0; j < static_cast<int>(box.size()); j++)
+        box[j].setMovingMode(_where, type);
 
-            for (int j = 0; j < static_cast<int>(item.size()); j++)
-                item[j].SetMovingUP(type);
+    for (int j = 0; j < static_cast<int>(item.size()); j++)
+        item[j].setMovingMode(_where, type);
 
-            for (int j = 0; j < static_cast<int>(bullet.size()); j++)
-                bullet[j].SetMovingUP(type);
-
-            break;
-
-        case 2:
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-                box[j].SetMovingDown(type);
-
-            for (int j = 0; j < static_cast<int>(item.size()); j++)
-                item[j].SetMovingDown(type);
-
-            for (int j = 0; j < static_cast<int>(bullet.size()); j++)
-                bullet[j].SetMovingDown(type);
-
-            break;
-
-        case 3:
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-                box[j].SetMovingLeft(type);
-
-            for (int j = 0; j < static_cast<int>(item.size()); j++)
-                item[j].SetMovingLeft(type);
-
-            for (int j = 0; j < static_cast<int>(bullet.size()); j++)
-                bullet[j].SetMovingLeft(type);
-
-            break;
-
-        case 4:
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-                box[j].SetMovingRight(type);
-
-            for (int j = 0; j < static_cast<int>(item.size()); j++)
-                item[j].SetMovingRight(type);
-
-            for (int j = 0; j < static_cast<int>(bullet.size()); j++)
-                bullet[j].SetMovingRight(type);
-
-            break;
-
-        default:
-            break;
-    }
+    for (int j = 0; j < static_cast<int>(bullet.size()); j++)
+        bullet[j].setMovingMode(_where, type);
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -197,45 +155,52 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
     //
     // 如果希望修改cursor的樣式，則將下面程式的commment取消即可
     //
-    player1.SetMovingRight(1);
-    player1.SetMovingDown(1);
-    player1.SetMovingLeft(1);
-    player1.SetMovingUP(1);
+    for (int i = 1; i < 5; i++)
+        player1.setMovingMode(i, 1);
+	
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++) 
+	{
+		/*if (shotbullets.at(i).HitPlayer(&player1)) {
+			shotbullets.erase(shotbullets.begin() + i);
+		}*/
+		for (int j = 0; j < static_cast<int>(box.size()); j++)
+		{
+			shotbullets.at(i).GetX();
+			if (shotbullets.at(i).HitObstacle(&box.at(j))) {
+				shotbullets.erase(shotbullets.begin() + i);
+			}
+		}
+	}
+
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
-        if (player1.GetX() + player1.GetWidth() > box.at(i).GetX() && player1.GetX() < box.at(i).GetX() + box.at(i).GetWidth() * 3)
+        if (player1.HitObstacle(&box.at(i), 1))
         {
-            if (player1.GetY() + player1.GetHeight() + 10 >= box.at(i).GetY() && !(player1.GetY() >= box.at(i).GetY() + box.at(i).GetHeight() * 3))
-            {
-                player1.SetMovingDown(0);
-                map.SetMovingUP(0);
-                ChangeMovingMode(1, 0);
-            }
-
-            if (player1.GetY() - 10 <= box.at(i).GetY() + box.at(i).GetHeight() * 3 && !(player1.GetY() + player1.GetHeight() < box.at(i).GetY()))
-            {
-                player1.SetMovingDown(0);
-                map.SetMovingDown(0);
-                ChangeMovingMode(2, 0);
-            }
+            player1.setMovingMode(1, 0);
+            map.setMovingMode(1, 0);
+            ChangeMovingMode(1, 0);
         }
 
-        if (player1.GetY() + player1.GetHeight() > box.at(i).GetY() && player1.GetY() < box.at(i).GetY() + box.at(i).GetHeight() * 3)
+        if (player1.HitObstacle(&box.at(i), 2))
         {
-            if (player1.GetX() + player1.GetWidth() + 10 >= box.at(i).GetX() && !(player1.GetX() >= box.at(i).GetX() + box.at(i).GetWidth() * 3))
-            {
-                player1.SetMovingRight(0);
-                map.SetMovingLeft(0);
-                ChangeMovingMode(3, 0);
-            }
+            player1.setMovingMode(2, 0);
+            map.setMovingMode(2, 0);
+            ChangeMovingMode(2, 0);
+        }
 
-            if (player1.GetX() - 10 <= box.at(i).GetX() + box.at(i).GetWidth() * 3 && !(player1.GetX() + player1.GetWidth() < box.at(i).GetX()))
-            {
-                player1.SetMovingLeft(0);
-                map.SetMovingRight(0);
-                ChangeMovingMode(4, 0);
-            }
+        if (player1.HitObstacle(&box.at(i), 3))
+        {
+            player1.setMovingMode(3, 0);
+            map.setMovingMode(3, 0);
+            ChangeMovingMode(3, 0);
+        }
+
+        if (player1.HitObstacle(&box.at(i), 4))
+        {
+            player1.setMovingMode(4, 0);
+            map.setMovingMode(4, 0);
+            ChangeMovingMode(4, 0);
         }
     }
 
@@ -253,7 +218,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets.at(i).OnMove();
 }
-//OnMove要寫未完最後修
+
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
     //
@@ -287,38 +252,38 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_LEFT && player1.isCan_Left())
     {
-        map.SetMovingRight(true);
+        map.setMovingMode(4, 1);
         ChangeMovingMode(4, 1);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingRight(true);
+            shotbullets[i].setMovingMode(4, 1);
     }
 
     if (nChar == KEY_RIGHT && player1.isCan_Right())
     {
-        map.SetMovingLeft(true);
+        map.setMovingMode(3, 1);
         ChangeMovingMode(3, 1);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingLeft(true);
+            shotbullets[i].setMovingMode(3, 1);
     }
 
     if (nChar == KEY_UP && player1.isCan_UP())
     {
-        map.SetMovingDown(true);
+        map.setMovingMode(2, 1);
         ChangeMovingMode(2, 1);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingDown(true);
+            shotbullets[i].setMovingMode(2, 1);
     }
 
     if (nChar == KEY_DOWN && player1.isCan_Down())
     {
-        map.SetMovingUP(true);
+        map.setMovingMode(1, 1);
         ChangeMovingMode(1, 1);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingUP(true);
+            shotbullets[i].setMovingMode(1, 1);
     }
 
     if (nChar == KEY_GET)
@@ -337,38 +302,38 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_LEFT)
     {
-        map.SetMovingRight(false);
+        map.setMovingMode(4, 0);
         ChangeMovingMode(4, 0);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingRight(false);
+            shotbullets[i].setMovingMode(4, 0);
     }
 
     if (nChar == KEY_RIGHT)
     {
-        map.SetMovingLeft(false);
+        map.setMovingMode(3, 0);
         ChangeMovingMode(3, 0);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingLeft(false);
+            shotbullets[i].setMovingMode(3, 0);
     }
 
     if (nChar == KEY_UP)
     {
-        map.SetMovingDown(false);
+        map.setMovingMode(2, 0);
         ChangeMovingMode(2, 0);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingDown(false);
+            shotbullets[i].setMovingMode(2, 0);
     }
 
     if (nChar == KEY_DOWN)
     {
-        map.SetMovingUP(false);
+        map.setMovingMode(1, 0);
         ChangeMovingMode(1, 0);
 
         for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].SetMovingUP(false);
+            shotbullets[i].setMovingMode(1, 0);
     }
 
     if (nChar == KEY_GET)
@@ -431,19 +396,19 @@ void CGameStateRun::OnShow()
     //        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
     //
     map.OnShow();
-    player1.OnShow();
+    player1.onShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].OnShow();
+        box[i].onShow();
 
     for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].OnShow();
+        item[i].onShow();
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].OnShow();
+        bullet[i].onShow();
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets[i].OnShow();
+        shotbullets[i].onShow();
 
     //
     //  貼上左上及右下角落的圖
