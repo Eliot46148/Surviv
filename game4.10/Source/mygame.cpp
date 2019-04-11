@@ -148,6 +148,10 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
     for (int j = 0; j < static_cast<int>(bullet.size()); j++)
         bullet[j].setMovingMode(_where, type);
+
+	for (int j = 0; j < static_cast<int>(texture.size()); j++)
+		texture[j].setMovingMode(_where, type);
+
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -167,7 +171,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		{
 			shotbullets.at(i).GetX();
 			if (shotbullets.at(i).HitObstacle(&box.at(j))) {
+				box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
 				shotbullets.erase(shotbullets.begin() + i);
+				if (box.at(j).ShowHP() <= 0)
+				{
+					texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+					box.erase(box.begin() + j);
+				}
 			}
 		}
 	}
@@ -217,6 +227,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		texture.at(i).OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -396,6 +408,9 @@ void CGameStateRun::OnShow()
     //        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
     //
     map.OnShow();
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		texture[i].onShow();
+
     player1.onShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)

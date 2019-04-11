@@ -132,6 +132,7 @@ IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
+ID_BOXBREAK				BITMAP					"..\\RES\\BoxBroke01.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
