@@ -11,7 +11,7 @@
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸¶}ÀYµe­±ª«¥ó
+// ï¿½oï¿½ï¿½classï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½}ï¿½Yï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateInit::CGameStateInit(CGame* g)
@@ -21,9 +21,9 @@ CGameStateInit::CGameStateInit(CGame* g)
 
 void CGameStateInit::OnInit()
 {
-    ShowInitProgress(0);	// ¤@¶}©lªºloading¶i«×¬°0%
+    ShowInitProgress(0);	// ï¿½@ï¿½}ï¿½lï¿½ï¿½loadingï¿½iï¿½×¬ï¿½0%
     //
-    // ¸ü¤J¸ê®Æªº¦a¤è
+    // ï¿½ï¿½ï¿½Jï¿½ï¿½Æªï¿½ï¿½aï¿½ï¿½
 }
 
 void CGameStateInit::OnBeginState()
@@ -36,24 +36,24 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_SPACE = ' ';
 
     if (nChar == KEY_SPACE)
-        GotoGameState(GAME_STATE_RUN);						// ¤Á´«¦ÜGAME_STATE_RUN
-    else if (nChar == KEY_ESC)								// Demo Ãö³¬¹CÀ¸ªº¤èªk
-        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// Ãö³¬¹CÀ¸
+        GotoGameState(GAME_STATE_RUN);						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GAME_STATE_RUN
+    else if (nChar == KEY_ESC)								// Demo ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½k
+        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    GotoGameState(GAME_STATE_RUN);		// ¤Á´«¦ÜGAME_STATE_RUN
+    GotoGameState(GAME_STATE_RUN);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
-    // Demo¿Ã¹õ¦r«¬ªº¨Ï¥Î¡A¤£¹L¶}µo®É½ÐºÉ¶qÁ×§Kª½±µ¨Ï¥Î¦r«¬¡A§ï¥ÎCMovingBitmap¤ñ¸û¦n
+    // Demoï¿½Ã¹ï¿½ï¿½rï¿½ï¿½ï¿½ï¿½ï¿½Ï¥Î¡Aï¿½ï¿½ï¿½Lï¿½}ï¿½oï¿½É½ÐºÉ¶qï¿½×§Kï¿½ï¿½ï¿½ï¿½ï¿½Ï¥Î¦rï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½CMovingBitmapï¿½ï¿½ï¿½ï¿½n
     //
-    CDC* pDC = CDDraw::GetBackCDC();			// ¨ú±o Back Plain ªº CDC
+    CDC* pDC = CDDraw::GetBackCDC();			// ï¿½ï¿½ï¿½o Back Plain ï¿½ï¿½ CDC
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// ²£¥Í font f; 160ªí¥Ü16 pointªº¦r
-    fp = pDC->SelectObject(&f);					// ¿ï¥Î font f
+    f.CreatePointFont(160, "Times New Roman");	// ï¿½ï¿½ï¿½ï¿½ font f; 160ï¿½ï¿½ï¿½ï¿½16 pointï¿½ï¿½ï¿½r
+    fp = pDC->SelectObject(&f);					// ï¿½ï¿½ï¿½ font f
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
     pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
@@ -63,12 +63,12 @@ void CGameStateInit::OnShow()
         pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
 
     pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
-    pDC->SelectObject(fp);						// ©ñ±¼ font f (¤d¸U¤£­nº|¤F©ñ±¼)
-    CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
+    pDC->SelectObject(fp);						// ï¿½ï¿½ font f (ï¿½dï¿½Uï¿½ï¿½ï¿½nï¿½|ï¿½Fï¿½ï¿½)
+    CDDraw::ReleaseBackCDC();					// ï¿½ï¿½ Back Plain ï¿½ï¿½ CDC
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªºµ²§ôª¬ºA(Game Over)
+// ï¿½oï¿½ï¿½classï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame* g)
@@ -91,36 +91,36 @@ void CGameStateOver::OnBeginState()
 
 void CGameStateOver::OnInit()
 {
-    ShowInitProgress(66);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°66%
+    ShowInitProgress(66);	// ï¿½ï¿½ï¿½Ó«eï¿½@ï¿½Óªï¿½ï¿½Aï¿½ï¿½ï¿½iï¿½×¡Aï¿½ï¿½ï¿½Bï¿½iï¿½×µï¿½ï¿½ï¿½66%
     //
-    // ¶}©l¸ü¤Jµ²§ô«á­n¥Î¨ìªº¸ê®Æ??
+    // ï¿½}ï¿½lï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Î¨ìªºï¿½ï¿½ï¿½??
     //
     ShowInitProgress(100);
 }
 
 void CGameStateOver::OnShow()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			// ¨ú±o Back Plain ªº CDC
+    CDC* pDC = CDDraw::GetBackCDC();			// ï¿½ï¿½ï¿½o Back Plain ï¿½ï¿½ CDC
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// ²£¥Í font f; 160ªí¥Ü16 pointªº¦r
-    fp = pDC->SelectObject(&f);					// ¿ï¥Î font f
+    f.CreatePointFont(160, "Times New Roman");	// ï¿½ï¿½ï¿½ï¿½ font f; 160ï¿½ï¿½ï¿½ï¿½16 pointï¿½ï¿½ï¿½r
+    fp = pDC->SelectObject(&f);					// ï¿½ï¿½ï¿½ font f
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
-    char str[80];								// Demo ¼Æ¦r¹ï¦r¦êªºÂà´«
+    char str[80];								// Demo ï¿½Æ¦rï¿½ï¿½rï¿½êªºï¿½à´«
     sprintf(str, "Game Over ! (%d)", counter / 30);
     pDC->TextOut(240, 210, str);
-    pDC->SelectObject(fp);						// ©ñ±¼ font f (¤d¸U¤£­nº|¤F©ñ±¼)
-    CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
+    pDC->SelectObject(fp);						// ï¿½ï¿½ font f (ï¿½dï¿½Uï¿½ï¿½ï¿½nï¿½|ï¿½Fï¿½ï¿½)
+    CDDraw::ReleaseBackCDC();					// ï¿½ï¿½ Back Plain ï¿½ï¿½ CDC
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸°õ¦æª«¥ó¡A¥D­nªº¹CÀ¸µ{¦¡³£¦b³o¸Ì
+// ï¿½oï¿½ï¿½classï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½æª«ï¿½ï¿½Aï¿½Dï¿½nï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½oï¿½ï¿½
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame* g)
-    : CGameState(g)  //ªì©l¤Æ³]©w
+    : CGameState(g)  //ï¿½ï¿½lï¿½Æ³]ï¿½w
 {
-    box.push_back(Box(100, 100));	//¥[¤J¤@­Ó½c¤l
+    box.push_back(Box(100, 100));	//ï¿½[ï¿½Jï¿½@ï¿½Ó½cï¿½l
     box.push_back(Box(200, 200));
     item.push_back(items(400, 400, 1, (float)0.4));
     item.push_back(items(450, 450, 1, (float)0.4));
@@ -148,11 +148,15 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
     for (int j = 0; j < static_cast<int>(bullet.size()); j++)
         bullet[j].setMovingMode(_where, type);
+
+	for (int j = 0; j < static_cast<int>(texture.size()); j++)
+		texture[j].setMovingMode(_where, type);
+
 }
 
-void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
+void CGameStateRun::OnMove()											// ï¿½ï¿½ï¿½Ê¹Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
-	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// ¹«¼Ð³]©w
+	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// ï¿½ï¿½ï¿½Ð³]ï¿½w
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -165,7 +169,13 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
 		{
 			shotbullets.at(i).GetX();
 			if (shotbullets.at(i).HitObstacle(&box.at(j))) {
+				box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
 				shotbullets.erase(shotbullets.begin() + i);
+				if (box.at(j).ShowHP() <= 0)
+				{
+					texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+					box.erase(box.begin() + j);
+				}
 			}
 		}
 	}
@@ -215,13 +225,15 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		texture.at(i).OnMove();
 }
 
-void CGameStateRun::OnInit()  								// ¹CÀ¸ªºªì­È¤Î¹Ï§Î³]©w
+void CGameStateRun::OnInit()  								// ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤Î¹Ï§Î³]ï¿½w
 {
     //
-    // ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-    //     µ¥ªº¤£­@·Ð¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+    // ï¿½ï¿½ï¿½Ï«Ü¦hï¿½É¡AOnInitï¿½ï¿½ï¿½Jï¿½Ò¦ï¿½ï¿½ï¿½ï¿½Ï­nï¿½ï¿½Ü¦hï¿½É¶ï¿½ï¿½Cï¿½ï¿½ï¿½×§Kï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½H
+    //     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½Ð¡Aï¿½Cï¿½ï¿½ï¿½|ï¿½Xï¿½{ï¿½uLoading ...ï¿½vï¿½Aï¿½ï¿½ï¿½Loadingï¿½ï¿½ï¿½iï¿½×¡C
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
@@ -354,7 +366,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     }
 }
 
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {
     if (!player1.isReloading() && player1.getHasitemNum() != 0 && player1.getBullet() > 0)
     {
@@ -367,12 +379,12 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
     }
 }
 
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {
     player1.SetReloading(false);
 }
 
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {	
 	int x = point.x - SIZE_X / 2;
 	int y = point.y - SIZE_Y / 2;
@@ -381,23 +393,26 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
 	player1.setDirection();
 }
 
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {
 }
 
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {
 }
 
 void CGameStateRun::OnShow()
 {
     //
-    //  ª`·N¡GShow¸Ì­±¤d¸U¤£­n²¾°Ê¥ô¦óª«¥óªº®y¼Ð¡A²¾°Ê®y¼Ðªº¤u§@À³¥ÑMove°µ¤~¹ï¡A
-    //        §_«h·íµøµ¡­«·sÃ¸¹Ï®É(OnDraw)¡Aª«¥ó´N·|²¾°Ê¡A¬Ý°_¨Ó·|«Ü©Ç¡C´«­Ó³N»y
-    //        »¡¡AMove­t³dMVC¤¤ªºModel¡AShow­t³dView¡A¦ÓView¤£À³§ó°ÊModel¡C
+    //  ï¿½`ï¿½Nï¿½GShowï¿½Ì­ï¿½ï¿½dï¿½Uï¿½ï¿½ï¿½nï¿½ï¿½ï¿½Ê¥ï¿½ï¿½óª«¥óªº®yï¿½Ð¡Aï¿½ï¿½ï¿½Ê®yï¿½Ðªï¿½ï¿½uï¿½@ï¿½ï¿½ï¿½ï¿½Moveï¿½ï¿½ï¿½~ï¿½ï¿½A
+    //        ï¿½_ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sÃ¸ï¿½Ï®ï¿½(OnDraw)ï¿½Aï¿½ï¿½ï¿½ï¿½Nï¿½|ï¿½ï¿½ï¿½Ê¡Aï¿½Ý°_ï¿½Ó·|ï¿½Ü©Ç¡Cï¿½ï¿½ï¿½Ó³Nï¿½y
+    //        ï¿½ï¿½ï¿½AMoveï¿½tï¿½dMVCï¿½ï¿½ï¿½ï¿½Modelï¿½AShowï¿½tï¿½dViewï¿½Aï¿½ï¿½Viewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Modelï¿½C
     //
     map.OnShow();
 	player1.OnShow();
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		texture[i].onShow();
+
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
         box[i].OnShow();
