@@ -33,16 +33,16 @@ void game_framework::shotBullet::OnMove()
     y += dy;
 
     if (isMovingLeft)
-        x -= speed;
+        x -= DEFAULT_CHACRATER_SPEED;
 
     if (isMovingRight)
-        x += speed;
+        x += DEFAULT_CHACRATER_SPEED;
 
     if (isMovingUp)
-        y -= speed;
+        y -= DEFAULT_CHACRATER_SPEED;
 
     if (isMovingDown)
-        y += speed;
+        y += DEFAULT_CHACRATER_SPEED;
 }
 
 

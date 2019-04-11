@@ -18,6 +18,7 @@ class persona : public BasicObject
         void setCan_move(bool flag);
         void setBullet(int num);
 		void setFacingPosition(int,int);
+		void setDirection();
 		int getFacingX();
 		int getFacingY();
 		int getHasitemNum();
@@ -29,11 +30,13 @@ class persona : public BasicObject
         bool isCan_Down();
         bool isCan_UP();
     private:
+		CMovingBitmap bmp[8];
         bool is_Gettting = false;
 		bool is_Reloading = false;
         vector<items> hasitem;
         int bullet;
 		int facingX,facingY;
+		int direction;
 
 };
 }

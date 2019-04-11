@@ -41,7 +41,7 @@ void BasicObject::OnMove()
     if (isMovingDown)
         y += speed;
 }
-void BasicObject::onShow()
+void BasicObject::OnShow()
 {
     if (is_alive)
     {

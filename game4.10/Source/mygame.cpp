@@ -150,11 +150,9 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
         bullet[j].setMovingMode(_where, type);
 }
 
-void CGameStateRun::OnMove()							// 移動遊戲元素
+void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-    //
-    // 如果希望修改cursor的樣式，則將下面程式的commment取消即可
-    //
+	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -227,7 +225,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
-    corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
     map.LoadBitMap();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
@@ -363,8 +360,8 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - 320;
-        int y = point.y - 240;
+        int x = point.x - SIZE_X/2;
+        int y = point.y - SIZE_Y / 2;
         double r = sqrt(x * x + y * y);
         shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
     }
@@ -376,8 +373,12 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{
-    player1.setFacingPosition(point.x, point.y);
+{	
+	int x = point.x - SIZE_X / 2;
+	int y = point.y - SIZE_Y / 2;
+	double r = sqrt(x * x + y * y);
+	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
+	player1.setDirection();
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -396,26 +397,19 @@ void CGameStateRun::OnShow()
     //        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
     //
     map.OnShow();
-    player1.onShow();
+	player1.OnShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].onShow();
+        box[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].onShow();
+        item[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].onShow();
+        bullet[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets[i].onShow();
+        shotbullets[i].OnShow();
 
-    //
-    //  貼上左上及右下角落的圖
-    //
-    corner.SetTopLeft(0, 0);
-    corner.ShowBitmap();
-    corner.SetTopLeft(SIZE_X - corner.Width(), SIZE_Y - corner.Height());
-    corner.ShowBitmap();
 }
 }

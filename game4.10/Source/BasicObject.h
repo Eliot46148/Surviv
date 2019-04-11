@@ -7,7 +7,7 @@ class BasicObject
         BasicObject();								//初始化
         void OnMove();								//物件的移動
 
-        void onShow();
+        void OnShow();
         void setMovingMode(int, bool);
 
         virtual void SetXY(int nx, int ny);			//設定XY座標
