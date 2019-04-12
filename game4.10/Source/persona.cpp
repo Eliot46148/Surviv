@@ -19,7 +19,6 @@ game_framework::persona::persona(): BasicObject()
     facingX = 0;
     facingY = 0;
     showMagnification = (float)0.5;
-	direction = 0;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -58,22 +57,15 @@ bool game_framework::persona::HitObstacle(Box * box, int _where)
 
 void game_framework::persona::LoadBitMap()
 {
-	bmp[0].LoadBitmap(IDB_PLAYER1, RGB(0, 0, 0));
-	bmp[1].LoadBitmap(IDB_PLAYER2, RGB(0, 0, 0));
-	bmp[2].LoadBitmap(IDB_PLAYER3, RGB(0, 0, 0));
-	bmp[3].LoadBitmap(IDB_PLAYER4, RGB(0, 0, 0));
-	bmp[4].LoadBitmap(IDB_PLAYER5, RGB(0, 0, 0));
-	bmp[5].LoadBitmap(IDB_PLAYER6, RGB(0, 0, 0));
-	bmp[6].LoadBitmap(IDB_PLAYER7, RGB(0, 0, 0));
-	bmp[7].LoadBitmap(IDB_PLAYER8, RGB(0, 0, 0));
+    bmp.LoadBitmap(IDB_PLAYER, RGB(0, 0, 0));
 }
 
 void game_framework::persona::OnShow()
 {
     if (is_alive)
-    {	
-        bmp[direction].SetTopLeft(x + dx, y + dy);
-        bmp[direction].ShowBitmap(0.5);
+    {
+        bmp.SetTopLeft(x + dx, y + dy);
+        bmp.ShowBitmap(0.5);
     }
 }
 
@@ -132,43 +124,6 @@ void game_framework::persona::setFacingPosition(int x, int y)
 {
     facingX = x;
     facingY = y;
-}
-
-void game_framework::persona::setDirection()
-{
-	if (facingX > 0 && facingY < 0) {
-		if (facingX < 3.8)
-			direction = 0;
-		else if (facingX < 9.23 && facingX > 3.8)
-			direction = 1;
-		else if (facingX > 9.23)
-			direction = 2;
-	}
-	if (facingX > 0 && facingY > 0) {
-		if (facingX > 9.23)
-			direction = 2;
-		else if (facingX > 3.8 && facingX<9.23)
-			direction = 3;
-		else
-			direction = 4;
-	}
-	if (facingX < 0 && facingY > 0) {
-		if (facingX <-9.23)
-			direction = 6;
-		else if (facingX > -9.23 && facingX<-3.8)
-			direction = 5;
-		else
-			direction = 4;
-	}
-	if (facingX < 0 && facingY < 0) {
-		if (facingX < -9.23)
-			direction = 6;
-		else if (facingX > -9.23 && facingX<-3.8)
-			direction = 7;
-		else
-			direction = 0;
-	}
-
 }
 
 int game_framework::persona::getFacingX()
