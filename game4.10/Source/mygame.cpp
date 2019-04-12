@@ -154,17 +154,9 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 }
 
-<<<<<<< HEAD
 void CGameStateRun::OnMove()											// ï¿½ï¿½ï¿½Ê¹Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// ï¿½ï¿½ï¿½Ğ³]ï¿½w
-=======
-void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
-{
-    //
-    // ¦pªG§Æ±æ­×§ïcursorªº¼Ë¦¡¡A«h±N¤U­±µ{¦¡ªºcommment¨ú®ø§Y¥i
-    //
->>>>>>> parent of 286fbed... - å®Œæˆè…³è‰²æ—‹è½‰ - ä¿®å¾©ä¸€äº›bug
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -245,7 +237,6 @@ void CGameStateRun::OnInit()  								// ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤Î¹Ï§Î³]ï¿½w
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
-    corner.LoadBitmap(IDB_CORNER);							// ¸ü¤J¨¤¸¨¹Ï§Î
     map.LoadBitMap();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
@@ -381,8 +372,8 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ï¿½Bï¿½zï¿½Æ¹ï¿
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - 320;
-        int y = point.y - 240;
+        int x = point.x - SIZE_X/2;
+        int y = point.y - SIZE_Y / 2;
         double r = sqrt(x * x + y * y);
         shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
     }
@@ -393,7 +384,6 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿
     player1.SetReloading(false);
 }
 
-<<<<<<< HEAD
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
 {	
 	int x = point.x - SIZE_X / 2;
@@ -401,11 +391,6 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿
 	double r = sqrt(x * x + y * y);
 	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
 	player1.setDirection();
-=======
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
-{
-    player1.setFacingPosition(point.x, point.y);
->>>>>>> parent of 286fbed... - å®Œæˆè…³è‰²æ—‹è½‰ - ä¿®å¾©ä¸€äº›bug
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ê§@
@@ -424,33 +409,22 @@ void CGameStateRun::OnShow()
     //        ï¿½ï¿½ï¿½AMoveï¿½tï¿½dMVCï¿½ï¿½ï¿½ï¿½Modelï¿½AShowï¿½tï¿½dViewï¿½Aï¿½ï¿½Viewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Modelï¿½C
     //
     map.OnShow();
-<<<<<<< HEAD
 	player1.OnShow();
 	for (int i = 0; i < static_cast<int>(texture.size()); i++)
 		texture[i].onShow();
 
-=======
-    player1.onShow();
->>>>>>> parent of 286fbed... - å®Œæˆè…³è‰²æ—‹è½‰ - ä¿®å¾©ä¸€äº›bug
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].onShow();
+        box[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].onShow();
+        item[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].onShow();
+        bullet[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets[i].onShow();
+        shotbullets[i].OnShow();
 
-    //
-    //  ¶K¤W¥ª¤W¤Î¥k¤U¨¤¸¨ªº¹Ï
-    //
-    corner.SetTopLeft(0, 0);
-    corner.ShowBitmap();
-    corner.SetTopLeft(SIZE_X - corner.Width(), SIZE_Y - corner.Height());
-    corner.ShowBitmap();
 }
 }

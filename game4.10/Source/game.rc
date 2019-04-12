@@ -132,7 +132,6 @@ IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
-<<<<<<< HEAD
 IDB_PLAYER1             BITMAP                  "..\\RES\\player1.bmp"
 
 IDB_PLAYER2             BITMAP                  "..\\RES\\player2.bmp"
@@ -150,8 +149,6 @@ IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
 IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
 
 ID_BOXBREAK				BITMAP					"..\\RES\\BoxBroke01.bmp"
-=======
->>>>>>> parent of 286fbed... - 完成腳色旋轉 - 修復一些bug
 
 /////////////////////////////////////////////////////////////////////////////
 //

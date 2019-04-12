@@ -270,5 +270,32 @@
     <Image Include="RES\Bullet01.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\concentric01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
