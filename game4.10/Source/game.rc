@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ï¿½ï¿½ï¿½ï¿½ (ï¿½cï¿½ï¿½Aï¿½xï¿½W) resources
+// ¤¤¤å (ÁcÅé¡A¥xÆW) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
@@ -132,23 +132,7 @@ IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
-IDB_PLAYER1             BITMAP                  "..\\RES\\player1.bmp"
-
-IDB_PLAYER2             BITMAP                  "..\\RES\\player2.bmp"
-
-IDB_PLAYER3             BITMAP                  "..\\RES\\player3.bmp"
-
-IDB_PLAYER4             BITMAP                  "..\\RES\\player4.bmp"
-
-IDB_PLAYER5             BITMAP                  "..\\RES\\player5.bmp"
-
-IDB_PLAYER6             BITMAP                  "..\\RES\\player6.bmp"
-
-IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
-
-IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
-
-ID_BOXBREAK				BITMAP					"..\\RES\\BoxBroke01.bmp"
+ID_BOXBREAK		BITMAP			"..\\RES\\BoxBroke01.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -157,12 +141,12 @@ ID_BOXBREAK				BITMAP					"..\\RES\\BoxBroke01.bmp"
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
 
-#endif    // ï¿½ï¿½ï¿½ï¿½ (ï¿½cï¿½ï¿½Aï¿½xï¿½W) resources
+#endif    // ¤¤¤å (ÁcÅé¡A¥xÆW) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// ï¿½^ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½) resources
+// ­^¤å (¬ü°ê) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -460,7 +444,7 @@ BEGIN
     ID_BUTTON_UNITTEST      "Perform Unit Test"
 END
 
-#endif    // ï¿½^ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½) resources
+#endif    // ­^¤å (¬ü°ê) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

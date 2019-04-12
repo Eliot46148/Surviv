@@ -11,6 +11,7 @@
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
+// 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateInit::CGameStateInit(CGame* g)
@@ -20,8 +21,9 @@ CGameStateInit::CGameStateInit(CGame* g)
 
 void CGameStateInit::OnInit()
 {
-    ShowInitProgress(0);	
+    ShowInitProgress(0);	// 一開始的loading進度為0%
     //
+    // 載入資料的地方
 }
 
 void CGameStateInit::OnBeginState()
@@ -34,22 +36,24 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_SPACE = ' ';
 
     if (nChar == KEY_SPACE)
-        GotoGameState(GAME_STATE_RUN);						
-    else if (nChar == KEY_ESC)								
-        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	
+        GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
+    else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
+        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    GotoGameState(GAME_STATE_RUN);		
+    GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			
+    // Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
+    //
+    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	
-    fp = pDC->SelectObject(&f);					
+    f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+    fp = pDC->SelectObject(&f);					// 選用 font f
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
     pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
@@ -59,11 +63,12 @@ void CGameStateInit::OnShow()
         pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
 
     pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
-    pDC->SelectObject(fp);					
-    CDDraw::ReleaseBackCDC();					
+    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
 /////////////////////////////////////////////////////////////////////////////
+// 這個class為遊戲的結束狀態(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame* g)
@@ -86,34 +91,36 @@ void CGameStateOver::OnBeginState()
 
 void CGameStateOver::OnInit()
 {
-    ShowInitProgress(66);	
+    ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
     //
+    // 開始載入結束後要用到的資料??
     //
     ShowInitProgress(100);
 }
 
 void CGameStateOver::OnShow()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			
+    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	
-    fp = pDC->SelectObject(&f);					
+    f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+    fp = pDC->SelectObject(&f);					// 選用 font f
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
-    char str[80];								
+    char str[80];								// Demo 數字對字串的轉換
     sprintf(str, "Game Over ! (%d)", counter / 30);
     pDC->TextOut(240, 210, str);
-    pDC->SelectObject(fp);						
-    CDDraw::ReleaseBackCDC();					
+    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
 /////////////////////////////////////////////////////////////////////////////
+// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame* g)
-    : CGameState(g)  
+    : CGameState(g)  //初始化設定
 {
-    box.push_back(Box(100, 100));	
+    box.push_back(Box(100, 100));	//加入一個箱子
     box.push_back(Box(200, 200));
     item.push_back(items(400, 400, 1, (float)0.4));
     item.push_back(items(450, 450, 1, (float)0.4));
@@ -147,9 +154,11 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 }
 
-void CGameStateRun::OnMove()											
+void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					
+    //
+    // 如果希望修改cursor的樣式，則將下面程式的commment取消即可
+    //
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -222,12 +231,15 @@ void CGameStateRun::OnMove()
 		texture.at(i).OnMove();
 }
 
-void CGameStateRun::OnInit()  							
+void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
     //
+    // 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+    //     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
+    corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
     map.LoadBitMap();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
@@ -357,62 +369,68 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     }
 }
 
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
     if (!player1.isReloading() && player1.getHasitemNum() != 0 && player1.getBullet() > 0)
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - SIZE_X/2;
-        int y = point.y - SIZE_Y / 2;
+        int x = point.x - 320;
+        int y = point.y - 240;
         double r = sqrt(x * x + y * y);
         shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
     }
 }
 
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
     player1.SetReloading(false);
 }
 
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	
-{	
-	int x = point.x - SIZE_X / 2;
-	int y = point.y - SIZE_Y / 2;
-	double r = sqrt(x * x + y * y);
-	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
-	player1.setDirection();
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
+{
+    player1.setFacingPosition(point.x, point.y);
 }
 
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 }
 
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 }
 
 void CGameStateRun::OnShow()
 {
     //
+    //  注意：Show裡面千萬不要移動任何物件的座標，移動座標的工作應由Move做才對，
+    //        否則當視窗重新繪圖時(OnDraw)，物件就會移動，看起來會很怪。換個術語
+    //        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
     //
     map.OnShow();
-	player1.OnShow();
 	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture[i].OnShow();
+		texture[i].onShow();
 
+    player1.onShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].OnShow();
+        box[i].onShow();
 
     for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].OnShow();
+        item[i].onShow();
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].OnShow();
+        bullet[i].onShow();
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets[i].OnShow();
+        shotbullets[i].onShow();
 
+    //
+    //  貼上左上及右下角落的圖
+    //
+    corner.SetTopLeft(0, 0);
+    corner.ShowBitmap();
+    corner.SetTopLeft(SIZE_X - corner.Width(), SIZE_Y - corner.Height());
+    corner.ShowBitmap();
 }
 }

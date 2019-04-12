@@ -18,5 +18,5 @@ game_framework::Bullet::Bullet(int x, int y)
 
 void game_framework::Bullet::LoadBitMap()
 {
-    bmp.LoadBitmap(IDB_BULLET);
+    bmp.LoadBitmap(171);
 }
