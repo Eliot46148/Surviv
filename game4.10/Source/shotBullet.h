@@ -14,8 +14,6 @@ namespace game_framework {
 		bool HitPlayer(persona *player);
 		bool HitObstacle(Box *box);
 		bool HitSomething(int,int,int,int);
-		int ShowDamage();
 	private:
-		int damage;
 	};
 }

@@ -8,7 +8,5 @@ class Box : public BasicObject
         Box();
         Box(int x, int y);
         void LoadBitMap();
-        int ShowHP();
-        void GetDamage(int);
 };
 }

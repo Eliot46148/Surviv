@@ -45,7 +45,6 @@
 #define IDB_MAP9                        165
 #define IDB_LAWN                        166
 #define IDB_BOX                         167
-#define ID_BOXBREAK						168
 #define IDB_PLAYER                      169
 #define IDB_PITOL1                      170
 #define IDB_PISTOL1                     170
