@@ -59,6 +59,7 @@
 #define IDB_PLAYER6                     178
 #define IDB_PLAYER7                     179
 #define IDB_PLAYER8                     180
+#define IDB_BOXBREAK					182
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

@@ -70,4 +70,9 @@ bool game_framework::shotBullet::HitSomething(int tx1, int ty1, int tx2, int ty2
     int sx1 = x, sx2 = x + Width, sy1 = y, sy2 = y + Height;
     return (tx2 >= sx1 && tx1 <= sx2 && ty2 >= sy1 && ty1 <= sy2);
 }
+int game_framework::shotBullet::ShowDamage()
+{
+	return damage;
+}
+
 

@@ -21,7 +21,7 @@ void game_framework::Texture::LoadBitMap()
     switch (skin)
     {
         case 1:
-            bmp.LoadBitmap(ID_BOXBREAK, RGB(0, 0, 0));
+            bmp.LoadBitmap(IDB_BOXBREAK, RGB(0, 0, 0));
             showMagnification = (float)0.6;
             break;
     }

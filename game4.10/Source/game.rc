@@ -132,7 +132,7 @@ IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
-ID_BOXBREAK		BITMAP			"..\\RES\\BoxBroke01.bmp"
+IDB_BOXBREAK		 	BITMAP					"..\\RES\\BoxBroke01.bmp"
 
 IDB_PLAYER1             BITMAP                  "..\\RES\\player1.bmp"
 
@@ -150,7 +150,6 @@ IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
 
 IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
 
->>>>>>> 52ac160b70b0af08b1300b254350c91330cb2279
 
 /////////////////////////////////////////////////////////////////////////////
 //
