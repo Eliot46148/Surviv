@@ -10,5 +10,6 @@ class Box : public BasicObject
         void LoadBitMap();
         int ShowHP();
         void GetDamage(int);
+
 };
 }

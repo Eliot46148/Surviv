@@ -134,6 +134,24 @@ IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
 ID_BOXBREAK		BITMAP			"..\\RES\\BoxBroke01.bmp"
 
+IDB_PLAYER1             BITMAP                  "..\\RES\\player1.bmp"
+
+IDB_PLAYER2             BITMAP                  "..\\RES\\player2.bmp"
+
+IDB_PLAYER3             BITMAP                  "..\\RES\\player3.bmp"
+
+IDB_PLAYER4             BITMAP                  "..\\RES\\player4.bmp"
+
+IDB_PLAYER5             BITMAP                  "..\\RES\\player5.bmp"
+
+IDB_PLAYER6             BITMAP                  "..\\RES\\player6.bmp"
+
+IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
+
+IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
+
+>>>>>>> 52ac160b70b0af08b1300b254350c91330cb2279
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor

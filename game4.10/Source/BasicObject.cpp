@@ -16,6 +16,7 @@ BasicObject::BasicObject()
     dy = 0;
     Height = 556;
     Width = 556;
+    HP = 10;
     speed = DEFAULT_OBJECTIVE_SPEED;
     can_breakable = false;
     is_alive = true;
@@ -40,7 +41,7 @@ void BasicObject::OnMove()
     if (isMovingDown)
         y += speed;
 }
-void BasicObject::onShow()
+void BasicObject::OnShow()
 {
     if (is_alive)
     {

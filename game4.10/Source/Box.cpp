@@ -36,3 +36,4 @@ void game_framework::Box::GetDamage(int damage)
 {
     HP -= damage;
 }
+

@@ -148,17 +148,11 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
     for (int j = 0; j < static_cast<int>(bullet.size()); j++)
         bullet[j].setMovingMode(_where, type);
-
-	for (int j = 0; j < static_cast<int>(texture.size()); j++)
-		texture[j].setMovingMode(_where, type);
-
 }
 
-void CGameStateRun::OnMove()							// 移動遊戲元素
+void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-    //
-    // 如果希望修改cursor的樣式，則將下面程式的commment取消即可
-    //
+	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -171,13 +165,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		{
 			shotbullets.at(i).GetX();
 			if (shotbullets.at(i).HitObstacle(&box.at(j))) {
-				box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
 				shotbullets.erase(shotbullets.begin() + i);
-				if (box.at(j).ShowHP() <= 0)
-				{
-					texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-					box.erase(box.begin() + j);
-				}
 			}
 		}
 	}
@@ -227,8 +215,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets.at(i).OnMove();
-	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture.at(i).OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -239,7 +225,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
-    corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
     map.LoadBitMap();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
@@ -375,8 +360,8 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - 320;
-        int y = point.y - 240;
+        int x = point.x - SIZE_X/2;
+        int y = point.y - SIZE_Y / 2;
         double r = sqrt(x * x + y * y);
         shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
     }
@@ -388,8 +373,12 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{
-    player1.setFacingPosition(point.x, point.y);
+{	
+	int x = point.x - SIZE_X / 2;
+	int y = point.y - SIZE_Y / 2;
+	double r = sqrt(x * x + y * y);
+	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
+	player1.setDirection();
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -411,26 +400,19 @@ void CGameStateRun::OnShow()
 	for (int i = 0; i < static_cast<int>(texture.size()); i++)
 		texture[i].onShow();
 
-    player1.onShow();
+	player1.OnShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].onShow();
+        box[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].onShow();
+        item[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].onShow();
+        bullet[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets[i].onShow();
+        shotbullets[i].OnShow();
 
-    //
-    //  貼上左上及右下角落的圖
-    //
-    corner.SetTopLeft(0, 0);
-    corner.ShowBitmap();
-    corner.SetTopLeft(SIZE_X - corner.Width(), SIZE_Y - corner.Height());
-    corner.ShowBitmap();
 }
 }
