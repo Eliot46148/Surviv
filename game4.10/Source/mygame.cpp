@@ -11,7 +11,6 @@
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C�����C���}�Y�e������
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateInit::CGameStateInit(CGame* g)
@@ -21,9 +20,8 @@ CGameStateInit::CGameStateInit(CGame* g)
 
 void CGameStateInit::OnInit()
 {
-    ShowInitProgress(0);	// �@�}�l��loading�i�׬�0%
+    ShowInitProgress(0);	
     //
-    // ���J��ƪ��a��
 }
 
 void CGameStateInit::OnBeginState()
@@ -36,24 +34,22 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_SPACE = ' ';
 
     if (nChar == KEY_SPACE)
-        GotoGameState(GAME_STATE_RUN);						// ������GAME_STATE_RUN
-    else if (nChar == KEY_ESC)								// Demo �����C������k
-        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// �����C��
+        GotoGameState(GAME_STATE_RUN);						
+    else if (nChar == KEY_ESC)								
+        PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    GotoGameState(GAME_STATE_RUN);		// ������GAME_STATE_RUN
+    GotoGameState(GAME_STATE_RUN);		
 }
 
 void CGameStateInit::OnShow()
 {
-    // Demo�ù��r�����ϥΡA���L�}�o�ɽкɶq�קK�����ϥΦr���A���CMovingBitmap����n
-    //
-    CDC* pDC = CDDraw::GetBackCDC();			// ���o Back Plain �� CDC
+    CDC* pDC = CDDraw::GetBackCDC();			
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// ���� font f; 160����16 point���r
-    fp = pDC->SelectObject(&f);					// ��� font f
+    f.CreatePointFont(160, "Times New Roman");	
+    fp = pDC->SelectObject(&f);					
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
     pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
@@ -63,12 +59,11 @@ void CGameStateInit::OnShow()
         pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
 
     pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
-    pDC->SelectObject(fp);						// �� font f (�d�U���n�|�F��)
-    CDDraw::ReleaseBackCDC();					// �� Back Plain �� CDC
+    pDC->SelectObject(fp);					
+    CDDraw::ReleaseBackCDC();					
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C�����������A(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame* g)
@@ -91,36 +86,34 @@ void CGameStateOver::OnBeginState()
 
 void CGameStateOver::OnInit()
 {
-    ShowInitProgress(66);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���66%
+    ShowInitProgress(66);	
     //
-    // �}�l���J������n�Ψ쪺���??
     //
     ShowInitProgress(100);
 }
 
 void CGameStateOver::OnShow()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			// ���o Back Plain �� CDC
+    CDC* pDC = CDDraw::GetBackCDC();			
     CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// ���� font f; 160����16 point���r
-    fp = pDC->SelectObject(&f);					// ��� font f
+    f.CreatePointFont(160, "Times New Roman");	
+    fp = pDC->SelectObject(&f);					
     pDC->SetBkColor(RGB(0, 0, 0));
     pDC->SetTextColor(RGB(255, 255, 0));
-    char str[80];								// Demo �Ʀr��r�ꪺ�ഫ
+    char str[80];								
     sprintf(str, "Game Over ! (%d)", counter / 30);
     pDC->TextOut(240, 210, str);
-    pDC->SelectObject(fp);						// �� font f (�d�U���n�|�F��)
-    CDDraw::ReleaseBackCDC();					// �� Back Plain �� CDC
+    pDC->SelectObject(fp);						
+    CDDraw::ReleaseBackCDC();					
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C�����C�����檫��A�D�n���C���{�����b�o��
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame* g)
-    : CGameState(g)  //��l�Ƴ]�w
+    : CGameState(g)  
 {
-    box.push_back(Box(100, 100));	//�[�J�@�ӽc�l
+    box.push_back(Box(100, 100));	
     box.push_back(Box(200, 200));
     item.push_back(items(400, 400, 1, (float)0.4));
     item.push_back(items(450, 450, 1, (float)0.4));
@@ -154,9 +147,9 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 }
 
-void CGameStateRun::OnMove()											// ���ʹC������
+void CGameStateRun::OnMove()											
 {
-	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// ���г]�w
+	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
 	
@@ -229,11 +222,9 @@ void CGameStateRun::OnMove()											// ���ʹC������
 		texture.at(i).OnMove();
 }
 
-void CGameStateRun::OnInit()  								// �C������Ȥιϧγ]�w
+void CGameStateRun::OnInit()  							
 {
     //
-    // ���ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-    //     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
     //
     ShowInitProgress(33);
     ShowInitProgress(50);
@@ -366,7 +357,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     }
 }
 
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  
 {
     if (!player1.isReloading() && player1.getHasitemNum() != 0 && player1.getBullet() > 0)
     {
@@ -379,12 +370,12 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ�
     }
 }
 
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	
 {
     player1.SetReloading(false);
 }
 
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	
 {	
 	int x = point.x - SIZE_X / 2;
 	int y = point.y - SIZE_Y / 2;
@@ -393,25 +384,22 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// �B�z�ƹ��
 	player1.setDirection();
 }
 
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  
 {
 }
 
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	
 {
 }
 
 void CGameStateRun::OnShow()
 {
     //
-    //  �`�N�GShow�̭��d�U���n���ʥ��󪫥󪺮y�СA���ʮy�Ъ��u�@����Move���~��A
-    //        �_�h���������sø�Ϯ�(OnDraw)�A����N�|���ʡA�ݰ_�ӷ|�ܩǡC���ӳN�y
-    //        ���AMove�t�dMVC����Model�AShow�t�dView�A��View�������Model�C
     //
     map.OnShow();
 	player1.OnShow();
 	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture[i].onShow();
+		texture[i].OnShow();
 
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
