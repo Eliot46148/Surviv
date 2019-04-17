@@ -13,6 +13,7 @@ game_framework::Texture::Texture(int x, int y, int skinid)
     skin = skinid;
     showMagnification = 3;
     LoadBitMap();
+	
 }
 
 

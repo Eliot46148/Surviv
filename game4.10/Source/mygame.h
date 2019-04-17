@@ -9,6 +9,7 @@
 #include "shotBullet.h"
 #include <math.h>
 #include "Texture.h"
+#include "Enemy.h"
 
 namespace game_framework {
 
@@ -69,6 +70,7 @@ class CGameStateRun : public CGameState
         vector<Bullet> bullet;
         vector<shotBullet> shotbullets;
 		vector<Texture> texture;
+		vector<Enemy> enemy;
 };
 
 /////////////////////////////////////////////////////////////////////////////

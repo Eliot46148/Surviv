@@ -124,6 +124,7 @@ CGameStateRun::CGameStateRun(CGame* g)
     box.push_back(Box(200, 200));
     item.push_back(items(400, 400, 1, (float)0.4));
     item.push_back(items(450, 450, 1, (float)0.4));
+    enemy.push_back(Enemy());
 
     for (int i = 0; i < 30; i++)
         bullet.push_back(Bullet(rand() % (1800 + 1), rand() % (1800 + 1)));
@@ -149,37 +150,58 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
     for (int j = 0; j < static_cast<int>(bullet.size()); j++)
         bullet[j].setMovingMode(_where, type);
 
-	for (int j = 0; j < static_cast<int>(texture.size()); j++)
-		texture[j].setMovingMode(_where, type);
-	
+    for (int j = 0; j < static_cast<int>(texture.size()); j++)
+        texture[j].setMovingMode(_where, type);
+
+    for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+        enemy[j].setMovingMode(_where, type);
 }
 
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
+    SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
+	bool isshow;
+
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
-	
-	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-	{
-		/*if (shotbullets.at(i).HitPlayer(&player1)) {
-			shotbullets.erase(shotbullets.begin() + i);
-		}*/
-		for (int j = 0; j < static_cast<int>(box.size()); j++)
-		{
-			shotbullets.at(i).GetX();
-			if (shotbullets.at(i).HitObstacle(&box.at(j))) {
-				box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-				shotbullets.erase(shotbullets.begin() + i);
-				if (box.at(j).ShowHP() <= 0)
-				{
-					texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-					box.erase(box.begin() + j);
-				}
-			}
-		}
-	}
 
+    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+    {
+        isshow = 1;
+
+            for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+                if (shotbullets.at(i).HitPlayer(&enemy.at(j)))
+                {
+                    isshow = 0;
+					enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+                    shotbullets.erase(shotbullets.begin() + i);
+
+					if (enemy.at(j).ShowHP() <= 0)
+					{
+						texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 1));
+						enemy.erase(enemy.begin() + j);
+					}
+
+                }
+
+        if(isshow)
+            for (int j = 0; j < static_cast<int>(box.size()); j++)
+            {
+                shotbullets.at(i).GetX();
+
+                if (shotbullets.at(i).HitObstacle(&box.at(j)))
+                {
+                    box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+                    shotbullets.erase(shotbullets.begin() + i);
+
+                    if (box.at(j).ShowHP() <= 0)
+                    {
+                        texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+                        box.erase(box.begin() + j);
+                    }
+                }
+            }
+    }
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
@@ -225,9 +247,12 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets.at(i).OnMove();
-	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture.at(i).OnMove();
 
+    for (int i = 0; i < static_cast<int>(texture.size()); i++)
+        texture.at(i).OnMove();
+
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+        enemy.at(i).OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -249,6 +274,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
         bullet[i].LoadBitMap();
 
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+        enemy[i].LoadBitMap();
+
     player1.LoadBitMap();
 }
 
@@ -258,7 +286,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_UP    = 0x57; // keyboard  [W]
     const char KEY_RIGHT = 0x44; // keyboard  [D]
     const char KEY_DOWN  = 0x53; // keyboard  [S]
-    const char KEY_GET = 0x46;   // keyboard  [F]
+	const char KEY_GET = 0x46;   // keyboard  [F]
+	const char KEY_RTBLOOD = 0x4F;   // keyboard  [F]
 
     if (nChar == KEY_LEFT && player1.isCan_Left())
     {
@@ -300,6 +329,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     {
         player1.SetGetting(true);
     }
+
+	if (nChar == KEY_RTBLOOD)
+	{
+		enemy.at(0).returnBlood();
+	}
+
+
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -373,7 +409,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - SIZE_X/2;
+        int x = point.x - SIZE_X / 2;
         int y = point.y - SIZE_Y / 2;
         double r = sqrt(x * x + y * y);
         shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
@@ -386,12 +422,12 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{	
-	int x = point.x - SIZE_X / 2;
-	int y = point.y - SIZE_Y / 2;
-	double r = sqrt(x * x + y * y);
-	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
-	player1.setDirection();
+{
+    int x = point.x - SIZE_X / 2;
+    int y = point.y - SIZE_Y / 2;
+    double r = sqrt(x * x + y * y);
+    player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
+    player1.setDirection();
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -410,10 +446,14 @@ void CGameStateRun::OnShow()
     //        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
     //
     map.OnShow();
-	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture[i].OnShow();
 
-	player1.OnShow();
+    for (int i = 0; i < static_cast<int>(texture.size()); i++)
+        texture[i].OnShow();
+
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+        enemy[i].OnShow();
+
+    player1.OnShow();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
         box[i].OnShow();
@@ -426,6 +466,5 @@ void CGameStateRun::OnShow()
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets[i].OnShow();
-
 }
 }
