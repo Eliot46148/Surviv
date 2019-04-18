@@ -25,5 +25,10 @@ void game_framework::Texture::LoadBitMap()
             bmp.LoadBitmap(IDB_BOXBREAK, RGB(0, 0, 0));
             showMagnification = (float)0.6;
             break;
+
+		case 2:
+			bmp.LoadBitmap(IDB_RIP, RGB(0, 0, 0));
+			showMagnification = (float)0.6;
+			break;
     }
 }

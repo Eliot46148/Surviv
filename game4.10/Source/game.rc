@@ -152,6 +152,8 @@ IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
 
 IDB_ENEMY1				BITMAP 					"..\\RES\\enemy1.bmp" 
 
+IDB_RIP					BITMAP 					"..\\RES\\RIP.bmp" 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor

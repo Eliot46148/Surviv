@@ -61,6 +61,7 @@
 #define IDB_PLAYER8                     180
 #define IDB_BOXBREAK					182
 #define IDB_ENEMY1						183
+#define IDB_RIP							184
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

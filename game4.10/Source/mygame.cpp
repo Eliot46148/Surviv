@@ -178,7 +178,7 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
 
 					if (enemy.at(j).ShowHP() <= 0)
 					{
-						texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 1));
+						texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
 						enemy.erase(enemy.begin() + j);
 					}
 
