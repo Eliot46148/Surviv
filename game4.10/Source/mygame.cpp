@@ -373,10 +373,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
     {
         player1.SetReloading(true);
         player1.setBullet(-1);
-        int x = point.x - SIZE_X/2;
-        int y = point.y - SIZE_Y / 2;
-        double r = sqrt(x * x + y * y);
-        shotbullets.push_back(shotBullet(int(x / r * 10), int(y / r * 10)));
+        shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
     }
 }
 
@@ -387,10 +384,10 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {	
-	int x = point.x - SIZE_X / 2;
-	int y = point.y - SIZE_Y / 2;
+	int x = point.x - (SIZE_X / 2);
+	int y = point.y - (SIZE_Y / 2);
 	double r = sqrt(x * x + y * y);
-	player1.setFacingPosition(int(x / r * 10), int(y / r * 10));
+	player1.setFacingPosition(x / r * 10, y / r * 10);
 	player1.setDirection();
 }
 

@@ -128,7 +128,7 @@ void game_framework::persona::setBullet(int num)
     bullet += num;
 }
 
-void game_framework::persona::setFacingPosition(int x, int y)
+void game_framework::persona::setFacingPosition(double x, double y)
 {
     facingX = x;
     facingY = y;
@@ -139,15 +139,15 @@ void game_framework::persona::setDirection()
 	if (facingX > 0 && facingY < 0) {
 		if (facingX < 3.8)
 			direction = 0;
-		else if (facingX < 9.23 && facingX > 3.8)
+		else if (facingX < 9.23)
 			direction = 1;
-		else if (facingX > 9.23)
+		else
 			direction = 2;
 	}
 	if (facingX > 0 && facingY > 0) {
 		if (facingX > 9.23)
 			direction = 2;
-		else if (facingX > 3.8 && facingX<9.23)
+		else if (facingX > 3.8)
 			direction = 3;
 		else
 			direction = 4;
@@ -155,7 +155,7 @@ void game_framework::persona::setDirection()
 	if (facingX < 0 && facingY > 0) {
 		if (facingX <-9.23)
 			direction = 6;
-		else if (facingX > -9.23 && facingX<-3.8)
+		else if (facingX<-3.8)
 			direction = 5;
 		else
 			direction = 4;
@@ -163,7 +163,7 @@ void game_framework::persona::setDirection()
 	if (facingX < 0 && facingY < 0) {
 		if (facingX < -9.23)
 			direction = 6;
-		else if (facingX > -9.23 && facingX<-3.8)
+		else if (facingX<-3.8)
 			direction = 7;
 		else
 			direction = 0;
@@ -171,12 +171,12 @@ void game_framework::persona::setDirection()
 
 }
 
-int game_framework::persona::getFacingX()
+double game_framework::persona::getFacingX()
 {
     return facingX;
 }
 
-int game_framework::persona::getFacingY()
+double game_framework::persona::getFacingY()
 {
     return facingY;
 }
