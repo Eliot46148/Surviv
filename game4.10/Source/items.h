@@ -8,6 +8,7 @@ class items : public BasicObject
         items();
         items(int x, int y, int id, float showsize);
         void LoadBitMap();
+		int getID();
     private:
         int itemsdamage;
 		int itemsID;

@@ -303,5 +303,20 @@
     <Image Include="RES\player8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\MachineGun.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\BoxBroke01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\RIP.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

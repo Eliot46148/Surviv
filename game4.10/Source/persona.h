@@ -24,6 +24,7 @@ class persona : public BasicObject
 		double getFacingX();
 		double getFacingY();
 		int getHasitemNum();
+		int getLastHasitemID();
 		int getBullet();
         bool isGetting();
 		bool isReloading();

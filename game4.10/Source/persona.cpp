@@ -197,6 +197,11 @@ int game_framework::persona::getHasitemNum()
     return (int)hasitem.size();
 }
 
+int game_framework::persona::getLastHasitemID()
+{
+	return hasitem.back().getID();
+}
+
 int game_framework::persona::getBullet()
 {
     return bullet;

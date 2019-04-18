@@ -28,8 +28,15 @@ void game_framework::items::LoadBitMap()
 	case 1:
 		bmp.LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));			// ºj
 		break;
+	case 2:
+		bmp.LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));		// ¾÷ºj
 	default:
 		break;
 	}
+}
+
+int game_framework::items::getID()
+{
+	return itemsID;
 }
 

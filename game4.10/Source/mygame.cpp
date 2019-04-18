@@ -120,10 +120,12 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
-    box.push_back(Box(100, 100));	//加入一個箱子
-    box.push_back(Box(200, 200));
-    item.push_back(items(400, 400, 1, (float)0.4));
-    item.push_back(items(450, 450, 1, (float)0.4));
+    box.push_back(Box(100, 100));								// 加入箱子
+    box.push_back(Box(200, 200));								// 加入箱子
+    item.push_back(items(450, 400, 1, (float)0.4));				// 加入手槍
+    item.push_back(items(450, 450, 1, (float)0.4));				// 加入手槍
+	item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
+	item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
     enemy.push_back(Enemy());
 
     for (int i = 0; i < 30; i++)
@@ -388,6 +390,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
             if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX() <= player1.GetX() + 30) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY() <= player1.GetY() + 30))
             {
                 item.at(i).SetAlive(false);
+				item.erase(item.begin() + i);
                 player1.CatchItem(item.at(i));
             }
 
@@ -404,13 +407,15 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
-{
-    if (!player1.isReloading() && player1.getHasitemNum() != 0 && player1.getBullet() > 0)
-    {
-        player1.SetReloading(true);
-        player1.setBullet(-1);
-        shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
-    }
+{	
+	if (player1.getHasitemNum() != 0) {
+		if (!player1.isReloading() && player1.getBullet() > 0 && player1.getLastHasitemID() ==1)
+		{
+			player1.SetReloading(true);
+			player1.setBullet(-1);
+			shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+		}
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
