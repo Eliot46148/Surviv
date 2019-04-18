@@ -12,6 +12,7 @@ game_framework::shotBullet::shotBullet(): BasicObject()
     LoadBitMap();
     Height = 20;
     Width = 20;
+	damage = 10;
     speed = DEFAULT_BULLET_SPEED;
 }
 
@@ -19,6 +20,7 @@ game_framework::shotBullet::shotBullet(int x, int y)
 {
     LoadBitMap();
     Height = 20;
+	damage = 10;
     Width = 20;
     speed = DEFAULT_BULLET_SPEED;
     this->x = 320 + x;

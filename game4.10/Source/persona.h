@@ -13,6 +13,8 @@ class persona : public BasicObject
 		bool HitObstacle(Box * box, int _where);
         virtual void LoadBitMap();
         virtual void OnShow();
+		void returnBlood();
+		int ShowHP();
         void SetGetting(bool flag);
 		void SetReloading(bool flag);
         void setCan_move(bool flag);

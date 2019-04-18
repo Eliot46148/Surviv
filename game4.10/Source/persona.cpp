@@ -9,6 +9,7 @@
 #include "persona.h"
 
 class items;
+
 game_framework::persona::persona(): BasicObject()
 {
     x = 320;
@@ -75,6 +76,16 @@ void game_framework::persona::OnShow()
         bmp[direction].SetTopLeft(x + dx, y + dy);
         bmp[direction].ShowBitmap(0.5);
     }
+}
+
+void game_framework::persona::returnBlood()
+{
+	HP += 10;
+}
+
+int game_framework::persona::ShowHP()
+{
+	return HP;
 }
 
 void game_framework::persona::SetGetting(bool flag)

@@ -16,7 +16,7 @@ BasicObject::BasicObject()
     dy = 0;
     Height = 556;
     Width = 556;
-    HP = 10;
+    HP = 20;
     speed = DEFAULT_OBJECTIVE_SPEED;
     can_breakable = false;
     is_alive = true;
