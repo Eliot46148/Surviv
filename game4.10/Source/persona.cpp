@@ -36,24 +36,25 @@ bool game_framework::persona::HitObstacle(Box * box, int _where)
 	switch (_where)
 	{
 	case 1:
-		Py2 -= 10;
-		Py1 -= 10;
+		Oy2 -= 10;
+		Oy1 -= 10;
 		break;
 	case 2:
-		Py2 += 10;
-		Py1 -= 10;
+		Oy2 += 10;
+		Oy1 += 10;
 		break;
 	case 3:
-		Px2 -= 10;
-		Px1 -= 10;
+		Ox2 -= 10;
+		Ox1 -= 10;
 		break;	
 	case 4:
-		Px2 += 10;
-		Px1 += 10;
+		Ox2 += 10;
+		Ox1 += 10;
 		break;
 	}
 	//return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
-	return (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
+	bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
+	return tem;
 
 }
 

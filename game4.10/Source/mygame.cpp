@@ -160,7 +160,7 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
-	bool isshow;
+    bool isshow;
 
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
@@ -169,20 +169,19 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     {
         isshow = 1;
 
-            for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-                if (shotbullets.at(i).HitPlayer(&enemy.at(j)))
+        for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+            if (shotbullets.at(i).HitPlayer(&enemy.at(j)))
+            {
+                isshow = 0;
+                enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+                shotbullets.erase(shotbullets.begin() + i);
+
+                if (enemy.at(j).ShowHP() <= 0)
                 {
-                    isshow = 0;
-					enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-                    shotbullets.erase(shotbullets.begin() + i);
-
-					if (enemy.at(j).ShowHP() <= 0)
-					{
-						texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-						enemy.erase(enemy.begin() + j);
-					}
-
+                    texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
+                    enemy.erase(enemy.begin() + j);
                 }
+            }
 
         if(isshow)
             for (int j = 0; j < static_cast<int>(box.size()); j++)
@@ -286,8 +285,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_UP    = 0x57; // keyboard  [W]
     const char KEY_RIGHT = 0x44; // keyboard  [D]
     const char KEY_DOWN  = 0x53; // keyboard  [S]
-	const char KEY_GET = 0x46;   // keyboard  [F]
-	const char KEY_RTBLOOD = 0x4F;   // keyboard  [F]
+    const char KEY_GET = 0x46;   // keyboard  [F]
+    const char KEY_RTBLOOD = 0x4F;   // keyboard  [F]
 
     if (nChar == KEY_LEFT && player1.isCan_Left())
     {
@@ -330,12 +329,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         player1.SetGetting(true);
     }
 
-	if (nChar == KEY_RTBLOOD)
-	{
-		enemy.at(0).returnBlood();
-	}
-
-
+    if (nChar == KEY_RTBLOOD)
+    {
+        enemy.at(0).returnBlood();
+    }
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -384,16 +381,16 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_GET)
     {
-        for (int i = 0; i < static_cast<int>(item.size()); i++)
-            if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX() <= player1.GetX() + 30) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY() <= player1.GetY() + 30))
+		for (int i = 0; i < static_cast<int>(item.size()); i++)
+			if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
                 item.at(i).SetAlive(false);
                 player1.CatchItem(item.at(i));
             }
 
         for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-            if (player1.isGetting() && (bullet.at(i).GetX() >= player1.GetX() && bullet.at(i).GetX() <= player1.GetX() + 30) && (bullet.at(i).GetY() >= player1.GetY() && bullet.at(i).GetY() <= player1.GetY() + 30))
-            {
+			if (player1.isGetting() && (bullet.at(i).GetX() >= player1.GetX() && bullet.at(i).GetX() <= player1.GetX() + player1.GetWidth()) && (bullet.at(i).GetY() >= player1.GetY() && bullet.at(i).GetY() <= player1.GetY() + player1.GetHeight()))
+			{
                 bullet.at(i).SetAlive(false);
                 bullet.erase(bullet.begin() + i);
                 player1.setBullet(10);
