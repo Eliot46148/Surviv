@@ -8,6 +8,7 @@ namespace game_framework {
 	class Enemy :public persona {
 	public:
 		Enemy();
+		Enemy(int, int, int);
 		void LoadBitMap();
 		void OnShow();
 		void GetDamage(int);
@@ -19,5 +20,6 @@ namespace game_framework {
 		int bullet;
 		int facingX, facingY;
 		int direction;
+		int skin;
 	};
 }

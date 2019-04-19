@@ -62,8 +62,9 @@
 #define IDB_BOXBREAK                    182
 #define IDB_ENEMY1                      183
 #define IDB_RIP                         184
-#define IDB_BITMAP4                     185
 #define IDB_MachineGun                  185
+#define IDB_ENEMY2						186
+#define IDB_ENEMY3						187
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

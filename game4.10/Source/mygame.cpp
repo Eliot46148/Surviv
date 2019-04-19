@@ -124,9 +124,12 @@ CGameStateRun::CGameStateRun(CGame* g)
     box.push_back(Box(200, 200));								// 加入箱子
     item.push_back(items(450, 400, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 450, 1, (float)0.4));				// 加入手槍
-	item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
-	item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
-    enemy.push_back(Enemy());
+    item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
+    item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
+    enemy.push_back(Enemy(520, 240, 1));
+    enemy.push_back(Enemy(490, 150, 2));
+	enemy.push_back(Enemy(400, 150, 3));
+
 
     for (int i = 0; i < 30; i++)
         bullet.push_back(Bullet(rand() % (1800 + 1), rand() % (1800 + 1)));
@@ -172,7 +175,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         isshow = 1;
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if (shotbullets.at(i).HitPlayer(&enemy.at(j)))
+            if (static_cast<int>(shotbullets.size()) != 0 && shotbullets.at(i).HitPlayer(&enemy.at(j)))
             {
                 isshow = 0;
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
@@ -185,10 +188,11 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 }
             }
 
-        if(isshow)
+        if (isshow)
             for (int j = 0; j < static_cast<int>(box.size()); j++)
             {
-                shotbullets.at(i).GetX();
+                if (static_cast<int>(shotbullets.size()) == 0)
+                    break;
 
                 if (shotbullets.at(i).HitObstacle(&box.at(j)))
                 {
@@ -383,17 +387,17 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_GET)
     {
-		for (int i = 0; i < static_cast<int>(item.size()); i++)
-			if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
+        for (int i = 0; i < static_cast<int>(item.size()); i++)
+            if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
                 item.at(i).SetAlive(false);
-				item.erase(item.begin() + i);
                 player1.CatchItem(item.at(i));
+                item.erase(item.begin() + i);
             }
 
         for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-			if (player1.isGetting() && (bullet.at(i).GetX() >= player1.GetX() && bullet.at(i).GetX() <= player1.GetX() + player1.GetWidth()) && (bullet.at(i).GetY() >= player1.GetY() && bullet.at(i).GetY() <= player1.GetY() + player1.GetHeight()))
-			{
+            if (player1.isGetting() && (bullet.at(i).GetX() >= player1.GetX() && bullet.at(i).GetX() <= player1.GetX() + player1.GetWidth()) && (bullet.at(i).GetY() >= player1.GetY() && bullet.at(i).GetY() <= player1.GetY() + player1.GetHeight()))
+            {
                 bullet.at(i).SetAlive(false);
                 bullet.erase(bullet.begin() + i);
                 player1.setBullet(10);
@@ -404,15 +408,16 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
-{	
-	if (player1.getHasitemNum() != 0) {
-		if (!player1.isReloading() && player1.getBullet() > 0 && player1.getLastHasitemID() ==1)
-		{
-			player1.SetReloading(true);
-			player1.setBullet(-1);
-			shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
-		}
-	}
+{
+    if (player1.getHasitemNum() != 0)
+    {
+        if (!player1.isReloading() && player1.getBullet() > 0 && player1.getLastHasitemID() == 1)
+        {
+            player1.SetReloading(true);
+            player1.setBullet(-1);
+            shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+        }
+    }
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -421,12 +426,12 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{	
-	int x = point.x - (SIZE_X / 2);
-	int y = point.y - (SIZE_Y / 2);
-	double r = sqrt(x * x + y * y);
-	player1.setFacingPosition(x / r * 10, y / r * 10);
-	player1.setDirection();
+{
+    int x = point.x - (SIZE_X / 2);
+    int y = point.y - (SIZE_Y / 2);
+    double r = sqrt(x * x + y * y);
+    player1.setFacingPosition(x / r * 10, y / r * 10);
+    player1.setDirection();
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
