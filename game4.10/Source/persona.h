@@ -19,11 +19,12 @@ class persona : public BasicObject
 		void SetReloading(bool flag);
         void setCan_move(bool flag);
         void setBullet(int num);
-		void setFacingPosition(int,int);
+		void setFacingPosition(double,double);
 		void setDirection();
-		int getFacingX();
-		int getFacingY();
+		double getFacingX();
+		double getFacingY();
 		int getHasitemNum();
+		int getLastHasitemID();
 		int getBullet();
         bool isGetting();
 		bool isReloading();
@@ -37,7 +38,7 @@ class persona : public BasicObject
 		bool is_Reloading = false;
         vector<items> hasitem;
         int bullet;
-		int facingX,facingY;
+		double facingX,facingY;
 		int direction;
 
 };

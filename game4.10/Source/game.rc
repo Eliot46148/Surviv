@@ -132,7 +132,7 @@ IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
 
-IDB_BOXBREAK		 	BITMAP					"..\\RES\\BoxBroke01.bmp"
+IDB_BOXBREAK            BITMAP                  "..\\RES\\BoxBroke01.bmp"
 
 IDB_PLAYER1             BITMAP                  "..\\RES\\player1.bmp"
 
@@ -150,9 +150,12 @@ IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
 
 IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
 
-IDB_ENEMY1				BITMAP 					"..\\RES\\enemy1.bmp" 
+IDB_ENEMY1              BITMAP                  "..\\RES\\enemy1.bmp"
 
-IDB_RIP					BITMAP 					"..\\RES\\RIP.bmp" 
+IDB_RIP                 BITMAP                  "..\\RES\\RIP.bmp"
+
+IDB_MachineGun          BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\game4.10\\RES\\MachineGun.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
