@@ -21,6 +21,7 @@ game_framework::persona::persona(): BasicObject()
     facingY = 0;
     showMagnification = (float)0.5;
     direction = 0;
+	recoil_timer = 0;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -84,6 +85,12 @@ void game_framework::persona::OnShow()
     }
 }
 
+void game_framework::persona::OnMove()
+{
+	if (recoil_timer < 30)
+		recoil_timer++;
+}
+
 void game_framework::persona::returnBlood()
 {
     HP += 10;
@@ -92,6 +99,16 @@ void game_framework::persona::returnBlood()
 int game_framework::persona::ShowHP()
 {
     return HP;
+}
+
+bool game_framework::persona::Recoil()
+{	
+	if (recoil_timer >= 10) {
+		recoil_timer = 0;
+		return false;
+	}
+	else 
+		return true;
 }
 
 void game_framework::persona::SetGetting(bool flag)
@@ -113,6 +130,11 @@ bool game_framework::persona::isGetting()
 bool game_framework::persona::isReloading()
 {
     return is_Reloading;
+}
+
+bool game_framework::persona::isActing()
+{
+	return is_acting;
 }
 
 bool game_framework::persona::isCan_Right()
@@ -192,6 +214,11 @@ void game_framework::persona::setDirection()
         else
             direction = 0;
     }
+}
+
+void game_framework::persona::setActing(bool flag)
+{
+	is_acting = flag;
 }
 
 double game_framework::persona::getFacingX()

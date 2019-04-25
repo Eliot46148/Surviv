@@ -163,94 +163,103 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-    SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
-    bool isshow;
-    int randmov ;
+	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
+	bool isshow;
+	int randmov;
 
-    for (int i = 1; i < 5; i++)
-        player1.setMovingMode(i, 1);
+	for (int i = 1; i < 5; i++)
+		player1.setMovingMode(i, 1);
 
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-    {
-        if (enemy.at(i).moveDelay != 0)
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+	{
+		if (enemy.at(i).moveDelay != 0)
 		{
 			enemy.at(i).setMovingMode(randmov, 1);
-            enemy.at(i).moveDelay--;
+			enemy.at(i).moveDelay--;
 		}
-        else
-        {
-            enemy.at(i).moveDelay = 30;
-            randmov = rand() % 5 ;
-            enemy.at(i).setMovingMode(randmov, 1);
-        }
-    }
+		else
+		{
+			enemy.at(i).moveDelay = 30;
+			randmov = rand() % 5;
+			enemy.at(i).setMovingMode(randmov, 1);
+		}
+	}
 
-    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-    {
-        isshow = 1;
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+	{
+		isshow = 1;
 
-        for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
-            {
-                isshow = 0;
-                enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-                shotbullets.erase(shotbullets.begin() + i);
+		for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+			if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
+			{
+				isshow = 0;
+				enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+				shotbullets.erase(shotbullets.begin() + i);
 
-                if (enemy.at(j).ShowHP() <= 0)
-                {
-                    texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-                    enemy.erase(enemy.begin() + j);
-                }
-            }
+				if (enemy.at(j).ShowHP() <= 0)
+				{
+					texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
+					enemy.erase(enemy.begin() + j);
+				}
+			}
 
-        if (isshow)
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-            {
-                if (static_cast<int>(shotbullets.size()) == 0)
-                    break;
+		if (isshow)
+			for (int j = 0; j < static_cast<int>(box.size()); j++)
+			{
+				if (static_cast<int>(shotbullets.size()) == 0)
+					break;
 
-                if (shotbullets.at(i).HitObstacle(&box.at(j)))
-                {
-                    box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-                    shotbullets.erase(shotbullets.begin() + i);
+				if (shotbullets.at(i).HitObstacle(&box.at(j)))
+				{
+					box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+					shotbullets.erase(shotbullets.begin() + i);
 
-                    if (box.at(j).ShowHP() <= 0)
-                    {
-                        texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-                        box.erase(box.begin() + j);
-                    }
-                }
-            }
-    }
+					if (box.at(j).ShowHP() <= 0)
+					{
+						texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+						box.erase(box.begin() + j);
+					}
+				}
+			}
+	}
 
-    for (int i = 0; i < static_cast<int>(box.size()); i++)
-        for (int j = 1; j < 5; j++)
-            if (player1.HitObstacle(&box.at(i), j))
-            {
-                player1.setMovingMode(j, 0);
-                map.setMovingMode(j, 0);
-                ChangeMovingMode(j, 0);
-            }
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		for (int j = 1; j < 5; j++)
+			if (player1.HitObstacle(&box.at(i), j))
+			{
+				player1.setMovingMode(j, 0);
+				map.setMovingMode(j, 0);
+				ChangeMovingMode(j, 0);
+			}
 
-    map.OnMove();
+	map.OnMove();
+	player1.OnMove();
 
-    for(int i = 0 ; i < static_cast<int>(box.size()); i++)
-        box.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		box.at(i).OnMove();
 
-    for(int i = 0 ; i < static_cast<int>(item.size()); i++)
-        item.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(item.size()); i++)
+		item.at(i).OnMove();
 
-    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+		bullet.at(i).OnMove();
 
-    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        shotbullets.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+		shotbullets.at(i).OnMove();
 
-    for (int i = 0; i < static_cast<int>(texture.size()); i++)
-        texture.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		texture.at(i).OnMove();
 
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-        enemy.at(i).OnMove();
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+		enemy.at(i).OnMove();
+
+	if (player1.isActing()){
+		if (!player1.isReloading() && player1.getBullet() > 0 && player1.getLastHasitemID() == 2 && !player1.Recoil())
+		{
+			player1.setBullet(-1);
+			shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+		}
+	}
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -404,18 +413,23 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
     if (player1.getHasitemNum() != 0)
     {
-        if (!player1.isReloading() && player1.getBullet() > 0 && player1.getLastHasitemID() == 1)
-        {
-            player1.SetReloading(true);
-            player1.setBullet(-1);
-            shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+        if (!player1.isReloading() && player1.getBullet() > 0 )
+        {	
+			if (player1.getLastHasitemID() == 1) {
+				player1.SetReloading(true);
+				player1.setBullet(-1);
+				shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+			}
         }
+		
     }
+	player1.setActing(true);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
     player1.SetReloading(false);
+	player1.setActing(false);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
