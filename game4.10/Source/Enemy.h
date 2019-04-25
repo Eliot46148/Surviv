@@ -12,13 +12,13 @@ namespace game_framework {
 		void LoadBitMap();
 		void OnShow();
 		void GetDamage(int);
+		int moveDelay;
 	private:
 		CMovingBitmap bmp[8];
 		bool is_Gettting = false;
 		bool is_Reloading = false;
 		vector<items> hasitem;
 		int bullet;
-		int facingX, facingY;
 		int direction;
 		int skin;
 	};

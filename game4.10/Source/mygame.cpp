@@ -121,15 +121,14 @@ CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
     box.push_back(Box(100, 100));								// 加入箱子
-    box.push_back(Box(200, 200));								// 加入箱子
+    // box.push_back(Box(200, 200));								// 加入箱子
     item.push_back(items(450, 400, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 450, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
     item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
     enemy.push_back(Enemy(520, 240, 1));
-    enemy.push_back(Enemy(490, 150, 2));
-	enemy.push_back(Enemy(400, 150, 3));
-
+    //enemy.push_back(Enemy(490, 150, 2));
+    //enemy.push_back(Enemy(400, 150, 3));
 
     for (int i = 0; i < 30; i++)
         bullet.push_back(Bullet(rand() % (1800 + 1), rand() % (1800 + 1)));
@@ -166,16 +165,32 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     bool isshow;
+    int randmov ;
 
     for (int i = 1; i < 5; i++)
         player1.setMovingMode(i, 1);
+
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+    {
+        if (enemy.at(i).moveDelay != 0)
+		{
+			enemy.at(i).setMovingMode(randmov, 1);
+            enemy.at(i).moveDelay--;
+		}
+        else
+        {
+            enemy.at(i).moveDelay = 30;
+            randmov = rand() % 5 ;
+            enemy.at(i).setMovingMode(randmov, 1);
+        }
+    }
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
     {
         isshow = 1;
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if (static_cast<int>(shotbullets.size()) != 0 && shotbullets.at(i).HitPlayer(&enemy.at(j)))
+            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
             {
                 isshow = 0;
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
@@ -209,35 +224,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     }
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
-    {
-        if (player1.HitObstacle(&box.at(i), 1))
-        {
-            player1.setMovingMode(1, 0);
-            map.setMovingMode(1, 0);
-            ChangeMovingMode(1, 0);
-        }
-
-        if (player1.HitObstacle(&box.at(i), 2))
-        {
-            player1.setMovingMode(2, 0);
-            map.setMovingMode(2, 0);
-            ChangeMovingMode(2, 0);
-        }
-
-        if (player1.HitObstacle(&box.at(i), 3))
-        {
-            player1.setMovingMode(3, 0);
-            map.setMovingMode(3, 0);
-            ChangeMovingMode(3, 0);
-        }
-
-        if (player1.HitObstacle(&box.at(i), 4))
-        {
-            player1.setMovingMode(4, 0);
-            map.setMovingMode(4, 0);
-            ChangeMovingMode(4, 0);
-        }
-    }
+        for (int j = 1; j < 5; j++)
+            if (player1.HitObstacle(&box.at(i), j))
+            {
+                player1.setMovingMode(j, 0);
+                map.setMovingMode(j, 0);
+                ChangeMovingMode(j, 0);
+            }
 
     map.OnMove();
 

@@ -14,11 +14,10 @@ game_framework::Enemy::Enemy()
     bullet = 0;
     Height = 114;
     Width = 114;
-    facingX = 0;
-    facingY = 0;
     showMagnification = (float)0.12;
     direction = 0;
     skin = 1;
+	moveDelay = 0;
 }
 game_framework::Enemy::Enemy(int nx, int ny, int skinid)
 {
@@ -28,11 +27,9 @@ game_framework::Enemy::Enemy(int nx, int ny, int skinid)
     Height = 114;
     Width = 114;
     skin = skinid;
-    facingX = 0;
-    facingY = 0;
     direction = 0;
-	showMagnification = (float)0.5;
-
+    showMagnification = (float)0.5;
+	moveDelay = 0;
 }
 
 
