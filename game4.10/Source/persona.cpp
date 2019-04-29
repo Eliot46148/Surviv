@@ -6,9 +6,11 @@
 #include "gamelib.h"
 #include "BasicObject.h"
 #include "items.h"
+#include <vector>
 #include "persona.h"
 
 class items;
+class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
@@ -22,11 +24,13 @@ game_framework::persona::persona(): BasicObject()
     showMagnification = (float)0.5;
     direction = 0;
 	recoil_timer = 0;
+	holdingItem = 2;
 }
 
 void game_framework::persona::CatchItem(items take)
 {
     hasitem.push_back(take);
+	holdingItem = hasitem.size() - 1;
 }
 
 bool game_framework::persona::HitObstacle(Box* box, int _where)
@@ -103,7 +107,7 @@ int game_framework::persona::ShowHP()
 
 bool game_framework::persona::Recoil()
 {	
-	if (recoil_timer >= 10) {
+	if (recoil_timer >= 5) {
 		recoil_timer = 0;
 		return false;
 	}
@@ -156,6 +160,8 @@ bool game_framework::persona::isCan_UP()
 {
     return isMovingUp;
 }
+
+
 
 void game_framework::persona::setCan_move(bool flag)
 {
@@ -221,6 +227,11 @@ void game_framework::persona::setActing(bool flag)
 	is_acting = flag;
 }
 
+void game_framework::persona::setHoldingItem(int num)
+{
+	holdingItem = num;
+}
+
 double game_framework::persona::getFacingX()
 {
     return facingX;
@@ -236,15 +247,15 @@ int game_framework::persona::getHasitemNum()
     return (int)hasitem.size();
 }
 
-int game_framework::persona::getLastHasitemID()
+int game_framework::persona::getHoldingItemID()
 {
-    return hasitem.back().getID();
+	if (holdingItem == 2)
+		return 0;
+	else
+		return hasitem.at(holdingItem).getID();
 }
 
 int game_framework::persona::getBullet()
 {
     return bullet;
 }
-
-
-

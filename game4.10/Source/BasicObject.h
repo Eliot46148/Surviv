@@ -9,6 +9,7 @@ class BasicObject
 
         void OnShow();
         void setMovingMode(int, bool);
+		void SetCamera(int, int);
 
         virtual void SetXY(int nx, int ny);			//設定XY座標
 
@@ -29,7 +30,8 @@ class BasicObject
         int speed;									//速度
         int HP;										//生命
         int Height, Width;							//寬與高
-        int x, y, dx, dy;								//x,y座標
+        int x, y, dx, dy;							//x,y座標
+		int camera_x, camera_y;						//camera的x和y座標
         float showMagnification;					//顯示比例
         bool can_breakable;							//可以破壞
         bool is_alive;								//存活

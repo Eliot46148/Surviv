@@ -10,6 +10,7 @@
 #include <math.h>
 #include "Texture.h"
 #include "Enemy.h"
+#include "Camera.h"
 
 namespace game_framework {
 
@@ -63,6 +64,7 @@ class CGameStateRun : public CGameState
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
         CMovingBitmap	corner;							// 角落圖
+		Camera camera;
         Map map;
         vector<Box> box;
 		vector<items> item;

@@ -11,6 +11,7 @@ namespace game_framework {
 		Enemy(int, int, int);
 		void LoadBitMap();
 		void OnShow();
+		void OnMove();
 		void GetDamage(int);
 		int moveDelay;
 	private:

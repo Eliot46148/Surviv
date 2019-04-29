@@ -4,6 +4,7 @@
 #include "Box.h"
 
 
+
 namespace game_framework {
 class persona : public BasicObject
 {
@@ -25,11 +26,12 @@ class persona : public BasicObject
 		void setFacingPosition(double,double);
 		void setDirection();
 		void setActing(bool);
+		void setHoldingItem(int);
 
 		double getFacingX();
 		double getFacingY();
 		int getHasitemNum();
-		int getLastHasitemID();
+		int getHoldingItemID();
 		int getBullet();
 
         bool isGetting();
@@ -46,10 +48,10 @@ class persona : public BasicObject
 		bool is_Reloading = false;
 		bool is_acting = false;
         vector<items> hasitem;
+		int holdingItem;							// 現在手持的武器
         int bullet;
 		double facingX,facingY;
 		int direction;
 		int recoil_timer;
-
 };
 }

@@ -261,6 +261,7 @@
     <ClCompile Include="Source\BasicObject.cpp" />
     <ClCompile Include="Source\Box.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="Source\BasicObject.h" />
     <ClInclude Include="Source\Box.h" />
     <ClInclude Include="Source\Bullet.h" />
+    <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CBall.h" />
     <ClInclude Include="Source\CBouncingBall.h" />
     <ClInclude Include="Source\CEraser.h" />

@@ -23,6 +23,7 @@ BasicObject::BasicObject()
     can_move = true;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
     showMagnification = 1;
+	camera_x = camera_y = 0;
 }
 void BasicObject::OnMove()
 {
@@ -45,7 +46,7 @@ void BasicObject::OnShow()
 {
     if (is_alive)
     {
-        bmp.SetTopLeft(x, y);
+        bmp.SetTopLeft(x+camera_x, y+camera_y);
         bmp.ShowBitmap(showMagnification);
     }
 }
@@ -72,6 +73,11 @@ void BasicObject::setMovingMode(int path, bool flag)
         default:
             break;
     }
+}
+void BasicObject::SetCamera(int x, int y)
+{
+	camera_x = x;
+	camera_y = y;
 }
 void BasicObject::SetXY(int nx, int ny)
 {

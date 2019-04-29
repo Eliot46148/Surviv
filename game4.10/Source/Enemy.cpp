@@ -64,6 +64,24 @@ void game_framework::Enemy::OnShow()
     }
 }
 
+void game_framework::Enemy::OnMove()
+{
+	if (!(can_move && is_alive))
+		return;
+
+	if (isMovingLeft)
+		x -= speed;
+
+	if (isMovingRight)
+		x += speed;
+
+	if (isMovingUp)
+		y -= speed;
+
+	if (isMovingDown)
+		y += speed;
+}
+
 void game_framework::Enemy::GetDamage(int damage)
 {
     HP -= damage;
