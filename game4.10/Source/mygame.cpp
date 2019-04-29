@@ -165,23 +165,45 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
 	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 	bool isshow;
-	int randmov;
 
 	for (int i = 1; i < 5; i++)
 		player1.setMovingMode(i, 1);
 
 	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
 	{
-		if (enemy.at(i).moveDelay != 0)
+		if (enemy.at(i).moveDelay >= 60)
+			enemy.at(i).moveDelay = 0;
+		if (enemy.at(i).moveDelay <15)
 		{
-			enemy.at(i).setMovingMode(randmov, 1);
-			enemy.at(i).moveDelay--;
+			enemy.at(i).setMovingMode(1, 1);
+			enemy.at(i).setMovingMode(2, 0);
+			enemy.at(i).setMovingMode(3, 0);
+			enemy.at(i).setMovingMode(4, 0);
+			enemy.at(i).moveDelay++;
 		}
-		else
+		else if (enemy.at(i).moveDelay < 30)
 		{
-			enemy.at(i).moveDelay = 30;
-			randmov = rand() % 5;
-			enemy.at(i).setMovingMode(randmov, 1);
+			enemy.at(i).setMovingMode(1, 0);
+			enemy.at(i).setMovingMode(2, 0);
+			enemy.at(i).setMovingMode(3, 1);
+			enemy.at(i).setMovingMode(4, 0);
+			enemy.at(i).moveDelay++;
+		}
+		else if (enemy.at(i).moveDelay < 45)
+		{
+			enemy.at(i).setMovingMode(1, 0);
+			enemy.at(i).setMovingMode(2, 1);
+			enemy.at(i).setMovingMode(3, 0);
+			enemy.at(i).setMovingMode(4, 0);
+			enemy.at(i).moveDelay++;
+		}
+		else if (enemy.at(i).moveDelay < 60)
+		{
+			enemy.at(i).setMovingMode(1, 0);
+			enemy.at(i).setMovingMode(2, 0);
+			enemy.at(i).setMovingMode(3, 0);
+			enemy.at(i).setMovingMode(4, 1);
+			enemy.at(i).moveDelay++;
 		}
 	}
 

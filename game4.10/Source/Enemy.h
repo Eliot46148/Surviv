@@ -14,6 +14,7 @@ namespace game_framework {
 		void OnMove();
 		void GetDamage(int);
 		int moveDelay;
+		void OnMove();
 	private:
 		CMovingBitmap bmp[8];
 		bool is_Gettting = false;
