@@ -12,6 +12,7 @@ game_framework::Camera::Camera()
 {
 	speed = DEFAULT_OBJECTIVE_SPEED;
 	isMovingUp = isMovingLeft = isMovingRight = isMovingDown = false;
+	x = y = 0;
 }
 
 void game_framework::Camera::OnMove()

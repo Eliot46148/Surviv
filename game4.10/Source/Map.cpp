@@ -29,7 +29,7 @@ void game_framework::Map::OnShow()
 {
 	for (int i = 0; i < 5; i++)
 		for (int j = 0; j < 5; j++) {
-			bmp.SetTopLeft(x + Width * i, y + Height * j);
+			bmp.SetTopLeft(x + Width * i + camera_x, y + Height * j+camera_y);
 			bmp.ShowBitmap();
 		}
 }

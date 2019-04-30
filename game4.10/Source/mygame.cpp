@@ -254,26 +254,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 				ChangeMovingMode(j, 0);
 			}
 
-	map.OnMove();
+	
 	player1.OnMove();
+	camera.OnMove();
 
-	for (int i = 0; i < static_cast<int>(box.size()); i++)
-		box.at(i).OnMove();
-
-	for (int i = 0; i < static_cast<int>(item.size()); i++)
-		item.at(i).OnMove();
-
-	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-		bullet.at(i).OnMove();
-
-	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-		shotbullets.at(i).OnMove();
-
-	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		texture.at(i).OnMove();
-
-	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-		enemy.at(i).OnMove();
 
 	if (player1.isActing()){
 		if (!player1.isReloading() && player1.getBullet() > 0 && player1.getHoldingItemID() == 2 && !player1.Recoil())
@@ -307,6 +291,29 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         enemy[i].LoadBitMap();
 
     player1.LoadBitMap();
+
+
+	/////////// camera接收地圖物件位置 /////////////
+	camera.AddObjects(&map);
+
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		camera.AddObjects(&box.at(i));
+
+	for (int i = 0; i < static_cast<int>(item.size()); i++)
+		camera.AddObjects(&item.at(i));
+
+	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+		camera.AddObjects(&bullet.at(i));
+
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+		camera.AddObjects(&shotbullets.at(i));
+
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		camera.AddObjects(&texture.at(i));
+
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+		camera.AddObjects(&enemy.at(i));
+	////////////////////////////////////////////////////
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -324,38 +331,24 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_LEFT && player1.isCan_Left())
     {
-        map.setMovingMode(4, 1);
-        ChangeMovingMode(4, 1);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(4, 1);
+		camera.setMovingMode(4, 1);
     }
 
     if (nChar == KEY_RIGHT && player1.isCan_Right())
     {
-        map.setMovingMode(3, 1);
-        ChangeMovingMode(3, 1);
 
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(3, 1);
+		camera.setMovingMode(3, 1);
+
     }
 
     if (nChar == KEY_UP && player1.isCan_UP())
     {
-        map.setMovingMode(2, 1);
-        ChangeMovingMode(2, 1);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(2, 1);
+		camera.setMovingMode(2, 1);
     }
 
     if (nChar == KEY_DOWN && player1.isCan_Down())
     {
-        map.setMovingMode(1, 1);
-        ChangeMovingMode(1, 1);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(1, 1);
+		camera.setMovingMode(1, 1);
     }
 
     if (nChar == KEY_GET)
@@ -388,38 +381,22 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_LEFT)
     {
-        map.setMovingMode(4, 0);
-        ChangeMovingMode(4, 0);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(4, 0);
+		camera.setMovingMode(4, 0);
     }
 
     if (nChar == KEY_RIGHT)
     {
-        map.setMovingMode(3, 0);
-        ChangeMovingMode(3, 0);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(3, 0);
+		camera.setMovingMode(3, 0);
     }
 
     if (nChar == KEY_UP)
     {
-        map.setMovingMode(2, 0);
-        ChangeMovingMode(2, 0);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(2, 0);
+		camera.setMovingMode(2, 0);
     }
 
     if (nChar == KEY_DOWN)
     {
-        map.setMovingMode(1, 0);
-        ChangeMovingMode(1, 0);
-
-        for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-            shotbullets[i].setMovingMode(1, 0);
+		camera.setMovingMode(1, 0);
     }
 
     if (nChar == KEY_GET)

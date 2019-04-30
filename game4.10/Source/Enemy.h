@@ -11,10 +11,8 @@ namespace game_framework {
 		Enemy(int, int, int);
 		void LoadBitMap();
 		void OnShow();
-		void OnMove();
 		void GetDamage(int);
 		int moveDelay;
-		void OnMove();
 	private:
 		CMovingBitmap bmp[8];
 		bool is_Gettting = false;
