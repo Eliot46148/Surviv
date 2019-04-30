@@ -59,30 +59,13 @@ void game_framework::Enemy::OnShow()
 {
     if (is_alive)
     {
-        bmp[direction].SetTopLeft(x + dx, y + dy);
+        bmp[direction].SetTopLeft(x + dx + camera_x, y + dy + camera_y);
         bmp[direction].ShowBitmap(showMagnification);
     }
 }
 
+
 void game_framework::Enemy::GetDamage(int damage)
 {
     HP -= damage;
-}
-
-void game_framework::Enemy::OnMove()
-{
-	if (!(can_move && is_alive))
-		return;
-
-	if (isMovingLeft)
-		x -= speed;
-
-	if (isMovingRight)
-		x += speed;
-
-	if (isMovingUp)
-		y -= speed;
-
-	if (isMovingDown)
-		y += speed;
 }
