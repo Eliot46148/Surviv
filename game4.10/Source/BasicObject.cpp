@@ -90,11 +90,11 @@ void BasicObject::SetAlive(bool flag)
 }
 int BasicObject::GetX()
 {
-    return x + camera_x;
+    return x;
 }
 int BasicObject::GetY()
 {
-    return y + camera_y;
+    return y;
 }
 int BasicObject::GetHeight()
 {

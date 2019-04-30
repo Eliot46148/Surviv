@@ -84,7 +84,7 @@ void game_framework::persona::OnShow()
 {
     if (is_alive)
     {
-        bmp[direction].SetTopLeft(SIZE_X/2, SIZE_Y / 2);
+        bmp[direction].SetTopLeft(x, y);
         bmp[direction].ShowBitmap(showMagnification);
     }
 }
