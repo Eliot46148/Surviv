@@ -332,23 +332,25 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     if (nChar == KEY_LEFT && player1.isCan_Left())
     {
 		camera.setMovingMode(4, 1);
+		player1.setMovingMode(4, 1);
     }
 
     if (nChar == KEY_RIGHT && player1.isCan_Right())
     {
-
 		camera.setMovingMode(3, 1);
-
+		player1.setMovingMode(3, 1);
     }
 
     if (nChar == KEY_UP && player1.isCan_UP())
     {
 		camera.setMovingMode(2, 1);
+		player1.setMovingMode(2, 1);
     }
 
     if (nChar == KEY_DOWN && player1.isCan_Down())
     {
 		camera.setMovingMode(1, 1);
+		player1.setMovingMode(1, 1);
     }
 
     if (nChar == KEY_GET)
@@ -382,21 +384,25 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     if (nChar == KEY_LEFT)
     {
 		camera.setMovingMode(4, 0);
+		player1.setMovingMode(4, 0);
     }
 
     if (nChar == KEY_RIGHT)
     {
 		camera.setMovingMode(3, 0);
+		player1.setMovingMode(3, 0);
     }
 
     if (nChar == KEY_UP)
     {
 		camera.setMovingMode(2, 0);
+		player1.setMovingMode(2, 0);
     }
 
     if (nChar == KEY_DOWN)
     {
 		camera.setMovingMode(1, 0);
+		player1.setMovingMode(1, 0);
     }
 
     if (nChar == KEY_GET)
