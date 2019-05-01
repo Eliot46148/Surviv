@@ -34,6 +34,12 @@ void game_framework::Camera::OnMove()
 	}
 }
 
+void game_framework::Camera::OnShow()
+{
+	for (unsigned i = 0; i < Objects.size(); i++)
+		Objects.at(i)->OnShow();
+}
+
 void game_framework::Camera::setMovingMode(int path, bool flag)
 {
 	switch (path)
@@ -62,4 +68,14 @@ void game_framework::Camera::setMovingMode(int path, bool flag)
 void game_framework::Camera::AddObjects(BasicObject *object)
 {
 	Objects.push_back(object);
+}
+
+void game_framework::Camera::LoadBitMap(int index)
+{
+	Objects.at(index)->LoadBitMap();
+}
+
+int game_framework::Camera::GetObjectsSize()
+{
+	return Objects.size();
 }

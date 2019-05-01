@@ -23,6 +23,8 @@ class BasicObject
         virtual int GetY();							//取得Y座標
         virtual int GetHeight();					//取得高度
         virtual int GetWidth();						//取得寬度
+		virtual int GetMovedX();					//取得目前所在X座標
+		virtual int GetMovedY();					//取得目前所在Y座標
 
 
     protected:
@@ -30,7 +32,7 @@ class BasicObject
         int speed;									//速度
         int HP;										//生命
         int Height, Width;							//寬與高
-        int x, y, dx, dy;							//x,y座標
+        int x, y, dx, dy;							//初始x,y座標
 		int camera_x, camera_y;						//camera的x和y座標
         float showMagnification;					//顯示比例
         bool can_breakable;							//可以破壞

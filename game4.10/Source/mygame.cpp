@@ -221,6 +221,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 				if (enemy.at(j).ShowHP() <= 0)
 				{
 					texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
+					for(unsigned int i=0;i<texture.size();i++)
+						camera.AddObjects(&texture.at(i));
 					enemy.erase(enemy.begin() + j);
 				}
 			}
@@ -239,6 +241,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 					if (box.at(j).ShowHP() <= 0)
 					{
 						texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+						for (unsigned int i = 0; i < texture.size(); i++)
+							camera.AddObjects(&texture.at(i));
 						box.erase(box.begin() + j);
 					}
 				}
@@ -257,6 +261,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 	
 	player1.OnMove();
 	camera.OnMove();
+	for (unsigned int i = 0; i < shotbullets.size(); i++) {
+		shotbullets.at(i).OnMove();
+	}
 
 
 	if (player1.isActing()){

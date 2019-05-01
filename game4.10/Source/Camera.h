@@ -9,12 +9,16 @@ namespace game_framework {
 	public:
 		Camera();
 		void OnMove();
+		void OnShow();
 		void setMovingMode(int, bool);
 		void AddObjects(BasicObject*);
+		void LoadBitMap(int);
+
+		int GetObjectsSize();
 	private:
 		int x, y;
 		int speed;
-		bool isMovingUp, isMovingLeft, isMovingRight,isMovingDown;
+		bool isMovingUp, isMovingLeft, isMovingRight, isMovingDown;
 
 		/*地圖物件位址*/
 		vector<BasicObject*> Objects;				

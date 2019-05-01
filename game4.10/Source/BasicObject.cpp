@@ -104,6 +104,14 @@ int BasicObject::GetWidth()
 {
     return (int)(Width * showMagnification);
 }
+int BasicObject::GetMovedX()
+{
+	return x + camera_x;
+}
+int BasicObject::GetMovedY()
+{
+	return y + camera_y;
+}
 bool BasicObject::isAlive()
 {
     return is_alive;
