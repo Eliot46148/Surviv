@@ -14,7 +14,7 @@ class persona : public BasicObject
 		bool HitObstacle(Box * box, int _where);
         virtual void LoadBitMap();
         virtual void OnShow();
-		virtual void OnMove();						// 目前只有Recoil計時的功能
+		virtual void OnMove();						// Recoil計時和移動
 		void returnBlood();
 		int ShowHP();
 		bool Recoil();								// 擊發間隔時間

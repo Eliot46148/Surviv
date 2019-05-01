@@ -166,8 +166,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 	bool isshow;
 
-	for (int i = 1; i < 5; i++)
-		player1.setMovingMode(i, 1);
+	//for (int i = 1; i < 5; i++)
+		//player1.setMovingMode(i, 1);
 
 	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
 	{
@@ -245,14 +245,14 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 			}
 	}
 
-	for (int i = 0; i < static_cast<int>(box.size()); i++)
+	/*for (int i = 0; i < static_cast<int>(box.size()); i++)
 		for (int j = 1; j < 5; j++)
 			if (player1.HitObstacle(&box.at(i), j))
 			{
 				player1.setMovingMode(j, 0);
 				map.setMovingMode(j, 0);
 				ChangeMovingMode(j, 0);
-			}
+			}*/
 
 	
 	player1.OnMove();
@@ -329,26 +329,28 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_Fist = 0x33;			 // keyboard  [3]
 	//const char KEY_Grenade = 0x21;	 // keyboard  [4]
 
-    if (nChar == KEY_LEFT && player1.isCan_Left())
+    if (nChar == KEY_LEFT)
     {
 		camera.setMovingMode(4, 1);
+		player1.setMovingMode(3, 1);
     }
 
-    if (nChar == KEY_RIGHT && player1.isCan_Right())
+    if (nChar == KEY_RIGHT)
     {
-
 		camera.setMovingMode(3, 1);
-
+		player1.setMovingMode(4, 1);
     }
 
-    if (nChar == KEY_UP && player1.isCan_UP())
+    if (nChar == KEY_UP)
     {
 		camera.setMovingMode(2, 1);
+		player1.setMovingMode(1, 1);
     }
 
-    if (nChar == KEY_DOWN && player1.isCan_Down())
+    if (nChar == KEY_DOWN)
     {
 		camera.setMovingMode(1, 1);
+		player1.setMovingMode(2, 1);
     }
 
     if (nChar == KEY_GET)
@@ -382,21 +384,25 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     if (nChar == KEY_LEFT)
     {
 		camera.setMovingMode(4, 0);
+		player1.setMovingMode(3, 0);
     }
 
     if (nChar == KEY_RIGHT)
     {
 		camera.setMovingMode(3, 0);
+		player1.setMovingMode(4, 0);
     }
 
     if (nChar == KEY_UP)
     {
 		camera.setMovingMode(2, 0);
+		player1.setMovingMode(1, 0);
     }
 
     if (nChar == KEY_DOWN)
     {
 		camera.setMovingMode(1, 0);
+		player1.setMovingMode(2, 0);
     }
 
     if (nChar == KEY_GET)
