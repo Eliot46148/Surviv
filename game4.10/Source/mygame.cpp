@@ -127,8 +127,8 @@ CGameStateRun::CGameStateRun(CGame* g)
     item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
     item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
     enemy.push_back(Enemy(520, 240, 1));
-    //enemy.push_back(Enemy(490, 150, 2));
-    //enemy.push_back(Enemy(400, 150, 3));
+    enemy.push_back(Enemy(490, 150, 2));
+    enemy.push_back(Enemy(400, 150, 3));
 
     for (int i = 0; i < 60; i++)
         bullet.push_back(Bullet(rand() % (2780 + 1), rand() % (2780 + 1)));
