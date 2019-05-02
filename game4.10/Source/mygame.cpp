@@ -163,108 +163,7 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-    SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
-    bool isshow;
-
-    //for (int i = 1; i < 5; i++)
-    //player1.setMovingMode(i, 1);
-
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-    {
-        if (enemy.at(i).moveDelay >= 60)
-            enemy.at(i).moveDelay = 0;
-
-        if (enemy.at(i).moveDelay < 15)
-        {
-            enemy.at(i).setMovingMode(1, 1);
-            enemy.at(i).setMovingMode(2, 0);
-            enemy.at(i).setMovingMode(3, 0);
-            enemy.at(i).setMovingMode(4, 0);
-            enemy.at(i).moveDelay++;
-        }
-        else if (enemy.at(i).moveDelay < 30)
-        {
-            enemy.at(i).setMovingMode(1, 0);
-            enemy.at(i).setMovingMode(2, 0);
-            enemy.at(i).setMovingMode(3, 1);
-            enemy.at(i).setMovingMode(4, 0);
-            enemy.at(i).moveDelay++;
-        }
-        else if (enemy.at(i).moveDelay < 45)
-        {
-            enemy.at(i).setMovingMode(1, 0);
-            enemy.at(i).setMovingMode(2, 1);
-            enemy.at(i).setMovingMode(3, 0);
-            enemy.at(i).setMovingMode(4, 0);
-            enemy.at(i).moveDelay++;
-        }
-        else if (enemy.at(i).moveDelay < 60)
-        {
-            enemy.at(i).setMovingMode(1, 0);
-            enemy.at(i).setMovingMode(2, 0);
-            enemy.at(i).setMovingMode(3, 0);
-            enemy.at(i).setMovingMode(4, 1);
-            enemy.at(i).moveDelay++;
-        }
-    }
-
-    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-    {
-        isshow = 1;
-
-        for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
-            {
-                isshow = 0;
-                enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-                shotbullets.erase(shotbullets.begin() + i);
-
-                if (enemy.at(j).ShowHP() <= 0)
-                {
-                    texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-                    enemy.erase(enemy.begin() + j);
-                }
-            }
-
-        if (isshow)
-            for (int j = 0; j < static_cast<int>(box.size()); j++)
-            {
-                if (static_cast<int>(shotbullets.size()) == 0)
-                    break;
-
-                if (shotbullets.at(i).HitObstacle(&box.at(j)))
-                {
-                    box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-                    shotbullets.erase(shotbullets.begin() + i);
-
-                    if (box.at(j).ShowHP() <= 0)
-                    {
-                        texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-                        box.erase(box.begin() + j);
-                    }
-                }
-            }
-    }
-
-    /*for (int i = 0; i < static_cast<int>(box.size()); i++)
-    	for (int j = 1; j < 5; j++)
-    		if (player1.HitObstacle(&box.at(i), j))
-    		{
-    			player1.setMovingMode(j, 0);
-    			map.setMovingMode(j, 0);
-    			ChangeMovingMode(j, 0);
-    		}*/
-    player1.OnMove();
-    camera.OnMove();
-
-    if (player1.isActing())
-    {
-        if (!player1.isReloading() && player1.getBullet() > 0 && player1.getHoldingItemID() == 2 && !player1.Recoil())
-        {
-            player1.setBullet(-1);
-            shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
-        }
-    }
+   
 	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 	bool isshow;
 
@@ -363,6 +262,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 	
 	player1.OnMove();
 	camera.OnMove();
+
 	for (unsigned int i = 0; i < shotbullets.size(); i++) {
 		shotbullets.at(i).OnMove();
 	}
