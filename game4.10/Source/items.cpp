@@ -30,6 +30,10 @@ void game_framework::items::LoadBitMap()
 		break;
 	case 2:
 		bmp.LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));		// ¾÷ºj
+		break;
+	case 3:
+		bmp.LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));
+		break;
 	default:
 		break;
 	}

@@ -312,9 +312,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
 		camera.AddObjects(&bullet.at(i));
 
-	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-		camera.AddObjects(&shotbullets.at(i));
-
 	for (int i = 0; i < static_cast<int>(texture.size()); i++)
 		camera.AddObjects(&texture.at(i));
 

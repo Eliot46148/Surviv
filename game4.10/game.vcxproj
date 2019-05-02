@@ -361,6 +361,8 @@
     <Image Include="RES\Bullet01.bmp" />
     <Image Include="RES\concentric01.bmp" />
     <Image Include="RES\enemy1.bmp" />
+    <Image Include="RES\enemy2.bmp" />
+    <Image Include="RES\enemy3.bmp" />
     <Image Include="RES\MachineGun.bmp" />
     <Image Include="res\map2.bmp" />
     <Image Include="RES\pistol01.bmp" />
@@ -374,6 +376,7 @@
     <Image Include="RES\player7.bmp" />
     <Image Include="RES\player8.bmp" />
     <Image Include="RES\RIP.bmp" />
+    <Image Include="RES\shotgun01.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

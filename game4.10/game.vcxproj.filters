@@ -156,7 +156,9 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -320,6 +322,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\RIP.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\shotgun01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
