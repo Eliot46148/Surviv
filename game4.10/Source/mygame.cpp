@@ -122,16 +122,21 @@ CGameStateRun::CGameStateRun(CGame* g)
 {
     box.push_back(Box(100, 100));								// 加入箱子
     // box.push_back(Box(200, 200));								// 加入箱子
-    item.push_back(items(450, 400, 1, (float)0.4));				// 加入手槍
-    item.push_back(items(450, 450, 1, (float)0.4));				// 加入手槍
-    item.push_back(items(450, 500, 2, (float)0.4));				// 加入機槍
-    item.push_back(items(450, 550, 2, (float)0.4));				// 加入機槍
+    int randomx, randomy;
+
+    for (int i = 0; i < 15; i++)
+    {
+        randomx = rand() % (5 * 556);
+        randomy = rand() % (5 * 556);
+        item.push_back(items(randomx, randomy, i % 2 + 1, (float)0.4));
+    }
+
     enemy.push_back(Enemy(520, 240, 1));
-    enemy.push_back(Enemy(490, 150, 2));
+    enemy.push_back(Enemy(0, 0, 2));
     enemy.push_back(Enemy(400, 150, 3));
 
-    for (int i = 0; i < 60; i++)
-        bullet.push_back(Bullet(rand() % (2780 + 1), rand() % (2780 + 1)));
+    for (int i = 0; i < 70; i++)
+        bullet.push_back(Bullet(rand() % (5 * 556 + 1), rand() % (5 * 556 + 1)));
 }
 
 CGameStateRun::~CGameStateRun()
@@ -163,118 +168,99 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
-   
-	SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
-	bool isshow;
+    SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
+    bool isshow;
 
-	//for (int i = 1; i < 5; i++)
-		//player1.setMovingMode(i, 1);
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+    {
+        enemy.at(i).ClearBBIvector();
 
-	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-	{
-		if (enemy.at(i).moveDelay >= 60)
-			enemy.at(i).moveDelay = 0;
-		if (enemy.at(i).moveDelay <15)
-		{
-			enemy.at(i).setMovingMode(1, 1);
-			enemy.at(i).setMovingMode(2, 0);
-			enemy.at(i).setMovingMode(3, 0);
-			enemy.at(i).setMovingMode(4, 0);
-			enemy.at(i).moveDelay++;
-		}
-		else if (enemy.at(i).moveDelay < 30)
-		{
-			enemy.at(i).setMovingMode(1, 0);
-			enemy.at(i).setMovingMode(2, 0);
-			enemy.at(i).setMovingMode(3, 1);
-			enemy.at(i).setMovingMode(4, 0);
-			enemy.at(i).moveDelay++;
-		}
-		else if (enemy.at(i).moveDelay < 45)
-		{
-			enemy.at(i).setMovingMode(1, 0);
-			enemy.at(i).setMovingMode(2, 1);
-			enemy.at(i).setMovingMode(3, 0);
-			enemy.at(i).setMovingMode(4, 0);
-			enemy.at(i).moveDelay++;
-		}
-		else if (enemy.at(i).moveDelay < 60)
-		{
-			enemy.at(i).setMovingMode(1, 0);
-			enemy.at(i).setMovingMode(2, 0);
-			enemy.at(i).setMovingMode(3, 0);
-			enemy.at(i).setMovingMode(4, 1);
-			enemy.at(i).moveDelay++;
-		}
-	}
+        for (int j = 0; j < static_cast<int>(item.size()); j++)
+            if (abs(item.at(j).GetX() - enemy.at(i).GetX()) < 320 && abs(item.at(j).GetY() - enemy.at(i).GetY()) < 240)
+                enemy.at(i).SetNearItem(&item.at(j));
 
-	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-	{
-		isshow = 1;
+        enemy.at(i).chouseMode();
 
-		for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-			if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
-			{
-				isshow = 0;
-				enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-				shotbullets.erase(shotbullets.begin() + i);
+        for (int j = 0; j < static_cast<int>(item.size()); j++)
+            if ((item.at(j).GetX() >= enemy.at(i).GetX() && item.at(j).GetX() <= enemy.at(i).GetX() + enemy.at(i).GetWidth()) && (item.at(j).GetY() >= enemy.at(i).GetY() && item.at(j).GetY() <= enemy.at(i).GetY() + enemy.at(i).GetHeight()))
+            {
+                enemy.at(i).CatchItem(item.at(j));
+                item.erase(item.begin() + j);
+            }
+    }
 
-				if (enemy.at(j).ShowHP() <= 0)
-				{
-					texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-					for(unsigned int i=0;i<texture.size();i++)
-						camera.AddObjects(&texture.at(i));
-					enemy.erase(enemy.begin() + j);
-				}
-			}
+    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+    {
+        isshow = 1;
 
-		if (isshow)
-			for (int j = 0; j < static_cast<int>(box.size()); j++)
-			{
-				if (static_cast<int>(shotbullets.size()) == 0)
-					break;
+        for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
+            {
+                isshow = 0;
+                enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+                shotbullets.erase(shotbullets.begin() + i);
 
-				if (shotbullets.at(i).HitObstacle(&box.at(j)))
-				{
-					box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-					shotbullets.erase(shotbullets.begin() + i);
+                if (enemy.at(j).ShowHP() <= 0)
+                {
+                    texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
 
-					if (box.at(j).ShowHP() <= 0)
-					{
-						texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-						for (unsigned int i = 0; i < texture.size(); i++)
-							camera.AddObjects(&texture.at(i));
-						box.erase(box.begin() + j);
-					}
-				}
-			}
-	}
+                    for(unsigned int i = 0; i < texture.size(); i++)
+                        camera.AddObjects(&texture.at(i));
 
-	/*for (int i = 0; i < static_cast<int>(box.size()); i++)
-		for (int j = 1; j < 5; j++)
-			if (player1.HitObstacle(&box.at(i), j))
-			{
-				player1.setMovingMode(j, 0);
-				map.setMovingMode(j, 0);
-				ChangeMovingMode(j, 0);
-			}*/
+                    enemy.erase(enemy.begin() + j);
+                }
+            }
 
-	
-	player1.OnMove();
-	camera.OnMove();
+        if (isshow)
+            for (int j = 0; j < static_cast<int>(box.size()); j++)
+            {
+                if (static_cast<int>(shotbullets.size()) == 0)
+                    break;
 
-	for (unsigned int i = 0; i < shotbullets.size(); i++) {
-		shotbullets.at(i).OnMove();
-	}
+                if (shotbullets.at(i).HitObstacle(&box.at(j)))
+                {
+                    box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+                    shotbullets.erase(shotbullets.begin() + i);
 
+                    if (box.at(j).ShowHP() <= 0)
+                    {
+                        texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
 
-	if (player1.isActing()){
-		if (!player1.isReloading() && player1.getBullet() > 0 && player1.getHoldingItemID() == 2 && !player1.Recoil())
-		{
-			player1.setBullet(-1);
-			shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
-		}
-	}
+                        for (unsigned int i = 0; i < texture.size(); i++)
+                            camera.AddObjects(&texture.at(i));
+
+                        box.erase(box.begin() + j);
+                    }
+                }
+            }
+    }
+
+    for (int i = 0; i < static_cast<int>(box.size()); i++)
+        for (int j = 1; j < 5; j++)
+            if (player1.HitObstacle(&box.at(i), j))
+            {
+                player1.setMovingMode(j, 0);
+                map.setMovingMode(j, 0);
+                ChangeMovingMode(j, 0);
+            }
+
+    player1.OnMove();
+    camera.OnMove();
+
+    for (unsigned int i = 0; i < enemy.size(); i++)
+        enemy.at(i).OnMove();
+
+    for (unsigned int i = 0; i < shotbullets.size(); i++)
+        shotbullets.at(i).OnMove();
+
+    if (player1.isActing())
+    {
+        if (!player1.isReloading() && player1.getBullet() > 0 && player1.getHoldingItemID() == 2 && !player1.Recoil())
+        {
+            player1.setBullet(-1);
+            shotbullets.push_back(shotBullet(int(player1.getFacingX()), int(player1.getFacingY())));
+        }
+    }
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -419,7 +405,6 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
         for (int i = 0; i < static_cast<int>(item.size()); i++)
             if (player1.isGetting() && player1.getHasitemNum() < 2 && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
-                //item.at(i).SetAlive(false);
                 player1.CatchItem(item.at(i));
                 item.erase(item.begin() + i);
             }
@@ -427,7 +412,6 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
         for (int i = 0; i < static_cast<int>(bullet.size()); i++)
             if (player1.isGetting() && (bullet.at(i).GetX() >= player1.GetX() && bullet.at(i).GetX() <= player1.GetX() + player1.GetWidth()) && (bullet.at(i).GetY() >= player1.GetY() && bullet.at(i).GetY() <= player1.GetY() + player1.GetHeight()))
             {
-                //bullet.at(i).SetAlive(false);
                 bullet.erase(bullet.begin() + i);
                 player1.setBullet(30);
             }

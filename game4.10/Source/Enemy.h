@@ -20,6 +20,9 @@ namespace game_framework {
 		void SetNearBullet(Bullet *nbullet);
 		void SetNearItem(items *nitem);
 		void chouseMode();
+		void attackNearPeople();
+		void getNearItems();
+		void movetoplace();
 	private:
 		CMovingBitmap bmp[8];
 		bool is_Gettting = false;
@@ -30,6 +33,7 @@ namespace game_framework {
 		vector<items*> nearitems;
 		int bullet;
 		int direction;
+		int random, movevector;
 		int skin;
 	};
 }
