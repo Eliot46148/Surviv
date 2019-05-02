@@ -92,7 +92,7 @@ void game_framework::persona::OnShow()
 
 void game_framework::persona::OnMove()
 {
-	if (recoil_timer < 30)
+	if (recoil_timer < 100)
 		recoil_timer++;
 
 	if (!(can_move && is_alive))
@@ -123,11 +123,26 @@ int game_framework::persona::ShowHP()
 
 bool game_framework::persona::Recoil()
 {	
-	if (recoil_timer >= 5) {
+	int ID = getHoldingItemID();
+	int Recoil_time;
+	switch (ID) {
+		case 1:
+			Recoil_time = 20;
+			break;
+		case 2:
+			Recoil_time = 5;
+			break;
+		case 3:
+			Recoil_time = 30;
+			break;
+		default:
+			Recoil_time = 100;
+	}
+	if (recoil_timer > Recoil_time) {
 		recoil_timer = 0;
 		return false;
 	}
-	else 
+	else
 		return true;
 }
 

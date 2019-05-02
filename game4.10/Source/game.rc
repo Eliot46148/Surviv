@@ -156,9 +156,12 @@ IDB_RIP                 BITMAP                  "..\\RES\\RIP.bmp"
 
 IDB_MachineGun          BITMAP                  "..\\RES\\MachineGun.bmp"
 
-IDB_ENEMY2          	BITMAP                  "..\\RES\\enemy2.bmp"
+IDB_ENEMY2              BITMAP                  "..\\RES\\enemy2.bmp"
 
-IDB_ENEMY3          	BITMAP                  "..\\RES\\enemy3.bmp"
+IDB_ENEMY3              BITMAP                  "..\\RES\\enemy3.bmp"
+
+IDB_ShotGun             BITMAP                  "..\\RES\\shotgun01.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

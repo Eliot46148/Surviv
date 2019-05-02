@@ -26,10 +26,14 @@ void game_framework::items::LoadBitMap()
 	switch (itemsID)
 	{
 	case 1:
-		bmp.LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));			// ºj
+		bmp.LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));			// ¤âºj
 		break;
 	case 2:
 		bmp.LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));		// ¾÷ºj
+		break;
+	case 3:
+		bmp.LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));          // ÄÅ¼uºj
+		break;
 	default:
 		break;
 	}

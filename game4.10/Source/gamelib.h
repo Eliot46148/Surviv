@@ -78,6 +78,7 @@
 #define DEFAULT_OBJECTIVE_SPEED   10	// 預設地圖移動速度
 #define DEFAULT_CHACRATER_SPEED   10	// 預設角色移動速度
 #define DEFAULT_BULLET_SPEED	  20	// 預設子彈移動速度
+#define M_PI 3.1415926                  // PI
 
 /////////////////////////////////////////////////////////////////////////////
 // 定義CGame及CGameState所使用的三個狀態常數
