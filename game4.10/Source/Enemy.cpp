@@ -69,3 +69,29 @@ void game_framework::Enemy::GetDamage(int damage)
 {
     HP -= damage;
 }
+
+void game_framework::Enemy::SetNearBox(Box * nbox)
+{
+}
+
+void game_framework::Enemy::ClearBBIvector()
+{
+	nearBox.clear();
+	nearBuller.clear();
+	nearitems.clear();
+}
+
+void game_framework::Enemy::SetNearBullet(Bullet * nbullet)
+{
+	nearBuller.push_back(nbullet);
+}
+
+void game_framework::Enemy::SetNearItem(items * nitem)
+{
+	nearitems.push_back(nitem);
+}
+
+void game_framework::Enemy::chouseMode()
+{
+
+}
