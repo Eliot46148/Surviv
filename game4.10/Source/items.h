@@ -11,9 +11,9 @@ class items : public BasicObject
 		int getID();
     private:
         int itemsdamage;
-		int itemsID;										// 武器ID 拳頭   : 0
-															//		  手槍   : 1
-															//		  機槍   : 2
-															//		  霰彈槍 : 3
+		int itemsID;										// ID 拳頭   : 0
+															//	  手槍   : 1
+															//	  機槍   : 2
+															//	  霰彈槍 : 3
 };
 }
