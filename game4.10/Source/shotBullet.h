@@ -8,7 +8,7 @@ namespace game_framework {
 	class shotBullet : public BasicObject {
 	public:
 		shotBullet();
-		shotBullet(int,int);
+		shotBullet(int,int,int,int,int,int);
 		void OnMove();
 		void LoadBitMap();
 		bool HitPlayer(persona *player);

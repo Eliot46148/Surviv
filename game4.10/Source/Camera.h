@@ -15,6 +15,9 @@ namespace game_framework {
 		void LoadBitMap(int);
 
 		int GetObjectsSize();
+
+		int GetCameraX();
+		int GetCameraY();
 	private:
 		int x, y;
 		int speed;

@@ -14,8 +14,8 @@ class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
-    x = 320;
-    y = 240;
+    x = SIZE_X / 2;
+    y = SIZE_Y / 2;
     bullet = 0;
     Height = 128;
     Width = 128;
@@ -23,15 +23,15 @@ game_framework::persona::persona(): BasicObject()
     facingY = 0;
     showMagnification = (float)0.5;
     direction = 0;
-	recoil_timer = 0;
-	holdingItem = 2;
-	speed = DEFAULT_OBJECTIVE_SPEED;
+    recoil_timer = 0;
+    holdingItem = 2;
+    speed = DEFAULT_CHACRATER_SPEED;
 }
 
 void game_framework::persona::CatchItem(items take)
 {
     hasitem.push_back(take);
-	holdingItem = hasitem.size() - 1;
+    holdingItem = hasitem.size() - 1;
 }
 
 bool game_framework::persona::HitObstacle(Box* box, int _where)
@@ -41,7 +41,7 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
     int Px1 = x, Py1 = y;
     int Px2 = Px1 + (int)(Width * showMagnification), Py2 = Py1 + (int)(Height * showMagnification);
 
-	switch (_where)
+    switch (_where)
     {
         case 1:
             Oy2 -= 10;
@@ -49,7 +49,7 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
             break;
 
         case 2:
-		    Oy2 += 10;
+            Oy2 += 10;
             Oy1 += 10;
             break;
 
@@ -63,7 +63,7 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
             Ox1 += 10;
             break;
     }
-	
+
     //return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
     bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
     return tem;
@@ -85,30 +85,30 @@ void game_framework::persona::OnShow()
 {
     if (is_alive)
     {
-        bmp[direction].SetTopLeft(SIZE_X/2, SIZE_Y/2);
+        bmp[direction].SetTopLeft(x + camera_x, y + camera_y);
         bmp[direction].ShowBitmap(showMagnification);
     }
 }
 
 void game_framework::persona::OnMove()
 {
-	if (recoil_timer < 100)
-		recoil_timer++;
+    if (recoil_timer < 100)
+        recoil_timer++;
 
-	if (!(can_move && is_alive))
-		return;
+    if (!(can_move && is_alive))
+        return;
 
-	if (isMovingLeft)
-		x -= speed;
+    if (isMovingLeft)
+        x -= speed;
 
-	if (isMovingRight)
-		x += speed;
+    if (isMovingRight)
+        x += speed;
 
-	if (isMovingUp)
-		y -= speed;
+    if (isMovingUp)
+        y -= speed;
 
-	if (isMovingDown)
-		y += speed;
+    if (isMovingDown)
+        y += speed;
 }
 
 void game_framework::persona::returnBlood()
@@ -122,28 +122,33 @@ int game_framework::persona::ShowHP()
 }
 
 bool game_framework::persona::Recoil()
-{	
-	int ID = getHoldingItemID();
-	int Recoil_time;
-	switch (ID) {
-		case 1:
-			Recoil_time = 20;
-			break;
-		case 2:
-			Recoil_time = 5;
-			break;
-		case 3:
-			Recoil_time = 30;
-			break;
-		default:
-			Recoil_time = 100;
-	}
-	if (recoil_timer > Recoil_time) {
-		recoil_timer = 0;
-		return false;
-	}
-	else
-		return true;
+{
+    int ID = getHoldingItemID();
+    int Recoil_time;
+
+    switch (ID) {
+        case 1:
+            Recoil_time = 20;
+            break;
+
+        case 2:
+            Recoil_time = 5;
+            break;
+
+        case 3:
+            Recoil_time = 30;
+            break;
+
+        default:
+            Recoil_time = 100;
+    }
+
+    if (recoil_timer > Recoil_time) {
+        recoil_timer = 0;
+        return false;
+    }
+    else
+        return true;
 }
 
 void game_framework::persona::SetGetting(bool flag)
@@ -169,7 +174,7 @@ bool game_framework::persona::isReloading()
 
 bool game_framework::persona::isActing()
 {
-	return is_acting;
+    return is_acting;
 }
 
 bool game_framework::persona::isCan_Right()
@@ -206,8 +211,8 @@ void game_framework::persona::setBullet(int num)
 
 void game_framework::persona::setFacingPosition(double x, double y)
 {
-    facingX = x;
-    facingY = y;
+    facingX = x ;
+    facingY = y ;
 }
 
 void game_framework::persona::setDirection()
@@ -255,12 +260,12 @@ void game_framework::persona::setDirection()
 
 void game_framework::persona::setActing(bool flag)
 {
-	is_acting = flag;
+    is_acting = flag;
 }
 
 void game_framework::persona::setHoldingItem(int num)
 {
-	holdingItem = num;
+    holdingItem = num;
 }
 
 double game_framework::persona::getFacingX()
@@ -280,10 +285,10 @@ int game_framework::persona::getHasitemNum()
 
 int game_framework::persona::getHoldingItemID()
 {
-	if (holdingItem == 2)
-		return 0;
-	else
-		return hasitem.at(holdingItem).getID();
+    if (holdingItem == 2)
+        return 0;
+    else
+        return hasitem.at(holdingItem).getID();
 }
 
 int game_framework::persona::getBullet()
