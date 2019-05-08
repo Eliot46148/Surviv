@@ -333,5 +333,8 @@
     <Image Include="RES\enemy3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\player_MachineGun1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

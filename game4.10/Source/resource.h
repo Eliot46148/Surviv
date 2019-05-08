@@ -82,6 +82,7 @@
 #define IDB_PLAYER22                    203
 #define IDB_PLAYER23                    204
 #define IDB_PLAYER24                    205
+#define IDB_PLAYER_MACHINEGUN1          206
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

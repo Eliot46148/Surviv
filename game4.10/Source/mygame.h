@@ -63,7 +63,7 @@ class CGameStateRun : public CGameState
         void OnMove();									// 移動遊戲元素
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
-        CMovingBitmap	corner;							// 角落圖
+        CMovingBitmap dot;							// 角落圖
         Camera camera;
         Map map;
         vector<Box> box;

@@ -14,8 +14,8 @@ class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
-    x = SIZE_X / 2;
-    y = SIZE_Y / 2;
+	x = SIZE_X / 2 -30;
+	y = SIZE_Y / 2 -35;
     bullet = 0;
     Height = 128;
     Width = 128;
@@ -97,6 +97,7 @@ void game_framework::persona::LoadBitMap()
 	bmp[21].LoadBitmap(IDB_PLAYER22, RGB(0, 0, 0));
 	bmp[22].LoadBitmap(IDB_PLAYER23, RGB(0, 0, 0));
 	bmp[23].LoadBitmap(IDB_PLAYER24, RGB(0, 0, 0));
+	
 }
 
 void game_framework::persona::OnShow()

@@ -192,6 +192,8 @@ IDB_ENEMY3              BITMAP                  "..\\RES\\enemy3.bmp"
 
 IDB_ShotGun             BITMAP                  "..\\RES\\shotgun01.bmp"
 
+IDB_PLAYER_MACHINEGUN1  BITMAP					"..\\RES\\player_MachineGun1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
