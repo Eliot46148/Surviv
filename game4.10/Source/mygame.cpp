@@ -138,7 +138,7 @@ CGameStateRun::CGameStateRun(CGame* g)
     item.push_back(items(500, 400, 3, (float)0.4));				// ¥[¤JÄÅ¼uºj
     enemy.push_back(Enemy(100, 100, 1 ));
 
-   /* for (int i = 0; i < 7; i++)
+    /*for (int i = 0; i < 7; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
