@@ -23,6 +23,7 @@ game_framework::persona::persona(): BasicObject()
     facingY = 0;
     showMagnification = (float)0.5;
     direction = 0;
+	HP = 100;
 	recoil_timer = 0;
 	holdingItem = 2;
 	speed = DEFAULT_OBJECTIVE_SPEED;
