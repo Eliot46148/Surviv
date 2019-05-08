@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "Box.h"
+#include "shotBullet.h"
 #include "Enemy.h"
 
 game_framework::Enemy::Enemy()
@@ -18,12 +19,16 @@ game_framework::Enemy::Enemy()
     direction = 0;
     skin = 1;
     moveDelay = 0;
-	speed = 5;
+    speed = 5;
+    HP = 50;
+    hasitem.clear();
+    ClearBBIPvector();
 }
 game_framework::Enemy::Enemy(int nx, int ny, int skinid)
 {
     x = nx;
     y = ny;
+    HP = 50;
     bullet = 0;
     Height = 114;
     Width = 114;
@@ -31,8 +36,9 @@ game_framework::Enemy::Enemy(int nx, int ny, int skinid)
     direction = 0;
     showMagnification = (float)0.5;
     moveDelay = 0;
-	speed = 5;
-
+    speed = 5;
+    hasitem.clear();
+    ClearBBIPvector();
 }
 
 
@@ -76,8 +82,9 @@ void game_framework::Enemy::SetNearBox(Box* nbox)
 {
 }
 
-void game_framework::Enemy::ClearBBIvector()
+void game_framework::Enemy::ClearBBIPvector()
 {
+    nearPerson.clear();
     nearBox.clear();
     nearBuller.clear();
     nearitems.clear();
@@ -103,29 +110,30 @@ void game_framework::Enemy::chouseMode()
 
     if (moveDelay == 0)
     {
-        random = rand() % (3) + 1;
-        movevector = rand() % 10 + 1;
+        random = rand() % (2) + 1;
+        movevector = rand() % 9 + 1;
         moveDelay = 45;
     }
 
-	switch (random)
+	if (static_cast<int>(nearPerson.size()) != 0 && static_cast<int>(hasitem.size()) != 0)
+		this->is_acting = true;
+	else
+		this->is_acting = false;
+
+    switch (random)
     {
         case 1:
             this->movetoplace();
             break;
 
         case 2:
-            if (static_cast<int>(nearBox.size()) != 0 )
-                this->attackNearPeople();
-            else
-                this->movetoplace();
-            break;
-
-        case 3:
             if (static_cast<int>(nearitems.size()) != 0 && static_cast<int>(this->hasitem.size()) < 2)
                 this->getNearItems();
+            else if (static_cast<int>(nearBuller.size()) != 0 && this->bullet < 300)
+                this->getNeatBullet();
             else
                 this->movetoplace();
+
             break;
     }
 
@@ -146,24 +154,42 @@ void game_framework::Enemy::chouseMode()
 
 void game_framework::Enemy::attackNearPeople()
 {
-	
 }
 
 void game_framework::Enemy::getNearItems()
 {
-	if (nearitems.at(0)->GetX() < this->x)
-		isMovingLeft = 1;
-	else if (nearitems.at(0)->GetX() > this->x)
-		isMovingRight = 1;
-	if (nearitems.at(0)->GetY() < this->y)
-		isMovingUp = 1;
-	else if (nearitems.at(0)->GetY() > this->y)
-		isMovingDown = 1;
+    if (nearitems.at(0)->GetX() < this->x + 10)
+        isMovingLeft = 1;
+    else if (nearitems.at(0)->GetX() > this->x + 10 )
+        isMovingRight = 1;
+
+    if (nearitems.at(0)->GetY() < this->y + 10)
+        isMovingUp = 1;
+    else if (nearitems.at(0)->GetY() > this->y + 10)
+        isMovingDown = 1;
+
+    moveDelay = 2;
+}
+
+void game_framework::Enemy::getNeatBullet()
+{
+    if (nearBuller.at(0)->GetX() < this->x + 10)
+        isMovingLeft = 1;
+    else if (nearBuller.at(0)->GetX() > this->x + 10)
+        isMovingRight = 1;
+
+    if (nearBuller.at(0)->GetY() < this->y + 10)
+        isMovingUp = 1;
+    else if (nearBuller.at(0)->GetY() > this->y + 10)
+        isMovingDown = 1;
+
+    moveDelay = 2;
 }
 
 void game_framework::Enemy::movetoplace()
 {
-	random = 1;
+    random = 1;
+
     switch (movevector)
     {
         case 1://¤W
@@ -206,3 +232,46 @@ void game_framework::Enemy::movetoplace()
             break;
     }
 }
+
+void game_framework::Enemy::Catchbullt(int bu)
+{
+    bullet += bu;
+    moveDelay = 0;
+}
+
+void game_framework::Enemy::CatchItom(items it)
+{
+    hasitem.push_back(it);
+    moveDelay = 0;
+}
+
+void game_framework::Enemy::setnearperson(persona* ps)
+{
+	nearPerson.push_back(*ps);
+}
+
+int game_framework::Enemy::hasItom()
+{
+    return hasitem.size();
+}
+
+void game_framework::Enemy::setbullt(int num)
+{
+    bullet += num;
+}
+
+int game_framework::Enemy::hasbullt()
+{
+    return bullet;
+}
+
+bool game_framework::Enemy::isActing()
+{
+	return is_acting;
+}
+
+int game_framework::Enemy::catchitomID()
+{
+	return hasitem.at(0).getID();
+}
+
