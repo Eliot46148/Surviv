@@ -43,7 +43,7 @@ class persona : public BasicObject
         bool isCan_UP();
 
     private:
-		CMovingBitmap bmp[25];
+		CMovingBitmap bmp[3][25];		// 0:®±ÀY 1:ºj
         bool is_Gettting = false;
 		bool is_Reloading = false;
 		bool is_acting = false;
