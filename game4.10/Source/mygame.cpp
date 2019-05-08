@@ -180,7 +180,6 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     bool isshow;
->>>>>>> 52511486f5611fde01be5d175c4e2e4d4335fae2
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
