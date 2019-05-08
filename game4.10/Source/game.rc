@@ -126,8 +126,6 @@ IDB_LAWN                BITMAP                  "..\\Assets\\floor.bmp"
 
 IDB_BOX                 BITMAP                  "..\\RES\\Box01.bmp"
 
-IDB_PLAYER              BITMAP                  "..\\RES\\player.bmp"
-
 IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
@@ -149,6 +147,38 @@ IDB_PLAYER6             BITMAP                  "..\\RES\\player6.bmp"
 IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
 
 IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
+
+IDB_PLAYER9             BITMAP                  "..\\RES\\player9.bmp"
+
+IDB_PLAYER10            BITMAP                  "..\\RES\\player10.bmp"
+
+IDB_PLAYER11            BITMAP                  "..\\RES\\player11.bmp"
+
+IDB_PLAYER12            BITMAP                  "..\\RES\\player12.bmp"
+
+IDB_PLAYER13            BITMAP                  "..\\RES\\player13.bmp"
+
+IDB_PLAYER14            BITMAP                  "..\\RES\\player14.bmp"
+
+IDB_PLAYER15            BITMAP                  "..\\RES\\player15.bmp"
+
+IDB_PLAYER16            BITMAP                  "..\\RES\\player16.bmp"
+
+IDB_PLAYER17            BITMAP                  "..\\RES\\player17.bmp"
+
+IDB_PLAYER18            BITMAP                  "..\\RES\\player18.bmp"
+
+IDB_PLAYER19            BITMAP                  "..\\RES\\player19.bmp"
+
+IDB_PLAYER20            BITMAP                  "..\\RES\\player20.bmp"
+
+IDB_PLAYER21            BITMAP                  "..\\RES\\player21.bmp"
+
+IDB_PLAYER22            BITMAP                  "..\\RES\\player22.bmp"
+
+IDB_PLAYER23            BITMAP                  "..\\RES\\player23.bmp"
+
+IDB_PLAYER24            BITMAP                  "..\\RES\\player24.bmp"
 
 IDB_ENEMY1              BITMAP                  "..\\RES\\enemy1.bmp"
 
