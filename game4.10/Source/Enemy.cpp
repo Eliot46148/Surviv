@@ -239,7 +239,7 @@ void game_framework::Enemy::Catchbullt(int bu)
     moveDelay = 0;
 }
 
-void game_framework::Enemy::CatchItom(items it)
+void game_framework::Enemy::CatchItem(items it)
 {
     hasitem.push_back(it);
     moveDelay = 0;
@@ -260,7 +260,7 @@ void game_framework::Enemy::setbullt(int num)
     bullet += num;
 }
 
-int game_framework::Enemy::hasbullt()
+int game_framework::Enemy::hasbullet()
 {
     return bullet;
 }
@@ -270,7 +270,7 @@ bool game_framework::Enemy::isActing()
 	return is_acting;
 }
 
-int game_framework::Enemy::catchitomID()
+int game_framework::Enemy::catchitemID()
 {
 	return hasitem.at(0).getID();
 }

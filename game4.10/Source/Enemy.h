@@ -26,13 +26,13 @@ class Enemy : public persona
         void getNeatBullet();
         void movetoplace();
         void Catchbullt(int bu);
-        void CatchItom(items it);
+        void CatchItem(items it);
 		void setnearperson(persona *ps);
         int hasItom();
         void setbullt(int num);
-        int hasbullt();
+        int hasbullet();
 		bool isActing();
-		int catchitomID();
+		int catchitemID();
     private:
         CMovingBitmap bmp[8];
         bool is_Gettting = false;

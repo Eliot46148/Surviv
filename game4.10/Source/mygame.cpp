@@ -200,12 +200,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         //下面要修
         if (enemy.at(i).isActing())
         {
-			if (enemy.at(i).hasbullt() != 0)
+			if (enemy.at(i).hasbullet() != 0)
             {
-                int ID = enemy.at(i).catchitomID();
+                int ID = enemy.at(i).catchitemID();
 				double dx = player1.GetX() - enemy.at(i).GetX(), dy = player1.GetY() - enemy.at(i).GetY();
-				double r = sqrt(pow((dx), 2) + pow((dy), 2));
-				double x = dx / r*100, y = dy / r*100;
+				double r = sqrt(dx*dx + dy*dy);
+				const int distance = 50;			// 子彈發射時距離自身的距離
+				double x = dx / r* distance, y = dy / r* distance;
 
                 switch (ID)
                 {
@@ -217,13 +218,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     case 3:
                         int degree = 15, temp = degree;
                         shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY()));
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY()));
                         temp = degree * 2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY()));
                         temp = degree * -1;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY()));
                         temp = degree * -2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY()));
                         break;
                 }
             }
@@ -232,12 +233,12 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         for (int j = 0; j < static_cast<int>(item.size()); j++)
             if ((item.at(j).GetX() >= enemy.at(i).GetX()) && (item.at(j).GetX() <= enemy.at(i).GetX() + enemy.at(i).GetWidth()) && (item.at(j).GetY() >= enemy.at(i).GetY()) && (item.at(j).GetY() <= enemy.at(i).GetY() + enemy.at(i).GetHeight()) && (enemy.at(i).hasItom() < 2))
             {
-                enemy.at(i).CatchItom(item.at(j));
+                enemy.at(i).CatchItem(item.at(j));
                 item.erase(item.begin() + j);
             }
 
         for (int j = 0; j < static_cast<int>(bullet.size()); j++)
-            if ((bullet.at(j).GetX() >= enemy.at(i).GetX() && bullet.at(j).GetX() <= enemy.at(i).GetX() + enemy.at(i).GetWidth()) && (bullet.at(j).GetY() >= enemy.at(i).GetY() && bullet.at(j).GetY() <= enemy.at(i).GetY() + enemy.at(i).GetHeight()) && enemy.at(i).hasbullt() <= 300 )
+            if ((bullet.at(j).GetX() >= enemy.at(i).GetX() && bullet.at(j).GetX() <= enemy.at(i).GetX() + enemy.at(i).GetWidth()) && (bullet.at(j).GetY() >= enemy.at(i).GetY() && bullet.at(j).GetY() <= enemy.at(i).GetY() + enemy.at(i).GetHeight()) && enemy.at(i).hasbullet() <= 300 )
             {
                 enemy.at(i).setbullt(30);
                 bullet.erase(bullet.begin() + j);

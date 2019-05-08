@@ -27,8 +27,9 @@ game_framework::shotBullet::shotBullet(int x, int y, int position_x, int positio
     this->y = position_y + y;
 	this->camera_x = camera_x;
 	this->camera_y = camera_y;
-    dx = int(2 * x);
-    dy = int(2 * y);
+	
+    dx = int(2 * x / 5);
+    dy = int(2 * y / 5);
 }
 
 void game_framework::shotBullet::OnMove()
