@@ -195,7 +195,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     {
         isshow = 1;
 
-		if (shotbullets.at(i).GetX() >= SIZE_MAP || shotbullets.at(i).GetX() <= 0 || shotbullets.at(i).GetY() >= SIZE_MAP || shotbullets.at(i).GetY() <= 0) {
+		/* 子彈碰到邊界會消失 */
+		if (shotbullets.at(i).GetX() >= SIZE_MAP+10 || shotbullets.at(i).GetX() <= 10 || shotbullets.at(i).GetY() >= SIZE_MAP+10 || shotbullets.at(i).GetY() <= 10) {
 			shotbullets.erase(shotbullets.begin() + i);
 			continue;
 		}
