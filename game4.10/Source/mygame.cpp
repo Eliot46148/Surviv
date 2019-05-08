@@ -316,7 +316,7 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
         if (!player1.isReloading() && !player1.Recoil() && player1.getBullet() > 0)
         {
             int ID = player1.getHoldingItemID();
-            double x = player1.getFacingX(), y = player1.getFacingY();
+            double x = player1.getFacingX()*5, y = player1.getFacingY()*5;
 
             switch (ID)
             {
