@@ -16,17 +16,19 @@ game_framework::shotBullet::shotBullet(): BasicObject()
     speed = DEFAULT_BULLET_SPEED;
 }
 
-game_framework::shotBullet::shotBullet(int x, int y)
+game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y)
 {
     LoadBitMap();
     Height = 20;
 	damage = 10;
     Width = 20;
     speed = DEFAULT_BULLET_SPEED;
-    this->x = camera_x + 320 + x;
-    this->y = camera_y + 240 + y;
-    dx = 2 * x;
-    dy = 2 * y;
+    this->x = position_x + x;
+    this->y = position_y + y;
+	this->camera_x = camera_x;
+	this->camera_y = camera_y;
+    dx = int(2 * x);
+    dy = int(2 * y);
 }
 
 void game_framework::shotBullet::OnMove()
@@ -55,15 +57,15 @@ void game_framework::shotBullet::LoadBitMap()
 
 bool game_framework::shotBullet::HitPlayer(persona* player)
 {
-    int px1 = player->GetMovedX(), py1 = player->GetMovedY();
-    int px2 = player->GetMovedX() + player->GetWidth(), py2 = player->GetMovedY() + player->GetHeight();
+    int px1 = player->GetX(), py1 = player->GetY();
+    int px2 = player->GetX() + player->GetWidth(), py2 = player->GetY() + player->GetHeight();
     return HitSomething(px1, py1, px2, py2);
 }
 
 bool game_framework::shotBullet::HitObstacle(Box* box)
 {
-    int bx1 = box->GetMovedX(), by1 = box->GetMovedY();
-    int bx2 = box->GetMovedX() + box->GetWidth(), by2 = box->GetMovedY() + box->GetHeight();
+    int bx1 = box->GetX(), by1 = box->GetY();
+    int bx2 = box->GetX() + box->GetWidth(), by2 = box->GetY() + box->GetHeight();
     return HitSomething(bx1, by1, bx2, by2);
 }
 

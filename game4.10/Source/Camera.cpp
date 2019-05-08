@@ -30,7 +30,10 @@ void game_framework::Camera::OnMove()
 		y += speed;
 
 	for (unsigned int i = 0; i < Objects.size(); i++) {
-		Objects.at(i)->SetCamera(x, y);
+		if (Objects.at(i) == NULL)
+			Objects.erase(Objects.begin() + i);
+		else
+			Objects.at(i)->SetCamera(x, y);
 	}
 }
 
@@ -78,4 +81,14 @@ void game_framework::Camera::LoadBitMap(int index)
 int game_framework::Camera::GetObjectsSize()
 {
 	return Objects.size();
+}
+
+int game_framework::Camera::GetCameraX()
+{
+	return x;
+}
+
+int game_framework::Camera::GetCameraY()
+{
+	return y;
 }

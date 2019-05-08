@@ -180,9 +180,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     bool isshow;
-
-    //for (int i = 1; i < 5; i++)
-    //player1.setMovingMode(i, 1);
+>>>>>>> 52511486f5611fde01be5d175c4e2e4d4335fae2
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -221,6 +219,11 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
     {
         isshow = 1;
+
+		if (shotbullets.at(i).GetX() >= SIZE_MAP || shotbullets.at(i).GetX() <= 0 || shotbullets.at(i).GetY() >= SIZE_MAP || shotbullets.at(i).GetY() <= 0) {
+			shotbullets.erase(shotbullets.begin() + i);
+			continue;
+		}
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
             if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j)))
@@ -277,30 +280,29 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////  動作處理    /////////////////////////////////////////////////////////////////////////////////////
-    if (player1.isActing())
-    {
+
+    if (player1.isActing()) {
         if (!player1.isReloading() && !player1.Recoil() && player1.getBullet() > 0)
         {
             int ID = player1.getHoldingItemID();
-            int x = (int)player1.getFacingX(), y = (int)player1.getFacingY();
+            double x = player1.getFacingX(), y = player1.getFacingY();
 
-            switch (ID)
-            {
+            switch (ID) {
                 case 1:
                 case 2:
-                    shotbullets.push_back(shotBullet((int)player1.getFacingX(), (int)player1.getFacingY()));
+					shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
                     break;
 
                 case 3:
-                    int degree = 10, temp = degree;
-                    shotbullets.push_back(shotBullet((int)player1.getFacingX(), (int)player1.getFacingY()));
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180))));
+                    int degree = 15, temp = degree;
+					shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
+                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
                     temp = degree * 2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180))));
+					shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
                     temp = degree * -1;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180))));
+					shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
                     temp = degree * -2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180))));
+					shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY()));
                     break;
             }
         }
@@ -330,8 +332,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         enemy[i].LoadBitMap();
 
     player1.LoadBitMap();
+
     /////////// camera接收地圖物件位址 ////////////////
     camera.AddObjects(&map);
+	camera.AddObjects(&player1);
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
         camera.AddObjects(&box.at(i));
@@ -367,30 +371,33 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_Fist = 0x33;			 // keyboard  [3]
     //const char KEY_Grenade = 0x21;	 // keyboard  [4]
 
-    if (nChar == KEY_LEFT)
+	//////////// 移動 //////////////////////////////////////
+    if (nChar == KEY_LEFT)           // 左
     {
         camera.setMovingMode(4, 1);
         player1.setMovingMode(3, 1);
     }
 
-    if (nChar == KEY_RIGHT)
+    if (nChar == KEY_RIGHT)          // 右
     {
         camera.setMovingMode(3, 1);
         player1.setMovingMode(4, 1);
     }
 
-    if (nChar == KEY_UP)
+    if (nChar == KEY_UP)             // 上
     {
         camera.setMovingMode(2, 1);
         player1.setMovingMode(1, 1);
     }
 
-    if (nChar == KEY_DOWN)
+    if (nChar == KEY_DOWN)           // 下
     {
         camera.setMovingMode(1, 1);
         player1.setMovingMode(2, 1);
     }
-
+	/////////////////////////////////////////////////////////
+	
+	/////////    動作         ///////////////////////////////
     if (nChar == KEY_GET)
     {
         player1.SetGetting(true);
@@ -400,6 +407,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     {
         enemy.at(0).returnBlood();
     }
+	/////////////////////////////////////////////////////////
 
     //////////     切換武器       ///////////////////////////////////////
     if (nChar == KEY_First && player1.getHasitemNum() >= 1)
@@ -410,6 +418,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_Fist)
         player1.setHoldingItem(2);
+	/////////////////////////////////////////////////////////////////////
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
