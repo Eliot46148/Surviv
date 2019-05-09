@@ -183,6 +183,7 @@ void CGameStateRun::OnBeginState()
 	else {
 		player1.Retry();
 		camera.Retry();
+		shotbullets.clear();
 	}
 }
 
