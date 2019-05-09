@@ -340,5 +340,170 @@
     <Image Include="RES\player_MachineGun1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bmp00008.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_MachineGun24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\HealthBar11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\logo.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\win.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\lose.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

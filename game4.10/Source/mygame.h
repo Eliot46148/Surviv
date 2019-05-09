@@ -21,6 +21,7 @@ enum AUDIO_ID  				// 定義各種音效的編號
     AUDIO_LAKE,				// 1
     AUDIO_NTUT				// 2
 };
+static bool isWin = false;
 
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
@@ -37,8 +38,11 @@ class CGameStateInit : public CGameState
         void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
     protected:
         void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnMove();
     private:
         CMovingBitmap logo;								// csie的logo
+		int delay = 0;
+		bool showTip = true;
 };
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
@@ -60,6 +64,7 @@ class CGameStateRun : public CGameState
         void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作
         void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
         void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void Cheat();									// 測試用 直接勝利
     protected:
         void OnMove();									// 移動遊戲元素
         void OnShow();									// 顯示這個狀態的遊戲畫面
@@ -75,6 +80,7 @@ class CGameStateRun : public CGameState
         vector<shotBullet> shotbullets;
         vector<Texture> texture;
         vector<Enemy> enemy;
+		bool firstlife;		// 是否為第一次進入此state
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -91,8 +97,12 @@ class CGameStateOver : public CGameState
     protected:
         void OnMove();									// 移動遊戲元素
         void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnLButtonDown(UINT nFlags, CPoint point);
     private:
         int counter;	// 倒數之計數器
+		CMovingBitmap logo[2];
+		int delay = 0;
+		bool showTip = true;
 };
 
 }

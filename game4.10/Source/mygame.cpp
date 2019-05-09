@@ -23,8 +23,7 @@ CGameStateInit::CGameStateInit(CGame* g)
 void CGameStateInit::OnInit()
 {
     ShowInitProgress(0);	// 一開始的loading進度為0%
-    //
-    // 載入資料的地方
+	logo.LoadBitmap(IDB_LOGO);
 }
 
 void CGameStateInit::OnBeginState()
@@ -49,24 +48,32 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 }
 
 void CGameStateInit::OnShow()
+{	
+	logo.SetTopLeft(0, 0);
+	logo.ShowBitmap();
+
+	if (showTip) {
+		CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+		CFont f, *fp;
+		f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+		fp = pDC->SelectObject(&f);					// 選用 font f
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->TextOut(200, 300, "Press LButton to Start!");
+		pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+		CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	}
+}
+
+void CGameStateInit::OnMove()
 {
-    // Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
-    //
-    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
-    CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
-    fp = pDC->SelectObject(&f);					// 選用 font f
-    pDC->SetBkColor(RGB(0, 0, 0));
-    pDC->SetTextColor(RGB(255, 255, 0));
-    pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
-    pDC->TextOut(5, 395, "Press Ctrl-F to switch in between window mode and full screen mode.");
-
-    if (ENABLE_GAME_PAUSE)
-        pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
-
-    pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
-    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	
+	if (delay >= 15) {
+		delay = 0;
+		showTip = !showTip;
+	}
+	else
+		delay++;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -80,39 +87,51 @@ CGameStateOver::CGameStateOver(CGame* g)
 
 void CGameStateOver::OnMove()
 {
-    counter--;
-
-    if (counter < 0)
-        GotoGameState(GAME_STATE_INIT);
+	if (delay >= 15) {
+		delay = 0;
+		showTip = !showTip;
+	}
+	else
+		delay++;
 }
 
 void CGameStateOver::OnBeginState()
 {
-    counter = 30 * 5; // 5 seconds
 }
 
 void CGameStateOver::OnInit()
-{
-    ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
-    //
-    // 開始載入結束後要用到的資料??
-    //
+{	
+	logo[0].LoadBitmap(IDB_WIN);
+	logo[1].LoadBitmap(IDB_LOSE);
+    ShowInitProgress(66);	
     ShowInitProgress(100);
 }
 
 void CGameStateOver::OnShow()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
-    CFont f, *fp;
-    f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
-    fp = pDC->SelectObject(&f);					// 選用 font f
-    pDC->SetBkColor(RGB(0, 0, 0));
-    pDC->SetTextColor(RGB(255, 255, 0));
-    char str[80];								// Demo 數字對字串的轉換
-    sprintf(str, "Game Over ! (%d)", counter / 30);
-    pDC->TextOut(240, 210, str);
-    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	int result;
+	if (isWin)
+		result = 0;
+	else
+		result = 1;
+	logo[result].SetTopLeft(0, 0);
+	logo[result].ShowBitmap();
+	if (showTip) {
+		CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+		CFont f, *fp;
+		f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+		fp = pDC->SelectObject(&f);					// 選用 font f
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->TextOut(180, 300, "Press LButton to Restart!");
+		pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+		CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	}
+}
+
+void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	GotoGameState(GAME_STATE_INIT);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -122,7 +141,7 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
-
+	firstlife = true;
 	unsigned seed = (unsigned)time(NULL);
 	srand(seed);
 	//box.push_back(Box(100, 100));								// 加入箱子
@@ -159,9 +178,12 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {	
-	//item.clear();
-	//enemy.clear();
-	//bullet.clear();
+	if (firstlife)
+		firstlife = false;
+	else {
+		player1.Retry();
+		camera.Retry();
+	}
 }
 
 void CGameStateRun::ChangeMovingMode(int _where, bool type)
@@ -186,14 +208,14 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 
-	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo());				// UI接收玩家資訊
+	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size());				// UI接收玩家資訊
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
 		enemy.at(i).rrdelay += enemy.at(i).rrdelay < 0 ? 0 : -1;
         enemy.at(i).ClearBBIPvector();
 
-        if (abs(player1.GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(player1.GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
+        if (abs(player1.GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(player1.GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2)
             enemy.at(i).setnearperson(&player1);
 
         for (int j = 0; j < static_cast<int>(item.size()); j++)
@@ -213,10 +235,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             {
 				enemy.at(i).rrdelay = enemy.at(i).Recoil_delay;
                 int ID = enemy.at(i).catchitemID();
-                double dx = player1.GetX() - enemy.at(i).GetX(), dy = player1.GetY() - enemy.at(i).GetY();
+                double dx = player1.GetHitpointX() - enemy.at(i).GetX(), dy = player1.GetHitpointY() - enemy.at(i).GetY();
                 double r = sqrt(dx * dx + dy * dy);
-                const int distance = 50;			// 子彈發射時距離自身的距離
-                double x = dx / r * distance, y = dy / r * distance;
+                const int distance = 100;			// 子彈發射時距離自身的距離
+                double x = (dx / r) * distance, y = (dy / r) * distance;
 
                 switch (ID)
                 {
@@ -280,8 +302,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 		{
 			player1.getDemage(shotbullets.at(i).ShowDamage());
 			shotbullets.erase(shotbullets.begin() + i);
-			if (player1.GetHP() <= 0)
+			if (player1.GetHP() <= 0) {
+				isWin = false;
 				GotoGameState(GAME_STATE_OVER);
+			}
 
 		}
 
@@ -348,33 +372,39 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         if (!player1.isReloading() && !player1.Recoil() && player1.getBullet() > 0)
         {
             int ID = player1.getHoldingItemID();
-            double x = player1.getFacingX() * 5, y = player1.getFacingY() * 5;
+            double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
+			int position_x = player1.GetHitpointX(), position_y = player1.GetHitpointY();
+			int camera_x = camera.GetCameraX(), camera_y = camera.GetCameraY();
 
             switch (ID)
             {
                 case 1:
                 case 2:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX()+80, player1.GetY()+80, camera.GetCameraX(), camera.GetCameraY(), -1));
+                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+					player1.setBullet(-1);
                     break;
 
                 case 3:
-                    int degree = 15, temp = degree;
-                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
+                    int degree = 10, temp = degree;
+                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
                     temp = degree * 2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
+                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
                     temp = degree * -1;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
+                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
                     temp = degree * -2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
-                    break;
+                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+					player1.setBullet(-5);
+					break;
             }
         }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //  if (static_cast<int>(enemy.size()) == 0)
-    //   GotoGameState(GAME_STATE_OVER);
+	if (static_cast<int>(enemy.size()) == 0) {
+		isWin = true;
+		GotoGameState(GAME_STATE_OVER);
+	}
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -382,6 +412,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     ShowInitProgress(33);
     ShowInitProgress(50);
     map.LoadBitMap();
+	player1.LoadBitMap();
+	ui.LoadBitMap();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
         box[i].LoadBitMap();
@@ -395,7 +427,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
         enemy[i].LoadBitMap();
 
-    player1.LoadBitMap();
+    
     /////////// camera接收地圖物件位址 ////////////////
     camera.AddObjects(&map);
     camera.AddObjects(&player1);
@@ -419,7 +451,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         camera.AddObjects(&enemy.at(i));
 
     ////////////////////////////////////////////////////
-	dot.LoadBitmap(IDB_BALL);
+	//dot.LoadBitmap(IDB_BALL);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -429,7 +461,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_RIGHT = 0x44;		 // keyboard  [D]
     const char KEY_DOWN  = 0x53;		 // keyboard  [S]
     const char KEY_GET = 0x46;			 // keyboard  [F]
-    const char KEY_RTBLOOD = 0x4F;		 // keyboard  [F]
+    const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
+	const char KEY_CHEAT = 0x43;		 // keyboard  [C]
     const char KEY_First = 0x31;		 // keyboard  [1]
     const char KEY_Second = 0x32;		 // keyboard  [2]
     const char KEY_Fist = 0x33;			 // keyboard  [3]
@@ -470,7 +503,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     if (nChar == KEY_RTBLOOD)
     {
-        enemy.at(0).returnBlood();
+		player1.returnBlood();
     }
 
     /////////////////////////////////////////////////////////
@@ -486,6 +519,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         player1.setHoldingItem(2);
 
     /////////////////////////////////////////////////////////////////////
+
+	if (nChar == KEY_CHEAT)          
+	{
+		Cheat();
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -567,6 +605,12 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 }
 
+void CGameStateRun::Cheat()
+{
+	isWin = true;
+	GotoGameState(GAME_STATE_OVER);
+}
+
 void CGameStateRun::OnShow()
 {
     //
@@ -598,7 +642,7 @@ void CGameStateRun::OnShow()
 	
 	ui.OnShow();
 
-	dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
-	dot.ShowBitmap();
+	//dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
+	//dot.ShowBitmap();
 }
 }

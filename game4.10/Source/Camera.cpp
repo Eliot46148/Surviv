@@ -78,6 +78,13 @@ void game_framework::Camera::LoadBitMap(int index)
 	Objects.at(index)->LoadBitMap();
 }
 
+void game_framework::Camera::Retry()
+{
+	speed = DEFAULT_OBJECTIVE_SPEED;
+	isMovingUp = isMovingLeft = isMovingRight = isMovingDown = false;
+	x = y = 0;
+}
+
 int game_framework::Camera::GetObjectsSize()
 {
 	return Objects.size();

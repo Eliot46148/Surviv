@@ -28,8 +28,8 @@ game_framework::shotBullet::shotBullet(int x, int y, int position_x, int positio
 	this->camera_x = camera_x;
 	this->camera_y = camera_y;
 	
-    dx = int(2 * x / 5);
-    dy = int(2 * y / 5);
+    dx = int(2 * x / 10);
+    dy = int(2 * y / 10);
 	shooter = hshout;
 }
 
@@ -59,8 +59,8 @@ void game_framework::shotBullet::LoadBitMap()
 
 bool game_framework::shotBullet::HitPlayer(persona* player)
 {
-    int px1 = player->GetX(), py1 = player->GetY();
-    int px2 = player->GetX() + player->GetWidth(), py2 = player->GetY() + player->GetHeight();
+    int px1 = player->GetHitpointX(), py1 = player->GetHitpointY();
+    int px2 = player->GetHitpointX() + player->GetWidth(), py2 = player->GetHitpointY() + player->GetHeight();
     return HitSomething(px1, py1, px2, py2);
 }
 
