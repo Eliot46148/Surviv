@@ -14,8 +14,8 @@ class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
-    x = SIZE_X / 2;
-    y = SIZE_Y / 2;
+	x = SIZE_X / 2 -30;
+	y = SIZE_Y / 2 -35;
     bullet = 0;
     Height = 128;
     Width = 128;
@@ -73,22 +73,71 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
 
 void game_framework::persona::LoadBitMap()
 {
-    bmp[0].LoadBitmap(IDB_PLAYER1, RGB(0, 0, 0));
-    bmp[1].LoadBitmap(IDB_PLAYER2, RGB(0, 0, 0));
-    bmp[2].LoadBitmap(IDB_PLAYER3, RGB(0, 0, 0));
-    bmp[3].LoadBitmap(IDB_PLAYER4, RGB(0, 0, 0));
-    bmp[4].LoadBitmap(IDB_PLAYER5, RGB(0, 0, 0));
-    bmp[5].LoadBitmap(IDB_PLAYER6, RGB(0, 0, 0));
-    bmp[6].LoadBitmap(IDB_PLAYER7, RGB(0, 0, 0));
-    bmp[7].LoadBitmap(IDB_PLAYER8, RGB(0, 0, 0));
+    bmp[0][0].LoadBitmap(IDB_PLAYER1, RGB(0, 0, 0));
+    bmp[0][1].LoadBitmap(IDB_PLAYER2, RGB(0, 0, 0));
+    bmp[0][2].LoadBitmap(IDB_PLAYER3, RGB(0, 0, 0));
+    bmp[0][3].LoadBitmap(IDB_PLAYER4, RGB(0, 0, 0));
+    bmp[0][4].LoadBitmap(IDB_PLAYER5, RGB(0, 0, 0));
+    bmp[0][5].LoadBitmap(IDB_PLAYER6, RGB(0, 0, 0));
+    bmp[0][6].LoadBitmap(IDB_PLAYER7, RGB(0, 0, 0));
+    bmp[0][7].LoadBitmap(IDB_PLAYER8, RGB(0, 0, 0));
+	bmp[0][8].LoadBitmap(IDB_PLAYER9, RGB(0, 0, 0));
+	bmp[0][9].LoadBitmap(IDB_PLAYER10, RGB(0, 0, 0));
+	bmp[0][10].LoadBitmap(IDB_PLAYER11, RGB(0, 0, 0));
+	bmp[0][11].LoadBitmap(IDB_PLAYER12, RGB(0, 0, 0));
+	bmp[0][12].LoadBitmap(IDB_PLAYER13, RGB(0, 0, 0));
+	bmp[0][13].LoadBitmap(IDB_PLAYER14, RGB(0, 0, 0));
+	bmp[0][14].LoadBitmap(IDB_PLAYER15, RGB(0, 0, 0));
+	bmp[0][15].LoadBitmap(IDB_PLAYER16, RGB(0, 0, 0));
+	bmp[0][16].LoadBitmap(IDB_PLAYER17, RGB(0, 0, 0));
+	bmp[0][17].LoadBitmap(IDB_PLAYER18, RGB(0, 0, 0));
+	bmp[0][18].LoadBitmap(IDB_PLAYER19, RGB(0, 0, 0));
+	bmp[0][19].LoadBitmap(IDB_PLAYER20, RGB(0, 0, 0));
+	bmp[0][20].LoadBitmap(IDB_PLAYER21, RGB(0, 0, 0));
+	bmp[0][21].LoadBitmap(IDB_PLAYER22, RGB(0, 0, 0));
+	bmp[0][22].LoadBitmap(IDB_PLAYER23, RGB(0, 0, 0));
+	bmp[0][23].LoadBitmap(IDB_PLAYER24, RGB(0, 0, 0));
+
+	bmp[1][0].LoadBitmap(IDB_PLAYER_MACHINEGUN1, RGB(255, 0, 0));
+	bmp[1][1].LoadBitmap(IDB_PLAYER_MACHINEGUN2, RGB(255, 0, 0));
+	bmp[1][2].LoadBitmap(IDB_PLAYER_MACHINEGUN3, RGB(255, 0, 0));
+	bmp[1][3].LoadBitmap(IDB_PLAYER_MACHINEGUN4, RGB(255, 0, 0));
+	bmp[1][4].LoadBitmap(IDB_PLAYER_MACHINEGUN5, RGB(255, 0, 0));
+	bmp[1][5].LoadBitmap(IDB_PLAYER_MACHINEGUN6, RGB(255, 0, 0));
+	bmp[1][6].LoadBitmap(IDB_PLAYER_MACHINEGUN7, RGB(255, 0, 0));
+	bmp[1][7].LoadBitmap(IDB_PLAYER_MACHINEGUN8, RGB(255, 0, 0));
+	bmp[1][8].LoadBitmap(IDB_PLAYER_MACHINEGUN9, RGB(255, 0, 0));
+	bmp[1][9].LoadBitmap(IDB_PLAYER_MACHINEGUN10, RGB(255, 0, 0));
+	bmp[1][10].LoadBitmap(IDB_PLAYER_MACHINEGUN11, RGB(255, 0, 0));
+	bmp[1][11].LoadBitmap(IDB_PLAYER_MACHINEGUN12, RGB(255, 0, 0));
+	bmp[1][12].LoadBitmap(IDB_PLAYER_MACHINEGUN13, RGB(255, 0, 0));
+	bmp[1][13].LoadBitmap(IDB_PLAYER_MACHINEGUN14, RGB(255, 0, 0));
+	bmp[1][14].LoadBitmap(IDB_PLAYER_MACHINEGUN15, RGB(255, 0, 0));
+	bmp[1][15].LoadBitmap(IDB_PLAYER_MACHINEGUN16, RGB(255, 0, 0));
+	bmp[1][16].LoadBitmap(IDB_PLAYER_MACHINEGUN17, RGB(255, 0, 0));
+	bmp[1][17].LoadBitmap(IDB_PLAYER_MACHINEGUN18, RGB(255, 0, 0));
+	bmp[1][18].LoadBitmap(IDB_PLAYER_MACHINEGUN19, RGB(255, 0, 0));
+	bmp[1][19].LoadBitmap(IDB_PLAYER_MACHINEGUN20, RGB(255, 0, 0));
+	bmp[1][20].LoadBitmap(IDB_PLAYER_MACHINEGUN21, RGB(255, 0, 0));
+	bmp[1][21].LoadBitmap(IDB_PLAYER_MACHINEGUN22, RGB(255, 0, 0));
+	bmp[1][22].LoadBitmap(IDB_PLAYER_MACHINEGUN23, RGB(255, 0, 0));
+	bmp[1][23].LoadBitmap(IDB_PLAYER_MACHINEGUN24, RGB(255, 0, 0));
+
 }
 
 void game_framework::persona::OnShow()
 {
     if (is_alive)
-    {
-        bmp[direction].SetTopLeft(x + camera_x, y + camera_y);
-        bmp[direction].ShowBitmap(showMagnification);
+    {	
+		const int ID = getHoldingItemID();
+		if (ID == 0) {
+			bmp[0][direction].SetTopLeft(x + camera_x, y + camera_y);
+			bmp[0][direction].ShowBitmap(showMagnification);
+		}
+		else {
+			bmp[1][direction].SetTopLeft(x + camera_x, y + camera_y);
+			bmp[1][direction].ShowBitmap(showMagnification);
+		}
     }
 }
 
@@ -221,42 +270,74 @@ void game_framework::persona::setDirection()
 {
     if (facingX > 0 && facingY < 0)
     {
-        if (facingX < 3.8)
+        if (facingX < 1.3)
             direction = 0;
-        else if (facingX < 9.23)
+        else if (facingX < 3.62)
             direction = 1;
+		else if (facingX < 6.08)
+			direction = 2;
+		else if (facingX < 7.93)
+			direction = 3;
+		else if (facingX < 9.23)
+			direction = 4;
+		else if (facingX < 9.91)
+			direction = 5;
         else
-            direction = 2;
+            direction = 6;
     }
 
     if (facingX > 0 && facingY > 0)
     {
-        if (facingX > 9.23)
-            direction = 2;
-        else if (facingX > 3.8)
-            direction = 3;
-        else
-            direction = 4;
+		if (facingX > 9.91)
+			direction = 6;
+		else if (facingX > 9.23)
+			direction = 7;
+		else if (facingX > 7.93)
+			direction = 8;
+		else if (facingX > 6.08)
+			direction = 9;
+		else if (facingX > 3.62)
+			direction = 10;
+		else if (facingX > 1.3)
+			direction = 11;
+		else
+			direction = 12;
     }
 
     if (facingX < 0 && facingY > 0)
     {
-        if (facingX < -9.23)
-            direction = 6;
-        else if (facingX < -3.8)
-            direction = 5;
-        else
-            direction = 4;
+		if (-facingX < 1.3)
+			direction = 12;
+		else if (-facingX < 3.62)
+			direction = 13;
+		else if (-facingX < 6.08)
+			direction = 14;
+		else if (-facingX < 7.93)
+			direction = 15;
+		else if (-facingX < 9.23)
+			direction = 16;
+		else if (-facingX < 9.91)
+			direction = 17;
+		else
+			direction = 18;
     }
 
     if (facingX < 0 && facingY < 0)
     {
-        if (facingX < -9.23)
-            direction = 6;
-        else if (facingX < -3.8)
-            direction = 7;
-        else
-            direction = 0;
+		if (-facingX > 9.91)
+			direction = 18;
+		else if (-facingX > 9.23)
+			direction = 19;
+		else if (-facingX > 7.93)
+			direction = 20;
+		else if (-facingX > 6.08)
+			direction = 21;
+		else if (-facingX > 3.62)
+			direction = 22;
+		else if (-facingX > 1.3)
+			direction = 23;
+		else
+			direction = 0;
     }
 }
 

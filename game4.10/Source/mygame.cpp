@@ -28,6 +28,7 @@ void CGameStateInit::OnInit()
 
 void CGameStateInit::OnBeginState()
 {
+	
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -235,7 +236,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if ((item.at(j).GetX() >= enemy.at(i).GetX()) && (item.at(j).GetX() <= enemy.at(i).GetX() + enemy.at(i).GetWidth()) && (item.at(j).GetY() >= enemy.at(i).GetY()) && (item.at(j).GetY() <= enemy.at(i).GetY() + enemy.at(i).GetHeight()) && (enemy.at(i).hasItom() < 2))
             {
                 enemy.at(i).CatchItem(item.at(j));
-				switch (item.at(i).getID()) {
+				switch (item.at(j).getID()) {
 				case 1:
 					enemy.at(i).Recoil_delay = 20;
 					break;
@@ -345,7 +346,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             {
                 case 1:
                 case 2:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX(), player1.GetY(), camera.GetCameraX(), camera.GetCameraY(), -1));
+                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX()+30, player1.GetY()+35, camera.GetCameraX(), camera.GetCameraY(), -1));
                     break;
 
                 case 3:
@@ -410,6 +411,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         camera.AddObjects(&enemy.at(i));
 
     ////////////////////////////////////////////////////
+	dot.LoadBitmap(IDB_BALL);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -585,5 +587,7 @@ void CGameStateRun::OnShow()
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets[i].OnShow();
+	dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
+	dot.ShowBitmap();
 }
 }

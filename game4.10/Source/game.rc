@@ -126,8 +126,6 @@ IDB_LAWN                BITMAP                  "..\\Assets\\floor.bmp"
 
 IDB_BOX                 BITMAP                  "..\\RES\\Box01.bmp"
 
-IDB_PLAYER              BITMAP                  "..\\RES\\player.bmp"
-
 IDB_PISTOL1             BITMAP                  "..\\RES\\pistol01.bmp"
 
 IDB_BULLET              BITMAP                  "..\\RES\\Bullet01.bmp"
@@ -149,6 +147,86 @@ IDB_PLAYER6             BITMAP                  "..\\RES\\player6.bmp"
 IDB_PLAYER7             BITMAP                  "..\\RES\\player7.bmp"
 
 IDB_PLAYER8             BITMAP                  "..\\RES\\player8.bmp"
+
+IDB_PLAYER9             BITMAP                  "..\\RES\\player9.bmp"
+
+IDB_PLAYER10            BITMAP                  "..\\RES\\player10.bmp"
+
+IDB_PLAYER11            BITMAP                  "..\\RES\\player11.bmp"
+
+IDB_PLAYER12            BITMAP                  "..\\RES\\player12.bmp"
+
+IDB_PLAYER13            BITMAP                  "..\\RES\\player13.bmp"
+
+IDB_PLAYER14            BITMAP                  "..\\RES\\player14.bmp"
+
+IDB_PLAYER15            BITMAP                  "..\\RES\\player15.bmp"
+
+IDB_PLAYER16            BITMAP                  "..\\RES\\player16.bmp"
+
+IDB_PLAYER17            BITMAP                  "..\\RES\\player17.bmp"
+
+IDB_PLAYER18            BITMAP                  "..\\RES\\player18.bmp"
+
+IDB_PLAYER19            BITMAP                  "..\\RES\\player19.bmp"
+
+IDB_PLAYER20            BITMAP                  "..\\RES\\player20.bmp"
+
+IDB_PLAYER21            BITMAP                  "..\\RES\\player21.bmp"
+
+IDB_PLAYER22            BITMAP                  "..\\RES\\player22.bmp"
+
+IDB_PLAYER23            BITMAP                  "..\\RES\\player23.bmp"
+
+IDB_PLAYER24            BITMAP                  "..\\RES\\player24.bmp"
+
+IDB_PLAYER_MACHINEGUN1  BITMAP                  "..\\RES\\player1.bmp"
+
+IDB_PLAYER_MACHINEGUN2  BITMAP                  "..\\RES\\player_MachineGun2.bmp"
+
+IDB_PLAYER_MACHINEGUN3  BITMAP                  "..\\RES\\player_MachineGun3.bmp"
+
+IDB_PLAYER_MACHINEGUN4  BITMAP                  "..\\RES\\player_MachineGun4.bmp"
+
+IDB_PLAYER_MACHINEGUN5  BITMAP                  "..\\RES\\player_MachineGun5.bmp"
+
+IDB_PLAYER_MACHINEGUN6  BITMAP                  "..\\RES\\player_MachineGun6.bmp"
+
+IDB_PLAYER_MACHINEGUN7  BITMAP                  "..\\RES\\player_MachineGun7.bmp"
+
+IDB_PLAYER_MACHINEGUN8  BITMAP                  "..\\RES\\player_MachineGun8.bmp"
+
+IDB_PLAYER_MACHINEGUN9  BITMAP                  "..\\RES\\player_MachineGun9.bmp"
+
+IDB_PLAYER_MACHINEGUN10 BITMAP                  "..\\RES\\player_MachineGun10.bmp"
+
+IDB_PLAYER_MACHINEGUN11 BITMAP                  "..\\RES\\player_MachineGun11.bmp"
+
+IDB_PLAYER_MACHINEGUN12 BITMAP                  "..\\RES\\player_MachineGun12.bmp"
+
+IDB_PLAYER_MACHINEGUN13 BITMAP                  "..\\RES\\player_MachineGun13.bmp"
+
+IDB_PLAYER_MACHINEGUN14 BITMAP                  "..\\RES\\player_MachineGun14.bmp"
+
+IDB_PLAYER_MACHINEGUN15 BITMAP                  "..\\RES\\player_MachineGun15.bmp"
+
+IDB_PLAYER_MACHINEGUN16 BITMAP                  "..\\RES\\player_MachineGun16.bmp"
+
+IDB_PLAYER_MACHINEGUN17 BITMAP                  "..\\RES\\player_MachineGun17.bmp"
+
+IDB_PLAYER_MACHINEGUN18 BITMAP                  "..\\RES\\player_MachineGun18.bmp"
+
+IDB_PLAYER_MACHINEGUN19 BITMAP                  "..\\RES\\player_MachineGun19.bmp"
+
+IDB_PLAYER_MACHINEGUN20 BITMAP                  "..\\RES\\player_MachineGun20.bmp"
+
+IDB_PLAYER_MACHINEGUN21 BITMAP                  "..\\RES\\player_MachineGun21.bmp"
+
+IDB_PLAYER_MACHINEGUN22 BITMAP                  "..\\RES\\player_MachineGun22.bmp"
+
+IDB_PLAYER_MACHINEGUN23 BITMAP                  "..\\RES\\player_MachineGun23.bmp"
+
+IDB_PLAYER_MACHINEGUN24 BITMAP                  "..\\RES\\player_MachineGun24.bmp"
 
 IDB_ENEMY1              BITMAP                  "..\\RES\\enemy1.bmp"
 

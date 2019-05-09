@@ -368,6 +368,7 @@
     <Image Include="RES\pistol01.bmp" />
     <Image Include="RES\player.bmp" />
     <Image Include="RES\player1.bmp" />
+    <Image Include="RES\player_MachineGun1.bmp" />
     <Image Include="RES\player2.bmp" />
     <Image Include="RES\player3.bmp" />
     <Image Include="RES\player4.bmp" />
