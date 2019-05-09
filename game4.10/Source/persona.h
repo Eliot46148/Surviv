@@ -26,6 +26,7 @@ class persona : public BasicObject
 		void setFacingPosition(double,double);
 		void setDirection();
 		void setActing(bool);
+		void getDemage(int);
 		void setHoldingItem(int);
 
 		double getFacingX();

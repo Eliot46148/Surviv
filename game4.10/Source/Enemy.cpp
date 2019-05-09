@@ -167,7 +167,6 @@ void game_framework::Enemy::getNearItems()
         isMovingUp = 1;
     else if (nearitems.at(0)->GetY() > this->y + 10)
         isMovingDown = 1;
-
     moveDelay = 2;
 }
 

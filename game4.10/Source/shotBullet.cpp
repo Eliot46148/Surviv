@@ -16,7 +16,7 @@ game_framework::shotBullet::shotBullet(): BasicObject()
     speed = DEFAULT_BULLET_SPEED;
 }
 
-game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y)
+game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y,int hshout)
 {
     LoadBitMap();
     Height = 20;
@@ -30,6 +30,7 @@ game_framework::shotBullet::shotBullet(int x, int y, int position_x, int positio
 	
     dx = int(2 * x / 5);
     dy = int(2 * y / 5);
+	shooter = hshout;
 }
 
 void game_framework::shotBullet::OnMove()
@@ -80,4 +81,7 @@ int game_framework::shotBullet::ShowDamage()
 	return damage;
 }
 
-
+int game_framework::shotBullet::getshooter()
+{
+	return shooter;
+}

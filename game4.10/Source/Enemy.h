@@ -33,6 +33,8 @@ class Enemy : public persona
         int hasbullet();
 		bool isActing();
 		int catchitemID();
+		int Recoil_delay;
+		int rrdelay = 0;
     private:
         CMovingBitmap bmp[8];
         bool is_Gettting = false;

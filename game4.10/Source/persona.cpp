@@ -265,6 +265,11 @@ void game_framework::persona::setActing(bool flag)
     is_acting = flag;
 }
 
+void game_framework::persona::getDemage(int damage)
+{
+	HP -= damage;
+}
+
 void game_framework::persona::setHoldingItem(int num)
 {
     holdingItem = num;
