@@ -11,6 +11,7 @@
 #include "Texture.h"
 #include "Enemy.h"
 #include "Camera.h"
+#include "UI.h"
 
 namespace game_framework {
 
@@ -66,6 +67,7 @@ class CGameStateRun : public CGameState
         CMovingBitmap dot;							// ¨¤¸¨¹Ï
         Camera camera;
         Map map;
+		UI ui;
         vector<Box> box;
         vector<items> item;
         persona player1;

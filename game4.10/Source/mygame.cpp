@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Resource.h"
 #include <mmsystem.h>
+#include <string>
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
@@ -121,34 +122,35 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
-    unsigned seed = (unsigned)time(NULL);
-    srand(seed);
-    //box.push_back(Box(100, 100));								// 加入箱子
-    //box.push_back(Box(200, 200));								// 加入箱子
-    int randomx, randomy;
 
-    for (int i = 0; i < 15; i++)
-    {
-        randomx = rand() % (556 * 5);
-        randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
-    }
+	unsigned seed = (unsigned)time(NULL);
+	srand(seed);
+	//box.push_back(Box(100, 100));								// 加入箱子
+	//box.push_back(Box(200, 200));								// 加入箱子
+	int randomx, randomy;
 
-    item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
-    item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
-    item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
-    enemy.push_back(Enemy(100, 100, 1 ));
+	for (int i = 0; i < 15; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+		item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
+	}
 
-    for (int i = 0; i < 7; i++)
-    {
-        randomx = rand() % (556 * 5);
-        randomy = rand() % (556 * 5);
-        enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-        enemy[0].ShowHP();
-    }
+	item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
+	item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
+	item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
+	enemy.push_back(Enemy(100, 100, 1));
 
-    for (int i = 0; i < 70; i++)
-        bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
+	for (int i = 0; i < 7; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
+		enemy[0].GetHP();
+	}
+
+	for (int i = 0; i < 70; i++)
+		bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
 }
 
 CGameStateRun::~CGameStateRun()
@@ -156,7 +158,10 @@ CGameStateRun::~CGameStateRun()
 }
 
 void CGameStateRun::OnBeginState()
-{
+{	
+	//item.clear();
+	//enemy.clear();
+	//bullet.clear();
 }
 
 void CGameStateRun::ChangeMovingMode(int _where, bool type)
@@ -180,6 +185,9 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
+
+	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo());				// UI接收玩家資訊
+
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
 		enemy.at(i).rrdelay += enemy.at(i).rrdelay < 0 ? 0 : -1;
@@ -272,7 +280,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 		{
 			player1.getDemage(shotbullets.at(i).ShowDamage());
 			shotbullets.erase(shotbullets.begin() + i);
-			if (player1.ShowHP() < 0)
+			if (player1.GetHP() <= 0)
 				GotoGameState(GAME_STATE_OVER);
 
 		}
@@ -285,7 +293,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
                 shotbullets.erase(shotbullets.begin() + i);
 
-                if (enemy.at(j).ShowHP() <= 0)
+                if (enemy.at(j).GetHP() <= 0)
                 {
                     texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
 
@@ -411,7 +419,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         camera.AddObjects(&enemy.at(i));
 
     ////////////////////////////////////////////////////
-	dot.LoadBitmap(IDB_BALL);
+	//dot.LoadBitmap(IDB_BALL);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -587,7 +595,10 @@ void CGameStateRun::OnShow()
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets[i].OnShow();
-	dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
-	dot.ShowBitmap();
+	
+	ui.OnShow();
+
+	//dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
+	//dot.ShowBitmap();
 }
 }

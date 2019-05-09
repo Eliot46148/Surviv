@@ -159,6 +159,7 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -225,6 +226,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

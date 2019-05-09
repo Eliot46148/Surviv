@@ -82,7 +82,7 @@
 #define IDB_PLAYER22                    203
 #define IDB_PLAYER23                    204
 #define IDB_PLAYER24                    205
-#define IDB_PLAYER_MACHINEGUN1                     206
+#define IDB_PLAYER_MACHINEGUN1                     300
 #define IDB_PLAYER_MACHINEGUN2                     207
 #define IDB_PLAYER_MACHINEGUN3                     208
 #define IDB_PLAYER_MACHINEGUN4                     209

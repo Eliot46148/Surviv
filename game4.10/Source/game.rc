@@ -180,7 +180,7 @@ IDB_PLAYER23            BITMAP                  "..\\RES\\player23.bmp"
 
 IDB_PLAYER24            BITMAP                  "..\\RES\\player24.bmp"
 
-IDB_PLAYER_MACHINEGUN1  BITMAP                  "..\\RES\\player1.bmp"
+IDB_PLAYER_MACHINEGUN1  BITMAP                  "..\\RES\\player_MachineGun1.bmp"
 
 IDB_PLAYER_MACHINEGUN2  BITMAP                  "..\\RES\\player_MachineGun2.bmp"
 

@@ -16,7 +16,7 @@ class persona : public BasicObject
         virtual void OnShow();
 		virtual void OnMove();						// Recoil計時和移動
 		void returnBlood();
-		int ShowHP();
+		
 		bool Recoil();								// 擊發間隔時間
 
         void SetGetting(bool flag);
@@ -34,6 +34,8 @@ class persona : public BasicObject
 		int getHasitemNum();
 		int getHoldingItemID();
 		int getBullet();
+		int GetHP();
+		int GetAmmo();
 
         bool isGetting();
 		bool isReloading();
