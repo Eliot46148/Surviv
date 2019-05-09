@@ -354,7 +354,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             {
                 case 1:
                 case 2:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX()+30, player1.GetY()+35, camera.GetCameraX(), camera.GetCameraY(), -1));
+                    shotbullets.push_back(shotBullet((int)x, (int)y, player1.GetX()+80, player1.GetY()+80, camera.GetCameraX(), camera.GetCameraY(), -1));
                     break;
 
                 case 3:
@@ -419,7 +419,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
         camera.AddObjects(&enemy.at(i));
 
     ////////////////////////////////////////////////////
-	//dot.LoadBitmap(IDB_BALL);
+	dot.LoadBitmap(IDB_BALL);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -598,7 +598,7 @@ void CGameStateRun::OnShow()
 	
 	ui.OnShow();
 
-	//dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
-	//dot.ShowBitmap();
+	dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
+	dot.ShowBitmap();
 }
 }

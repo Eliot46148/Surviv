@@ -14,8 +14,8 @@ class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
-	x = SIZE_X / 2 -30;
-	y = SIZE_Y / 2 -35;
+	x = SIZE_X / 2 -80;
+	y = SIZE_Y / 2 -80;
     bullet = 0;
     Height = 128;
     Width = 128;
