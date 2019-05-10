@@ -252,7 +252,7 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
 					enemy.at(i).Recoil_delay = 5;
 					break;
 				case 3:
-					enemy.at(i).Recoil_delay = 30;
+					enemy.at(i).Recoil_delay = 40;
 					break;
 				}
 				item.erase(item.begin() + j);
