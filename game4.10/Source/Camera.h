@@ -13,6 +13,7 @@ namespace game_framework {
 		void setMovingMode(int, bool);
 		void AddObjects(BasicObject*);
 		void LoadBitMap(int);
+		void Retry();
 
 		int GetObjectsSize();
 

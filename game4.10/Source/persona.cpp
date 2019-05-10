@@ -14,8 +14,8 @@ class Box;
 
 game_framework::persona::persona(): BasicObject()
 {
-	x = SIZE_X / 2 -30;
-	y = SIZE_Y / 2 -35;
+	x = SIZE_X / 2 -75;
+	y = SIZE_Y / 2 -75;
     bullet = 0;
     Height = 128;
     Width = 128;
@@ -163,8 +163,28 @@ void game_framework::persona::OnMove()
 }
 
 void game_framework::persona::returnBlood()
-{
+{	
     HP += 10;
+	if (HP > 100)
+		HP = 100;
+}
+
+void game_framework::persona::Retry()
+{
+	x = SIZE_X / 2 - 75;
+	y = SIZE_Y / 2 - 75;
+	bullet = 0;
+	Height = 128;
+	Width = 128;
+	facingX = 0;
+	facingY = 0;
+	showMagnification = (float)0.5;
+	direction = 0;
+	HP = 100;
+	recoil_timer = 0;
+	holdingItem = 2;
+	speed = DEFAULT_CHACRATER_SPEED;
+	isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
 }
 
 int game_framework::persona::GetHP()
@@ -261,8 +281,10 @@ void game_framework::persona::setCan_move(bool flag)
 }
 
 void game_framework::persona::setBullet(int num)
-{
+{	
     bullet += num;
+	if (bullet > 90)
+		bullet = 90;
 }
 
 void game_framework::persona::setFacingPosition(double x, double y)
@@ -369,6 +391,16 @@ double game_framework::persona::getFacingX()
 double game_framework::persona::getFacingY()
 {
     return facingY;
+}
+
+int game_framework::persona::GetHitpointX()
+{
+	return x+75;
+}
+
+int game_framework::persona::GetHitpointY()
+{
+	return y+75;
 }
 
 int game_framework::persona::getHasitemNum()

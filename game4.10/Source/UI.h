@@ -8,9 +8,15 @@ namespace game_framework {
 		void LoadBitMap();
 		void OnShow();
 		void ShowHealthBar();
-		void TakePlayerInfo(int,int);
+		void ShowInfo();
+		void TakePlayerInfo(int,int,int);
+		void SetHealthStatus();
 	private:
 		int HP;
 		int Ammo;
+		int Enemy_Num;
+		int HealthStatus;
+		CMovingBitmap HealthBar[11];
+		CMovingBitmap Ammo_img;
 	};
 }
