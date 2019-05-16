@@ -9,6 +9,7 @@ namespace game_framework {
 		void OnShow();
 		void ShowHealthBar();
 		void ShowInfo();
+		void ShowItems();
 		void TakePlayerInfo(int,int,int);
 		void SetHealthStatus();
 	private:
@@ -18,5 +19,6 @@ namespace game_framework {
 		int HealthStatus;
 		CMovingBitmap HealthBar[11];
 		CMovingBitmap Ammo_img;
+		CMovingBitmap ItemUI[3];
 	};
 }

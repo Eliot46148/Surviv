@@ -30,13 +30,19 @@ void game_framework::UI::LoadBitMap()
 	HealthBar[8].LoadBitmap(IDB_HealthBar3);
 	HealthBar[9].LoadBitmap(IDB_HealthBar2);
 	HealthBar[10].LoadBitmap(IDB_HealthBar1);
+
 	Ammo_img.LoadBitmap(IDB_BULLET_IMG,RGB(255,255,255));
+
+	ItemUI[0].LoadBitmap(IDB_ItemUI1);
+	ItemUI[1].LoadBitmap(IDB_ItemUI2);
+	ItemUI[2].LoadBitmap(IDB_ItemUI3);
 }
 
 void game_framework::UI::OnShow()
 {
 	ShowHealthBar();
 	ShowInfo();
+	ShowItems();
 }
 
 void game_framework::UI::ShowHealthBar()
@@ -74,7 +80,8 @@ void game_framework::UI::ShowInfo()
 
 	pDC->SetTextColor(RGB(255, 255, 255));
 	sprintf(buf, "%d", Ammo);
-	pDC->TextOut(560, 428, buf);
+	//pDC->TextOut(560, 428, buf);
+	pDC->TextOut(0, 0, buf);
 	
 	pDC->SetTextColor(RGB(255, 0, 0));
 	sprintf(buf, "%d", Enemy_Num);
@@ -82,10 +89,20 @@ void game_framework::UI::ShowInfo()
 	pDC->TextOut(600, 2, buf);
 
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC\
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 
-	Ammo_img.SetTopLeft(600, 430);
-	Ammo_img.ShowBitmap(0.1);
+	//Ammo_img.SetTopLeft(600, 430);
+	//Ammo_img.ShowBitmap(0.1);
+}
+
+void game_framework::UI::ShowItems()
+{	
+	ItemUI[0].SetTopLeft(530, 275);
+	ItemUI[0].ShowBitmap(0.4);
+	ItemUI[0].SetTopLeft(530, 340);
+	ItemUI[0].ShowBitmap(0.4);
+	ItemUI[0].SetTopLeft(530,405);
+	ItemUI[0].ShowBitmap(0.4);
 }
 
 void game_framework::UI::TakePlayerInfo(int hp, int ammo, int enemy_num)

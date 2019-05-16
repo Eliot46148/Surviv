@@ -378,6 +378,9 @@
     <Image Include="RES\HealthBar7.bmp" />
     <Image Include="RES\HealthBar8.bmp" />
     <Image Include="RES\HealthBar9.bmp" />
+    <Image Include="RES\itemUI1.bmp" />
+    <Image Include="RES\itemUI2.bmp" />
+    <Image Include="RES\itemUI3.bmp" />
     <Image Include="RES\logo.bmp" />
     <Image Include="RES\lose.bmp" />
     <Image Include="RES\MachineGun.bmp" />
