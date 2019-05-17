@@ -209,7 +209,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 {
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 
-	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size());				// UI接收玩家資訊
+	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem());				// UI接收玩家資訊
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -565,7 +565,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
             if (player1.isGetting() && player1.getHasitemNum() < 2 && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
                 player1.CatchItem(item.at(i));
-                item.erase(item.begin() + i);
+                item.erase(item.begin() + i);				
             }
 
         for (int i = 0; i < static_cast<int>(bullet.size()); i++)

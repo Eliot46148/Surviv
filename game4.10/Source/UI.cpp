@@ -33,9 +33,14 @@ void game_framework::UI::LoadBitMap()
 
 	Ammo_img.LoadBitmap(IDB_BULLET_IMG,RGB(255,255,255));
 
-	ItemUI[0].LoadBitmap(IDB_ItemUI1);
-	ItemUI[1].LoadBitmap(IDB_ItemUI2);
-	ItemUI[2].LoadBitmap(IDB_ItemUI3);
+	ItemUI[0][0].LoadBitmap(IDB_ItemUI1);
+	ItemUI[0][1].LoadBitmap(IDB_ItemUI2);
+	ItemUI[1][0].LoadBitmap(IDB_ItemUI1_2);
+	ItemUI[1][1].LoadBitmap(IDB_ItemUI2_2);
+
+	items_img[0].LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));
+	items_img[1].LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));
+	items_img[2].LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));
 }
 
 void game_framework::UI::OnShow()
@@ -97,19 +102,44 @@ void game_framework::UI::ShowInfo()
 
 void game_framework::UI::ShowItems()
 {	
-	ItemUI[0].SetTopLeft(530, 275);
-	ItemUI[0].ShowBitmap(0.4);
-	ItemUI[0].SetTopLeft(530, 340);
-	ItemUI[0].ShowBitmap(0.4);
-	ItemUI[0].SetTopLeft(530,405);
-	ItemUI[0].ShowBitmap(0.4);
+	//ItemUI[0].SetTopLeft(530, 275);
+	//ItemUI[0].ShowBitmap(0.4);
+	if (holdingitem == 0) {
+		ItemUI[1][0].SetTopLeft(530, 340);
+		ItemUI[1][0].ShowBitmap(0.4);
+	}
+	else {
+		ItemUI[0][0].SetTopLeft(530, 340);
+		ItemUI[0][0].ShowBitmap(0.4);
+	}
+
+	if (holdingitem == 1) {
+		ItemUI[1][1].SetTopLeft(530, 405);
+		ItemUI[1][1].ShowBitmap(0.4);
+	}
+	else {
+		ItemUI[0][1].SetTopLeft(530, 405);
+		ItemUI[0][1].ShowBitmap(0.4);
+	}
+
+	if (hasitemsID != nullptr && hasitemsID[0] !=0) {
+		items_img[hasitemsID[0] - 1].SetTopLeft(570, 340);
+		items_img[hasitemsID[0] - 1].ShowBitmap(0.4); 
+	}
+
+	if (hasitemsID != nullptr && hasitemsID[1] != 0) {
+		items_img[hasitemsID[1] - 1].SetTopLeft(570, 405);
+		items_img[hasitemsID[1] - 1].ShowBitmap(0.4);
+	}
 }
 
-void game_framework::UI::TakePlayerInfo(int hp, int ammo, int enemy_num)
+void game_framework::UI::TakePlayerInfo(int hp, int ammo, int enemy_num, int* hasitemsID, int holdingItem)
 {
 	HP = hp;
 	Ammo = ammo;
 	Enemy_Num = enemy_num;
+	this->hasitemsID = hasitemsID;
+	this->holdingitem = holdingItem;
 	SetHealthStatus();
 }
 
