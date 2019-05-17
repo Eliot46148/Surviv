@@ -103,8 +103,10 @@
 #define IDB_ItemUI2                     246
 #define IDB_ItemUI3                     247
 #define IDB_ItemUI1_2                   248
-#define IDB_BITMAP4                     249
 #define IDB_ItemUI2_2                   249
+#define IDB_BULLET2                     250
+#define IDB_BITMAP4                     251
+#define IDB_BULLET3                     251
 #define IDB_PLAYER_MACHINEGUN1          300
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
@@ -118,7 +120,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        250
+#define _APS_NEXT_RESOURCE_VALUE        252
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

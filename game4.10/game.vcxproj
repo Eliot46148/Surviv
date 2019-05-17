@@ -363,6 +363,8 @@
     <Image Include="RES\BoxBroke01.bmp" />
     <Image Include="RES\bullet.bmp" />
     <Image Include="RES\Bullet01.bmp" />
+    <Image Include="RES\Bullet02.bmp" />
+    <Image Include="RES\Bullet03.bmp" />
     <Image Include="RES\concentric01.bmp" />
     <Image Include="RES\enemy1.bmp" />
     <Image Include="RES\enemy2.bmp" />

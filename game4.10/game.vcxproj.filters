@@ -522,5 +522,11 @@
     <Image Include="RES\itemUI2_2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\Bullet02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Bullet03.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

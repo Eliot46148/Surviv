@@ -41,6 +41,10 @@ void game_framework::UI::LoadBitMap()
 	items_img[0].LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));
 	items_img[1].LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));
 	items_img[2].LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));
+
+	bullet_img[0].LoadBitmap(IDB_BULLET);
+	bullet_img[1].LoadBitmap(IDB_BULLET2);
+	bullet_img[2].LoadBitmap(IDB_BULLET3);
 }
 
 void game_framework::UI::OnShow()
@@ -48,6 +52,7 @@ void game_framework::UI::OnShow()
 	ShowHealthBar();
 	ShowInfo();
 	ShowItems();
+	ShowBullets();
 }
 
 void game_framework::UI::ShowHealthBar()
@@ -82,11 +87,6 @@ void game_framework::UI::ShowInfo()
 	f.CreatePointFont(240, "Times New Roman");	// 產生 font f; 160表示16 point的字
 	fp = pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkMode(TRANSPARENT);
-
-	pDC->SetTextColor(RGB(255, 255, 255));
-	sprintf(buf, "%d", Ammo);
-	//pDC->TextOut(560, 428, buf);
-	pDC->TextOut(0, 0, buf);
 	
 	pDC->SetTextColor(RGB(255, 0, 0));
 	sprintf(buf, "%d", Enemy_Num);
@@ -131,6 +131,30 @@ void game_framework::UI::ShowItems()
 		items_img[hasitemsID[1] - 1].SetTopLeft(570, 405);
 		items_img[hasitemsID[1] - 1].ShowBitmap(0.4);
 	}
+}
+
+void game_framework::UI::ShowBullets()
+{	
+	bullet_img[0].SetTopLeft(10, 372);
+	bullet_img[0].ShowBitmap(1.2);
+	bullet_img[1].SetTopLeft(10, 406);
+	bullet_img[1].ShowBitmap(1.2);
+	bullet_img[2].SetTopLeft(10, 440);
+	bullet_img[2].ShowBitmap(1.2);
+
+	CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+	CFont f, *fp;
+	char buf[32];
+	f.CreatePointFont(200, "Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp = pDC->SelectObject(&f);					// 選用 font f
+	pDC->SetBkMode(TRANSPARENT);
+	pDC->SetTextColor(RGB(255, 255, 255));
+	sprintf(buf, "%d", Ammo);
+	pDC->TextOut(50, 367, buf);
+	pDC->TextOut(50, 401, "0");
+	pDC->TextOut(50, 435, "0");
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
 void game_framework::UI::TakePlayerInfo(int hp, int ammo, int enemy_num, int* hasitemsID, int holdingItem)

@@ -10,6 +10,7 @@ namespace game_framework {
 		void ShowHealthBar();
 		void ShowInfo();
 		void ShowItems();
+		void ShowBullets();
 		void TakePlayerInfo(int,int,int,int*,int);
 		void SetHealthStatus();
 	private:
@@ -23,5 +24,6 @@ namespace game_framework {
 		CMovingBitmap Ammo_img;
 		CMovingBitmap ItemUI[2][2];
 		CMovingBitmap items_img[3];    //  0:¤âºj, 1:¾÷ºj, 2:ÄÅ¼uºj
+		CMovingBitmap bullet_img[3];
 	};
 }
