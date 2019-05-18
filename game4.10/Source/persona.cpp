@@ -27,13 +27,13 @@ game_framework::persona::persona(): BasicObject()
 	recoil_timer = 0;
 	holdingItem = 2;
 	speed = DEFAULT_CHACRATER_SPEED;
-
 }
 
 void game_framework::persona::CatchItem(items take)
 {
     hasitem.push_back(take);
     holdingItem = hasitem.size() - 1;
+	hasitemID[hasitem.size() - 1] = hasitem.back().getID();
 }
 
 bool game_framework::persona::HitObstacle(Box* box, int _where)
@@ -403,9 +403,21 @@ int game_framework::persona::GetHitpointY()
 	return y+75;
 }
 
+
+
 int game_framework::persona::getHasitemNum()
 {
     return (int)hasitem.size();
+}
+
+int * game_framework::persona::GetHasItemID()
+{
+	return hasitemID;
+}
+
+int game_framework::persona::GetHoldingItem()
+{
+	return holdingItem;
 }
 
 int game_framework::persona::getHoldingItemID()

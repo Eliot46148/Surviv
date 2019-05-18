@@ -159,7 +159,9 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI.cpp" />
+    <ClCompile Include="Source\UI.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -503,6 +505,27 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\lose.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\itemUI1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\itemUI2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\itemUI3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\itemUI1_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\itemUI2_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Bullet02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Bullet03.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

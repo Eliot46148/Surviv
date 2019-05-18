@@ -66,29 +66,7 @@ IDB_BALL                BITMAP                  "..\\res\\ball.bmp"
 
 IDB_ERASER1             BITMAP                  "..\\res\\eraser1.bmp"
 
-IDB_BACKGROUND          BITMAP                  "..\\res\\ntutcsie.bmp"
-
 IDB_CORNER              BITMAP                  "..\\res\\corner.bmp"
-
-IDB_0                   BITMAP                  "..\\res\\bmp0.bmp"
-
-IDB_1                   BITMAP                  "..\\res\\bmp1.bmp"
-
-IDB_2                   BITMAP                  "..\\res\\bmp2.bmp"
-
-IDB_3                   BITMAP                  "..\\res\\bmp3.bmp"
-
-IDB_4                   BITMAP                  "..\\res\\bmp4.bmp"
-
-IDB_5                   BITMAP                  "..\\res\\bmp5.bmp"
-
-IDB_6                   BITMAP                  "..\\res\\bmp6.bmp"
-
-IDB_7                   BITMAP                  "..\\res\\bmp7.bmp"
-
-IDB_8                   BITMAP                  "..\\res\\bmp8.bmp"
-
-IDB_9                   BITMAP                  "..\\res\\bmp9.bmp"
 
 IDB_MINUS               BITMAP                  "..\\res\\bmp10.bmp"
 
@@ -100,27 +78,7 @@ IDB_ERASER3             BITMAP                  "..\\res\\eraser3.bmp"
 
 IDB_CONTINUE            BITMAP                  "..\\res\\continue.bmp"
 
-IDB_HELP                BITMAP                  "..\\res\\help.bmp"
-
 IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
-
-IDB_MAP1                BITMAP                  "..\\res\\bitmap3.bmp"
-
-IDB_MAP2                BITMAP                  "..\\res\\bmp00001.bmp"
-
-IDB_MAP3                BITMAP                  "..\\res\\bitmap4.bmp"
-
-IDB_MAP4                BITMAP                  "..\\res\\bmp00002.bmp"
-
-IDB_MAP5                BITMAP                  "..\\res\\bmp00003.bmp"
-
-IDB_MAP6                BITMAP                  "..\\res\\bmp00004.bmp"
-
-IDB_MAP7                BITMAP                  "..\\res\\bmp00005.bmp"
-
-IDB_MAP8                BITMAP                  "..\\res\\bmp00006.bmp"
-
-IDB_MAP9                BITMAP                  "..\\res\\bmp00007.bmp"
 
 IDB_LAWN                BITMAP                  "..\\Assets\\floor.bmp"
 
@@ -269,6 +227,20 @@ IDB_LOGO                BITMAP                  "..\\RES\\logo.bmp"
 IDB_WIN                 BITMAP                  "..\\RES\\win.bmp"
 
 IDB_LOSE                BITMAP                  "..\\RES\\lose.bmp"
+
+IDB_ItemUI1             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI1.bmp"
+
+IDB_ItemUI2             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI2.bmp"
+
+IDB_ItemUI3             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI3.bmp"
+
+IDB_ItemUI1_2           BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI1_2.bmp"
+
+IDB_ItemUI2_2           BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI2_2.bmp"
+
+IDB_BULLET2             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\Bullet02.bmp"
+
+IDB_BULLET3             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\Bullet03.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

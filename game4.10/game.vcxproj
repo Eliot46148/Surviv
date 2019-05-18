@@ -363,6 +363,8 @@
     <Image Include="RES\BoxBroke01.bmp" />
     <Image Include="RES\bullet.bmp" />
     <Image Include="RES\Bullet01.bmp" />
+    <Image Include="RES\Bullet02.bmp" />
+    <Image Include="RES\Bullet03.bmp" />
     <Image Include="RES\concentric01.bmp" />
     <Image Include="RES\enemy1.bmp" />
     <Image Include="RES\enemy2.bmp" />
@@ -378,6 +380,11 @@
     <Image Include="RES\HealthBar7.bmp" />
     <Image Include="RES\HealthBar8.bmp" />
     <Image Include="RES\HealthBar9.bmp" />
+    <Image Include="RES\itemUI1.bmp" />
+    <Image Include="RES\itemUI1_2.bmp" />
+    <Image Include="RES\itemUI2.bmp" />
+    <Image Include="RES\itemUI2_2.bmp" />
+    <Image Include="RES\itemUI3.bmp" />
     <Image Include="RES\logo.bmp" />
     <Image Include="RES\lose.bmp" />
     <Image Include="RES\MachineGun.bmp" />

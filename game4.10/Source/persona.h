@@ -36,6 +36,8 @@ class persona : public BasicObject
 		int GetHitpointX();
 		int GetHitpointY();
 		int getHasitemNum();
+		int* GetHasItemID();
+		int GetHoldingItem();
 		int getHoldingItemID();
 		int getBullet();
 		int GetHP();
@@ -55,6 +57,7 @@ class persona : public BasicObject
 		bool is_Reloading = false;
 		bool is_acting = false;
         vector<items> hasitem;
+		int hasitemID[2] = { 0 };
 		int holdingItem;							// 現在手持的武器
         int bullet;
 		double facingX,facingY;
