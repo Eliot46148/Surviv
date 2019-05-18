@@ -165,7 +165,6 @@ CGameStateRun::CGameStateRun(CGame* g)
 		randomx = rand() % (556 * 5);
 		randomy = rand() % (556 * 5);
 		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-		enemy[0].GetHP();
 	}
 
 	for (int i = 0; i < 70; i++)
@@ -275,7 +274,7 @@ void CGameStateRun::OnMove()											// ²¾°Ê¹CÀ¸¤¸¯À
 					enemy.at(i).Recoil_delay = 5;
 					break;
 				case 3:
-					enemy.at(i).Recoil_delay = 40;
+					enemy.at(i).Recoil_delay = 60;
 					break;
 				}
 				item.erase(item.begin() + j);
