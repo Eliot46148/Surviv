@@ -15,6 +15,7 @@ game_framework::UI::UI()
 	Ammo = 0;
 	Enemy_Num = 0;
 	HealthStatus = 10;
+	hasitemsID = nullptr;
 }
 
 void game_framework::UI::LoadBitMap()
