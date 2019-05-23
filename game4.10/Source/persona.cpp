@@ -98,31 +98,80 @@ void game_framework::persona::LoadBitMap()
 	bmp[0][22].LoadBitmap(IDB_PLAYER23, RGB(0, 0, 0));
 	bmp[0][23].LoadBitmap(IDB_PLAYER24, RGB(0, 0, 0));
 
-	bmp[1][0].LoadBitmap(IDB_PLAYER_MACHINEGUN1, RGB(0, 0, 0));
-	bmp[1][1].LoadBitmap(IDB_PLAYER_MACHINEGUN2, RGB(0, 0, 0));
-	bmp[1][2].LoadBitmap(IDB_PLAYER_MACHINEGUN3, RGB(0, 0, 0));
-	bmp[1][3].LoadBitmap(IDB_PLAYER_MACHINEGUN4, RGB(0, 0, 0));
-	bmp[1][4].LoadBitmap(IDB_PLAYER_MACHINEGUN5, RGB(0, 0, 0));
-	bmp[1][5].LoadBitmap(IDB_PLAYER_MACHINEGUN6, RGB(0, 0, 0));
-	bmp[1][6].LoadBitmap(IDB_PLAYER_MACHINEGUN7, RGB(0, 0, 0));
-	bmp[1][7].LoadBitmap(IDB_PLAYER_MACHINEGUN8, RGB(0, 0, 0));
-	bmp[1][8].LoadBitmap(IDB_PLAYER_MACHINEGUN9, RGB(0, 0, 0));
-	bmp[1][9].LoadBitmap(IDB_PLAYER_MACHINEGUN10, RGB(0, 0, 0));
-	bmp[1][10].LoadBitmap(IDB_PLAYER_MACHINEGUN11, RGB(0, 0, 0));
-	bmp[1][11].LoadBitmap(IDB_PLAYER_MACHINEGUN12, RGB(0, 0, 0));
-	bmp[1][12].LoadBitmap(IDB_PLAYER_MACHINEGUN13, RGB(0, 0, 0));
-	bmp[1][13].LoadBitmap(IDB_PLAYER_MACHINEGUN14, RGB(0, 0, 0));
-	bmp[1][14].LoadBitmap(IDB_PLAYER_MACHINEGUN15, RGB(0, 0, 0));
-	bmp[1][15].LoadBitmap(IDB_PLAYER_MACHINEGUN16, RGB(0, 0, 0));
-	bmp[1][16].LoadBitmap(IDB_PLAYER_MACHINEGUN17, RGB(0, 0, 0));
-	bmp[1][17].LoadBitmap(IDB_PLAYER_MACHINEGUN18, RGB(0, 0, 0));
-	bmp[1][18].LoadBitmap(IDB_PLAYER_MACHINEGUN19, RGB(0, 0, 0));
-	bmp[1][19].LoadBitmap(IDB_PLAYER_MACHINEGUN20, RGB(0, 0, 0));
-	bmp[1][20].LoadBitmap(IDB_PLAYER_MACHINEGUN21, RGB(0, 0, 0));
-	bmp[1][21].LoadBitmap(IDB_PLAYER_MACHINEGUN22, RGB(0, 0, 0));
-	bmp[1][22].LoadBitmap(IDB_PLAYER_MACHINEGUN23, RGB(0, 0, 0));
-	bmp[1][23].LoadBitmap(IDB_PLAYER_MACHINEGUN24, RGB(0, 0, 0));
+	bmp[1][0].LoadBitmap(IDB_PLAYER_PISTOL1, RGB(0, 0, 0));
+	bmp[1][1].LoadBitmap(IDB_PLAYER_PISTOL2, RGB(0, 0, 0));
+	bmp[1][2].LoadBitmap(IDB_PLAYER_PISTOL3, RGB(0, 0, 0));
+	bmp[1][3].LoadBitmap(IDB_PLAYER_PISTOL4, RGB(0, 0, 0));
+	bmp[1][4].LoadBitmap(IDB_PLAYER_PISTOL5, RGB(0, 0, 0));
+	bmp[1][5].LoadBitmap(IDB_PLAYER_PISTOL6, RGB(0, 0, 0));
+	bmp[1][6].LoadBitmap(IDB_PLAYER_PISTOL7, RGB(0, 0, 0));
+	bmp[1][7].LoadBitmap(IDB_PLAYER_PISTOL8, RGB(0, 0, 0));
+	bmp[1][8].LoadBitmap(IDB_PLAYER_PISTOL9, RGB(0, 0, 0));
+	bmp[1][9].LoadBitmap(IDB_PLAYER_PISTOL10, RGB(0, 0, 0));
+	bmp[1][10].LoadBitmap(IDB_PLAYER_PISTOL11, RGB(0, 0, 0));
+	bmp[1][11].LoadBitmap(IDB_PLAYER_PISTOL12, RGB(0, 0, 0));
+	bmp[1][12].LoadBitmap(IDB_PLAYER_PISTOL13, RGB(0, 0, 0));
+	bmp[1][13].LoadBitmap(IDB_PLAYER_PISTOL14, RGB(0, 0, 0));
+	bmp[1][14].LoadBitmap(IDB_PLAYER_PISTOL15, RGB(0, 0, 0));
+	bmp[1][15].LoadBitmap(IDB_PLAYER_PISTOL16, RGB(0, 0, 0));
+	bmp[1][16].LoadBitmap(IDB_PLAYER_PISTOL17, RGB(0, 0, 0));
+	bmp[1][17].LoadBitmap(IDB_PLAYER_PISTOL18, RGB(0, 0, 0));
+	bmp[1][18].LoadBitmap(IDB_PLAYER_PISTOL19, RGB(0, 0, 0));
+	bmp[1][19].LoadBitmap(IDB_PLAYER_PISTOL20, RGB(0, 0, 0));
+	bmp[1][20].LoadBitmap(IDB_PLAYER_PISTOL21, RGB(0, 0, 0));
+	bmp[1][21].LoadBitmap(IDB_PLAYER_PISTOL22, RGB(0, 0, 0));
+	bmp[1][22].LoadBitmap(IDB_PLAYER_PISTOL23, RGB(0, 0, 0));
+	bmp[1][23].LoadBitmap(IDB_PLAYER_PISTOL24, RGB(0, 0, 0));
 
+	bmp[2][0].LoadBitmap(IDB_PLAYER_MACHINEGUN1, RGB(0, 0, 0));
+	bmp[2][1].LoadBitmap(IDB_PLAYER_MACHINEGUN2, RGB(0, 0, 0));
+	bmp[2][2].LoadBitmap(IDB_PLAYER_MACHINEGUN3, RGB(0, 0, 0));
+	bmp[2][3].LoadBitmap(IDB_PLAYER_MACHINEGUN4, RGB(0, 0, 0));
+	bmp[2][4].LoadBitmap(IDB_PLAYER_MACHINEGUN5, RGB(0, 0, 0));
+	bmp[2][5].LoadBitmap(IDB_PLAYER_MACHINEGUN6, RGB(0, 0, 0));
+	bmp[2][6].LoadBitmap(IDB_PLAYER_MACHINEGUN7, RGB(0, 0, 0));
+	bmp[2][7].LoadBitmap(IDB_PLAYER_MACHINEGUN8, RGB(0, 0, 0));
+	bmp[2][8].LoadBitmap(IDB_PLAYER_MACHINEGUN9, RGB(0, 0, 0));
+	bmp[2][9].LoadBitmap(IDB_PLAYER_MACHINEGUN10, RGB(0, 0, 0));
+	bmp[2][10].LoadBitmap(IDB_PLAYER_MACHINEGUN11, RGB(0, 0, 0));
+	bmp[2][11].LoadBitmap(IDB_PLAYER_MACHINEGUN12, RGB(0, 0, 0));
+	bmp[2][12].LoadBitmap(IDB_PLAYER_MACHINEGUN13, RGB(0, 0, 0));
+	bmp[2][13].LoadBitmap(IDB_PLAYER_MACHINEGUN14, RGB(0, 0, 0));
+	bmp[2][14].LoadBitmap(IDB_PLAYER_MACHINEGUN15, RGB(0, 0, 0));
+	bmp[2][15].LoadBitmap(IDB_PLAYER_MACHINEGUN16, RGB(0, 0, 0));
+	bmp[2][16].LoadBitmap(IDB_PLAYER_MACHINEGUN17, RGB(0, 0, 0));
+	bmp[2][17].LoadBitmap(IDB_PLAYER_MACHINEGUN18, RGB(0, 0, 0));
+	bmp[2][18].LoadBitmap(IDB_PLAYER_MACHINEGUN19, RGB(0, 0, 0));
+	bmp[2][19].LoadBitmap(IDB_PLAYER_MACHINEGUN20, RGB(0, 0, 0));
+	bmp[2][20].LoadBitmap(IDB_PLAYER_MACHINEGUN21, RGB(0, 0, 0));
+	bmp[2][21].LoadBitmap(IDB_PLAYER_MACHINEGUN22, RGB(0, 0, 0));
+	bmp[2][22].LoadBitmap(IDB_PLAYER_MACHINEGUN23, RGB(0, 0, 0));
+	bmp[2][23].LoadBitmap(IDB_PLAYER_MACHINEGUN24, RGB(0, 0, 0));
+
+	bmp[3][0].LoadBitmap(IDB_PLAYER_SHOTGUN1, RGB(0, 0, 0));
+	bmp[3][1].LoadBitmap(IDB_PLAYER_SHOTGUN2, RGB(0, 0, 0));
+	bmp[3][2].LoadBitmap(IDB_PLAYER_SHOTGUN3, RGB(0, 0, 0));
+	bmp[3][3].LoadBitmap(IDB_PLAYER_SHOTGUN4, RGB(0, 0, 0));
+	bmp[3][4].LoadBitmap(IDB_PLAYER_SHOTGUN5, RGB(0, 0, 0));
+	bmp[3][5].LoadBitmap(IDB_PLAYER_SHOTGUN6, RGB(0, 0, 0));
+	bmp[3][6].LoadBitmap(IDB_PLAYER_SHOTGUN7, RGB(0, 0, 0));
+	bmp[3][7].LoadBitmap(IDB_PLAYER_SHOTGUN8, RGB(0, 0, 0));
+	bmp[3][8].LoadBitmap(IDB_PLAYER_SHOTGUN9, RGB(0, 0, 0));
+	bmp[3][9].LoadBitmap(IDB_PLAYER_SHOTGUN10, RGB(0, 0, 0));
+	bmp[3][10].LoadBitmap(IDB_PLAYER_SHOTGUN11, RGB(0, 0, 0));
+	bmp[3][11].LoadBitmap(IDB_PLAYER_SHOTGUN12, RGB(0, 0, 0));
+	bmp[3][12].LoadBitmap(IDB_PLAYER_SHOTGUN13, RGB(0, 0, 0));
+	bmp[3][13].LoadBitmap(IDB_PLAYER_SHOTGUN14, RGB(0, 0, 0));
+	bmp[3][14].LoadBitmap(IDB_PLAYER_SHOTGUN15, RGB(0, 0, 0));
+	bmp[3][15].LoadBitmap(IDB_PLAYER_SHOTGUN16, RGB(0, 0, 0));
+	bmp[3][16].LoadBitmap(IDB_PLAYER_SHOTGUN17, RGB(0, 0, 0));
+	bmp[3][17].LoadBitmap(IDB_PLAYER_SHOTGUN18, RGB(0, 0, 0));
+	bmp[3][18].LoadBitmap(IDB_PLAYER_SHOTGUN19, RGB(0, 0, 0));
+	bmp[3][19].LoadBitmap(IDB_PLAYER_SHOTGUN20, RGB(0, 0, 0));
+	bmp[3][20].LoadBitmap(IDB_PLAYER_SHOTGUN21, RGB(0, 0, 0));
+	bmp[3][21].LoadBitmap(IDB_PLAYER_SHOTGUN22, RGB(0, 0, 0));
+	bmp[3][22].LoadBitmap(IDB_PLAYER_SHOTGUN23, RGB(0, 0, 0));
+	bmp[3][23].LoadBitmap(IDB_PLAYER_SHOTGUN24, RGB(0, 0, 0));
 }
 
 void game_framework::persona::OnShow()
@@ -130,14 +179,8 @@ void game_framework::persona::OnShow()
     if (is_alive)
     {	
 		const int ID = getHoldingItemID();
-		if (ID == 0) {
-			bmp[0][direction].SetTopLeft(x + camera_x, y + camera_y);
-			bmp[0][direction].ShowBitmap(showMagnification);
-		}
-		else {
-			bmp[1][direction].SetTopLeft(x + camera_x, y + camera_y);
-			bmp[1][direction].ShowBitmap(showMagnification);
-		}
+		bmp[ID][direction].SetTopLeft(x + camera_x, y + camera_y);
+		bmp[ID][direction].ShowBitmap(showMagnification);
     }
 }
 

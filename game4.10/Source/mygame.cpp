@@ -576,7 +576,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
             if (player1.isGetting() && player1.getHasitemNum() < 2 && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
                 player1.CatchItem(item.at(i));
-                item.erase(item.begin() + i);				
+                item.erase(item.begin() + i);
             }
 
         for (int i = 0; i < static_cast<int>(bullet.size()); i++)
