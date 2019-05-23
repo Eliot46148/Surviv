@@ -7,12 +7,12 @@ namespace game_framework {
 		UI();
 		void LoadBitMap();
 		void OnShow();
-		void ShowHealthBar();
-		void ShowInfo();
-		void ShowItems();
-		void ShowBullets();
-		void TakePlayerInfo(int,int,int,int*,int);
-		void SetHealthStatus();
+		void ShowHealthBar();								// 顯示 HealthBar
+		void ShowInfo();									// 剩餘敵人
+		void ShowItems();									// 持有武器
+		void ShowBullets();									// 持有子彈
+		void TakePlayerInfo(int,int,int,int*,int);			// 接收 HP, 子彈數目, 敵人數目, hasitemID, holdingitem 資料，並呼叫 SetHealthStatus()
+		void SetHealthStatus();								// 切換 HealthBar 狀態
 	private:
 		int HP;
 		int Ammo;

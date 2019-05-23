@@ -3,6 +3,7 @@
 #include <mmsystem.h>
 #include <string>
 #include <ddraw.h>
+#include <random>
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
@@ -366,6 +367,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////  動作處理    /////////////////////////////////////////////////////////////////////////////////////
+	random_device rndseed;
+	srand(rndseed());
+	int rnd;
 
     if (player1.isActing())
     {
@@ -375,26 +379,34 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
 			int position_x = player1.GetHitpointX(), position_y = player1.GetHitpointY();
 			int camera_x = camera.GetCameraX(), camera_y = camera.GetCameraY();
+			
+			
 
             switch (ID)
             {
                 case 1:
+					shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+					player1.setBullet(-1);
+					break;
                 case 2:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+					rnd = rand() % 30 - 15;
+					shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
 					player1.setBullet(-1);
                     break;
 
                 case 3:
-                    int degree = 10, temp = degree;
-                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    temp = degree * 2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    temp = degree * -1;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    temp = degree * -2;
-                    shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-					player1.setBullet(-5);
+					if (player1.getBullet() >= 5) {
+						int degree = 10, temp = degree;
+						shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * 2;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * -1;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * -2;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						player1.setBullet(-5);
+					}
 					break;
             }
         }
