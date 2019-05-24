@@ -31,9 +31,15 @@ game_framework::persona::persona(): BasicObject()
 
 void game_framework::persona::CatchItem(items take)
 {
-    hasitem.push_back(take);
-    holdingItem = hasitem.size() - 1;
-	hasitemID[hasitem.size() - 1] = hasitem.back().getID();
+	if (getHasitemNum() < 2) {
+		hasitem.push_back(take);
+		holdingItem = hasitem.size() - 1;
+		hasitemID[hasitem.size() - 1] = hasitem.back().getID();
+	}
+	else {
+		hasitem.at(holdingItem) = take;
+		hasitemID[holdingItem] = take.getID();
+	}
 }
 
 bool game_framework::persona::HitObstacle(Box* box, int _where)
@@ -229,6 +235,7 @@ void game_framework::persona::Retry()
 	speed = DEFAULT_CHACRATER_SPEED;
 	isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
 }
+
 
 int game_framework::persona::GetHP()
 {
