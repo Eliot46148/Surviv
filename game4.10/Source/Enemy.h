@@ -21,7 +21,7 @@ class Enemy : public persona
         void SetNearBullet(Bullet* nbullet);
         void SetNearItem(items* nitem);
         void chouseMode();
-        void attackNearPeople();
+        int rtNearPeople();
         void getNearItems();
         void getNeatBullet();
         void movetoplace();
@@ -34,12 +34,12 @@ class Enemy : public persona
 		bool isActing();
 		int catchitemID();
 		int Recoil_delay;
+		vector<persona> nearPerson;
 		int rrdelay = 0;
     private:
         CMovingBitmap bmp[8];
         bool is_Gettting = false;
         bool is_Reloading = false;
-        vector<persona> nearPerson;
         vector<items> hasitem;
         vector<Box*> nearBox;
         vector<Bullet*> nearBuller;

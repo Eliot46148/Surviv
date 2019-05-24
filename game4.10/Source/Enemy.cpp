@@ -152,8 +152,9 @@ void game_framework::Enemy::chouseMode()
         isMovingRight = 0;
 }
 
-void game_framework::Enemy::attackNearPeople()
+int game_framework::Enemy::rtNearPeople()
 {
+	return static_cast<int>(nearPerson.size());
 }
 
 void game_framework::Enemy::getNearItems()

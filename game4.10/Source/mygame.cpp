@@ -146,7 +146,7 @@ CGameStateRun::CGameStateRun(CGame* g)
 	unsigned seed = (unsigned)time(NULL);
 	srand(seed);
 	//box.push_back(Box(100, 100));								// 加入箱子
-	box.push_back(Box(200, 200));								// 加入箱子
+	//box.push_back(Box(200, 200));								// 加入箱子
 	int randomx, randomy;
 
 	for (int i = 0; i < 15; i++)
@@ -161,12 +161,12 @@ CGameStateRun::CGameStateRun(CGame* g)
 	item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
 	enemy.push_back(Enemy(100, 100, 1));
 
-	/*for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		randomx = rand() % (556 * 5);
 		randomy = rand() % (556 * 5);
 		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-	}*/
+	}
 
 	for (int i = 0; i < 70; i++)
 		bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
@@ -225,6 +225,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         if (abs(player1.GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(player1.GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2)
             enemy.at(i).setnearperson(&player1);
 
+		for (int j = 0; j < static_cast<int>(enemy.size()); j++)
+			if ((abs(enemy.at(j).GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(enemy.at(j).GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2) && j != i)
+				enemy.at(i).setnearperson(&enemy.at(j));
+
         for (int j = 0; j < static_cast<int>(item.size()); j++)
             if (abs(item.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(item.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
                 enemy.at(i).SetNearItem(&item.at(j));
@@ -241,8 +245,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0 )
             {
 				enemy.at(i).rrdelay = enemy.at(i).Recoil_delay;
+				int randomp = rand() % enemy.at(i).rtNearPeople();
                 int ID = enemy.at(i).catchitemID();
-                double dx = player1.GetHitpointX() - enemy.at(i).GetX(), dy = player1.GetHitpointY() - enemy.at(i).GetY();
+                double dx = enemy.at(i).nearPerson.at(randomp).GetHitpointX()- enemy.at(i).GetX(), dy = enemy.at(i).nearPerson.at(randomp).GetHitpointY() - enemy.at(i).GetY();
                 double r = sqrt(dx * dx + dy * dy);
                 const int distance = 100;			// 子彈發射時距離自身的距離
                 double x = (dx / r) * distance, y = (dy / r) * distance;
