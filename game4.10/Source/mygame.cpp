@@ -207,6 +207,10 @@ void CGameStateRun::ChangeMovingMode(int _where, bool type)
 
 void CGameStateRun::OnMove()											// 移動遊戲元素
 {
+	random_device rndseed;
+	srand(rndseed());
+	int rnd;
+
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 
 	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem());				// UI接收玩家資訊
@@ -255,9 +259,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 switch (ID)
                 {
                     case 1:
-                    case 2:
-                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
-                        break;
+						shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+						break;
+					case 2:
+						rnd = rand() % 30 - 15;
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+						
+						break;
 
                     case 3:
                         int degree = 15, temp = degree;
@@ -378,9 +386,6 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////  動作處理    /////////////////////////////////////////////////////////////////////////////////////
-	random_device rndseed;
-	srand(rndseed());
-	int rnd;
 
     if (player1.isActing())
     {
