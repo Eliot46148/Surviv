@@ -472,13 +472,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_UP    = 0x57;		 // keyboard  [W]
     const char KEY_RIGHT = 0x44;		 // keyboard  [D]
     const char KEY_DOWN  = 0x53;		 // keyboard  [S]
-    const char KEY_GET = 0x46;			 // keyboard  [F]
+    const char KEY_GET   = 0x46;		 // keyboard  [F]
     const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
 	const char KEY_CHEAT = 0x43;		 // keyboard  [C]
     const char KEY_First = 0x31;		 // keyboard  [1]
     const char KEY_Second = 0x32;		 // keyboard  [2]
     const char KEY_Fist = 0x33;			 // keyboard  [3]
-    //const char KEY_Grenade = 0x21;	 // keyboard  [4]
+	const char KEY_Escape = 0x18;        // keyboard  [Esc]
 
     //////////// ²¾°Ê //////////////////////////////////////
     if (nChar == KEY_LEFT)           // ¥ª
@@ -573,8 +573,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     if (nChar == KEY_GET)
     {
         for (int i = 0; i < static_cast<int>(item.size()); i++)
-            if (player1.isGetting() && player1.getHasitemNum() < 2 && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
+            if (player1.isGetting() && (item.at(i).GetX() >= player1.GetX() && item.at(i).GetX()  <= player1.GetX() + player1.GetWidth()) && (item.at(i).GetY() >= player1.GetY() && item.at(i).GetY()  <= player1.GetY() + player1.GetHeight()))
             {
+				if (player1.getHasitemNum() >= 2) {
+					item.push_back(items(player1.GetX(), player1.GetY(), player1.getHoldingItemID(), (float)0.4));
+					item.back().LoadBitMap();
+				}
                 player1.CatchItem(item.at(i));
                 item.erase(item.begin() + i);
             }
