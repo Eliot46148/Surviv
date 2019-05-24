@@ -228,19 +228,19 @@ IDB_WIN                 BITMAP                  "..\\RES\\win.bmp"
 
 IDB_LOSE                BITMAP                  "..\\RES\\lose.bmp"
 
-IDB_ItemUI1             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI1.bmp"
+IDB_ItemUI1             BITMAP                  "..\\RES\\itemUI1.bmp"
 
-IDB_ItemUI2             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI2.bmp"
+IDB_ItemUI2             BITMAP                  "..\\RES\\itemUI2.bmp"
 
-IDB_ItemUI3             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI3.bmp"
+IDB_ItemUI3             BITMAP                  "..\\RES\\itemUI3.bmp"
 
-IDB_ItemUI1_2           BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI1_2.bmp"
+IDB_ItemUI1_2           BITMAP                  "..\\RES\\itemUI1_2.bmp"
 
-IDB_ItemUI2_2           BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\itemUI2_2.bmp"
+IDB_ItemUI2_2           BITMAP                  "..\\RES\\itemUI2_2.bmp"
 
-IDB_BULLET2             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\Bullet02.bmp"
+IDB_BULLET2             BITMAP                  "..\\RES\\Bullet02.bmp"
 
-IDB_BULLET3             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\Bullet03.bmp"
+IDB_BULLET3             BITMAP                  "..\\RES\\Bullet03.bmp"
 
 IDB_PLAYER_SHOTGUN1     BITMAP                  "..\\RES\\player_ShotGun1.bmp"
 

@@ -146,7 +146,7 @@ CGameStateRun::CGameStateRun(CGame* g)
 	unsigned seed = (unsigned)time(NULL);
 	srand(seed);
 	//box.push_back(Box(100, 100));								// 加入箱子
-	//box.push_back(Box(200, 200));								// 加入箱子
+	box.push_back(Box(200, 200));								// 加入箱子
 	int randomx, randomy;
 
 	for (int i = 0; i < 15; i++)
@@ -161,12 +161,12 @@ CGameStateRun::CGameStateRun(CGame* g)
 	item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
 	enemy.push_back(Enemy(100, 100, 1));
 
-	for (int i = 0; i < 7; i++)
+	/*for (int i = 0; i < 7; i++)
 	{
 		randomx = rand() % (556 * 5);
 		randomy = rand() % (556 * 5);
 		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-	}
+	}*/
 
 	for (int i = 0; i < 70; i++)
 		bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
@@ -210,6 +210,12 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
 
 	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem());				// UI接收玩家資訊
+
+	for (int i = 0; i < static_cast<int>(box.size()); i++) 
+	{
+		
+		player1.HitObstacle(&box.at(i), 1);
+	}
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -313,7 +319,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&enemy.at(j))&& shotbullets.at(i).getshooter()!=j)
+            if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitEnemy(&enemy.at(j))&& shotbullets.at(i).getshooter()!=j)
             {
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
                 shotbullets.erase(shotbullets.begin() + i);

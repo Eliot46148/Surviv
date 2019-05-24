@@ -64,6 +64,13 @@ bool game_framework::shotBullet::HitPlayer(persona* player)
     return HitSomething(px1, py1, px2, py2);
 }
 
+bool game_framework::shotBullet::HitEnemy(Enemy * enemy)
+{
+	int px1 = enemy->GetX(), py1 = enemy->GetY();
+	int px2 = enemy->GetX() + enemy->GetWidth(), py2 = enemy->GetY() + enemy->GetHeight();
+	return HitSomething(px1, py1, px2, py2);
+}
+
 bool game_framework::shotBullet::HitObstacle(Box* box)
 {
     int bx1 = box->GetX(), by1 = box->GetY();
