@@ -3,6 +3,7 @@
 #include <math.h>
 #include "Box.h"
 #include "persona.h"
+#include "Enemy.h"
 
 namespace game_framework {
 	class shotBullet : public BasicObject {
@@ -12,6 +13,7 @@ namespace game_framework {
 		void OnMove();
 		void LoadBitMap();
 		bool HitPlayer(persona *player);
+		bool HitEnemy(Enemy *enemy);
 		bool HitObstacle(Box *box);
 		bool HitSomething(int,int,int,int);
 		int ShowDamage();
