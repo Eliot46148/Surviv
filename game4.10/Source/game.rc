@@ -242,6 +242,101 @@ IDB_BULLET2             BITMAP                  "..\\RES\\Bullet02.bmp"
 
 IDB_BULLET3             BITMAP                  "..\\RES\\Bullet03.bmp"
 
+IDB_PLAYER_SHOTGUN1     BITMAP                  "..\\RES\\player_ShotGun1.bmp"
+
+IDB_PLAYER_SHOTGUN2     BITMAP                  "..\\RES\\player_ShotGun2.bmp"
+
+IDB_PLAYER_SHOTGUN3     BITMAP                  "..\\RES\\player_ShotGun3.bmp"
+
+IDB_PLAYER_SHOTGUN4     BITMAP                  "..\\RES\\player_ShotGun4.bmp"
+
+IDB_PLAYER_SHOTGUN5     BITMAP                  "..\\RES\\player_ShotGun5.bmp"
+
+IDB_PLAYER_SHOTGUN6     BITMAP                  "..\\RES\\player_ShotGun6.bmp"
+
+IDB_PLAYER_SHOTGUN7     BITMAP                  "..\\RES\\player_ShotGun7.bmp"
+
+IDB_PLAYER_SHOTGUN8     BITMAP                  "..\\RES\\player_ShotGun8.bmp"
+
+IDB_PLAYER_SHOTGUN9     BITMAP                  "..\\RES\\player_ShotGun9.bmp"
+
+IDB_PLAYER_SHOTGUN10    BITMAP                  "..\\RES\\player_ShotGun10.bmp"
+
+IDB_PLAYER_SHOTGUN11    BITMAP                  "..\\RES\\player_ShotGun11.bmp"
+
+IDB_PLAYER_SHOTGUN12    BITMAP                  "..\\RES\\player_ShotGun12.bmp"
+
+IDB_PLAYER_SHOTGUN13    BITMAP                  "..\\RES\\player_ShotGun13.bmp"
+
+IDB_PLAYER_SHOTGUN14    BITMAP                  "..\\RES\\player_ShotGun14.bmp"
+
+IDB_PLAYER_SHOTGUN15    BITMAP                  "..\\RES\\player_ShotGun15.bmp"
+
+IDB_PLAYER_SHOTGUN16    BITMAP                  "..\\RES\\player_ShotGun16.bmp"
+
+IDB_PLAYER_SHOTGUN17    BITMAP                  "..\\RES\\player_ShotGun17.bmp"
+
+IDB_PLAYER_SHOTGUN18    BITMAP                  "..\\RES\\player_ShotGun18.bmp"
+
+IDB_PLAYER_SHOTGUN19    BITMAP                  "..\\RES\\player_ShotGun19.bmp"
+
+IDB_PLAYER_SHOTGUN20    BITMAP                  "..\\RES\\player_ShotGun20.bmp"
+
+IDB_PLAYER_SHOTGUN21    BITMAP                  "..\\RES\\player_ShotGun21.bmp"
+
+IDB_PLAYER_SHOTGUN22    BITMAP                  "..\\RES\\player_ShotGun22.bmp"
+
+IDB_PLAYER_SHOTGUN23    BITMAP                  "..\\RES\\player_ShotGun23.bmp"
+
+IDB_PLAYER_SHOTGUN24    BITMAP                  "..\\RES\\player_ShotGun24.bmp"
+
+IDB_PLAYER_PISTOL1      BITMAP                  "..\\RES\\player_Pistol1.bmp"
+
+IDB_PLAYER_PISTOL2      BITMAP                  "..\\RES\\player_Pistol2.bmp"
+
+IDB_PLAYER_PISTOL3      BITMAP                  "..\\RES\\player_Pistol3.bmp"
+
+IDB_PLAYER_PISTOL4      BITMAP                  "..\\RES\\player_Pistol4.bmp"
+
+IDB_PLAYER_PISTOL5      BITMAP                  "..\\RES\\player_Pistol5.bmp"
+
+IDB_PLAYER_PISTOL6      BITMAP                  "..\\RES\\player_Pistol6.bmp"
+
+IDB_PLAYER_PISTOL7      BITMAP                  "..\\RES\\player_Pistol7.bmp"
+
+IDB_PLAYER_PISTOL8      BITMAP                  "..\\RES\\player_Pistol8.bmp"
+
+IDB_PLAYER_PISTOL9      BITMAP                  "..\\RES\\player_Pistol9.bmp"
+
+IDB_PLAYER_PISTOL10     BITMAP                  "..\\RES\\player_Pistol10.bmp"
+
+IDB_PLAYER_PISTOL11     BITMAP                  "..\\RES\\player_Pistol11.bmp"
+
+IDB_PLAYER_PISTOL12     BITMAP                  "..\\RES\\player_Pistol12.bmp"
+
+IDB_PLAYER_PISTOL13     BITMAP                  "..\\RES\\player_Pistol13.bmp"
+
+IDB_PLAYER_PISTOL14     BITMAP                  "..\\RES\\player_Pistol14.bmp"
+
+IDB_PLAYER_PISTOL15     BITMAP                  "..\\RES\\player_Pistol15.bmp"
+
+IDB_PLAYER_PISTOL16     BITMAP                  "..\\RES\\player_Pistol16.bmp"
+
+IDB_PLAYER_PISTOL17     BITMAP                  "..\\RES\\player_Pistol17.bmp"
+
+IDB_PLAYER_PISTOL18     BITMAP                  "..\\RES\\player_Pistol18.bmp"
+
+IDB_PLAYER_PISTOL19     BITMAP                  "..\\RES\\player_Pistol19.bmp"
+
+IDB_PLAYER_PISTOL20     BITMAP                  "..\\RES\\player_Pistol20.bmp"
+
+IDB_PLAYER_PISTOL21     BITMAP                  "..\\RES\\player_Pistol21.bmp"
+
+IDB_PLAYER_PISTOL22     BITMAP                  "..\\RES\\player_Pistol22.bmp"
+
+IDB_PLAYER_PISTOL23     BITMAP                  "..\\RES\\player_Pistol23.bmp"
+
+IDB_PLAYER_PISTOL24     BITMAP                  "..\\RES\\player_Pistol24.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
