@@ -25,8 +25,11 @@ game_framework::persona::persona(): BasicObject()
     direction = 0;
 	HP = 100;
 	recoil_timer = 0;
+	reload_timer = 0;
 	holdingItem = 2;
 	speed = DEFAULT_CHACRATER_SPEED;
+	megazine = 0;
+	is_Reloading = false;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -191,9 +194,27 @@ void game_framework::persona::OnShow()
 }
 
 void game_framework::persona::OnMove()
-{
+{	
+	int temp;
     if (recoil_timer < 100)
         recoil_timer++;
+
+	if (is_Reloading) {
+		reload_timer++;
+		if (reload_timer >= 30) {
+			reload_timer = 0;
+			is_Reloading = false;
+			temp = 30 - megazine;
+			if (bullet >= temp) {
+				bullet -= temp;
+				megazine += temp;
+			}
+			else {
+				megazine += bullet;
+				bullet = 0;
+			}
+		}
+	}
 
     if (!(can_move && is_alive))
         return;
@@ -277,6 +298,7 @@ bool game_framework::persona::Recoil()
         return true;
 }
 
+
 void game_framework::persona::SetGetting(bool flag)
 {
     is_Gettting = flag;
@@ -284,7 +306,14 @@ void game_framework::persona::SetGetting(bool flag)
 
 void game_framework::persona::SetReloading(bool flag)
 {
-    is_Reloading = flag;
+	if (flag) {
+		if (!is_Reloading) {
+			is_Reloading = flag;
+			reload_timer = 0;
+		}
+	}
+	else
+		is_Reloading = flag;
 }
 
 bool game_framework::persona::isGetting()
@@ -332,9 +361,12 @@ void game_framework::persona::setCan_move(bool flag)
 
 void game_framework::persona::setBullet(int num)
 {	
-    bullet += num;
-	if (bullet > 90)
-		bullet = 90;
+	bullet += num;
+}
+
+void game_framework::persona::setMegazine(int num)
+{
+	megazine += num;
 }
 
 void game_framework::persona::setFacingPosition(double x, double y)
@@ -431,6 +463,18 @@ void game_framework::persona::getDemage(int damage)
 void game_framework::persona::setHoldingItem(int num)
 {
     holdingItem = num;
+	int Id = getHoldingItemID();
+	switch (Id) {
+	case 1:
+		reload_timer = 30;
+		break;
+	case 2:
+		reload_timer = 50;
+		break;
+	case 3:
+		reload_timer = 75;
+		break;
+	}
 }
 
 double game_framework::persona::getFacingX()
@@ -481,4 +525,9 @@ int game_framework::persona::getHoldingItemID()
 int game_framework::persona::getBullet()
 {
     return bullet;
+}
+
+int game_framework::persona::GetMegazine()
+{
+	return megazine;
 }
