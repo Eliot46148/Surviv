@@ -150,29 +150,35 @@ CGameStateRun::CGameStateRun(CGame* g)
     firstlife = true;
     unsigned seed = (unsigned)time(NULL);
     srand(seed);
-    box.push_back(Box(100, 100));								// 加入箱子
-    box.push_back(Box(300, 300));								// 加入箱子
     int randomx, randomy;
+
+    for (int i = 0; i < 10; i++)
+    {
+        randomx = rand() % (556 * 5);
+        randomy = rand() % (556 * 5);
+        box.push_back(Box(randomx, randomy));								// 加入箱子
+    }
 
     for (int i = 0; i < 15; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
-		item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
+        item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
     }
 
     item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
     item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
-    enemy.push_back(Enemy(220, 220, 1));
+    enemy.push_back(Enemy(100, 100, 2));
 
-    /*for (int i = 0; i < 7; i++)
-    {
-    	randomx = rand() % (556 * 5);
-    	randomy = rand() % (556 * 5);
-    	enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-    }*/
-
+    /*
+        for (int i = 0; i < 8; i++)
+        {
+            randomx = rand() % (556 * 5);
+            randomy = rand() % (556 * 5);
+            enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
+        }
+    	*/
     for (int i = 0; i < 70; i++)
         bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
 }
@@ -216,15 +222,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     random_device rndseed;
     srand(rndseed());
     int rnd;
-	bool temp = true;
-    SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));					// 鼠標設定
     ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem());				// UI接收玩家資訊
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
         if (player1.HitObstacle(&box.at(i), 1))
         {
-			camera.setMovingMode(2, 0);
+            camera.setMovingMode(2, 0);
             player1.setMovingMode(1, 0);
         }
 
@@ -340,7 +344,6 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
     {
-		temp = true;
         /* 子彈碰到邊界會消失 */
         if (shotbullets.at(i).GetX() >= SIZE_MAP + 10 || shotbullets.at(i).GetX() <= 10 || shotbullets.at(i).GetY() >= SIZE_MAP + 10 || shotbullets.at(i).GetY() <= 10)
         {
@@ -358,11 +361,12 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 isWin = false;
                 GotoGameState(GAME_STATE_OVER);
             }
-			continue;
+
+            continue;
         }
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
-            if ((static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitEnemy(&enemy.at(j)) && shotbullets.at(i).getshooter() != j)&& temp)
+            if ((int)shotbullets.size() > i && (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitEnemy(&enemy.at(j)) && shotbullets.at(i).getshooter() != j))
             {
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
                 shotbullets.erase(shotbullets.begin() + i);
@@ -376,13 +380,12 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
                     enemy.erase(enemy.begin() + j);
                 }
-
-                temp = false;
             }
 
         for (int j = 0; j < static_cast<int>(box.size()); j++)
-            if (shotbullets.at(i).HitObstacle(&box.at(j))&& temp)
+            if ((int)shotbullets.size() > i && shotbullets.at(i).HitObstacle(&box.at(j)) )
             {
+                //				TRACE("%d\n",i);
                 box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
                 shotbullets.erase(shotbullets.begin() + i);
 
@@ -395,8 +398,6 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
                     box.erase(box.begin() + j);
                 }
-				temp = false;
-
             }
     }
 
@@ -457,11 +458,11 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*if (static_cast<int>(enemy.size()) == 0)
+    if (static_cast<int>(enemy.size()) == 0)
     {
         isWin = true;
         GotoGameState(GAME_STATE_OVER);
-    }*/
+    }
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
