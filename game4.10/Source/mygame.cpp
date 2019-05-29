@@ -152,12 +152,14 @@ CGameStateRun::CGameStateRun(CGame* g)
     srand(seed);
     int randomx, randomy;
 
-    for (int i = 0; i < 10; i++)
+   /* for (int i = 0; i < 10; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
         box.push_back(Box(randomx, randomy));								// 加入箱子
-    }
+    }*/
+
+    box.push_back(Box(100, 200));								// 加入箱子
 
     for (int i = 0; i < 15; i++)
     {
@@ -258,6 +260,11 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
         if (abs(player1.GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(player1.GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2)
             enemy.at(i).setnearperson(&player1);
+
+        for (int j = 0; j < static_cast<int>(box.size()); j++)
+        {
+            enemy.at(i).hitBox(&box.at(j));
+        }
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
             if ((abs(enemy.at(j).GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(enemy.at(j).GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2) && j != i)

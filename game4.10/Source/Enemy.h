@@ -27,15 +27,17 @@ class Enemy : public persona
         void movetoplace();
         void Catchbullt(int bu);
         void CatchItem(items it);
-		void setnearperson(persona *ps);
+        void setnearperson(persona* ps);
         int hasItom();
         void setbullt(int num);
         int hasbullet();
-		bool isActing();
-		int catchitemID();
-		int Recoil_delay;
-		vector<persona> nearPerson;
-		int rrdelay = 0;
+        bool isActing();
+        int catchitemID();
+        int Recoil_delay;
+        vector<persona> nearPerson;
+        int rrdelay = 0;
+        bool tutchbox(Box* box, int _where);
+        void hitBox(Box* box);
     private:
         CMovingBitmap bmp[8];
         bool is_Gettting = false;
@@ -48,6 +50,6 @@ class Enemy : public persona
         int direction;
         int random, movevector;
         int skin;
-		bool is_acting;
+        bool is_acting;
 };
 }

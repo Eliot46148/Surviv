@@ -24,6 +24,7 @@ game_framework::Enemy::Enemy()
     hasitem.clear();
     ClearBBIPvector();
 }
+
 game_framework::Enemy::Enemy(int nx, int ny, int skinid)
 {
     x = nx;
@@ -40,7 +41,6 @@ game_framework::Enemy::Enemy(int nx, int ny, int skinid)
     hasitem.clear();
     ClearBBIPvector();
 }
-
 
 void game_framework::Enemy::LoadBitMap()
 {
@@ -115,11 +115,11 @@ void game_framework::Enemy::chouseMode()
         moveDelay = 45;
     }
 
-	if (static_cast<int>(nearPerson.size()) != 0 && static_cast<int>(hasitem.size()) != 0)
-		this->is_acting = true;
-	else
-		this->is_acting = false;
-
+    if (static_cast<int>(nearPerson.size()) != 0 && static_cast<int>(hasitem.size()) != 0)
+        this->is_acting = true;
+    else
+        this->is_acting = false;
+	random = 1;//---------------------------------------------------------------------------------------------------------------
     switch (random)
     {
         case 1:
@@ -154,7 +154,7 @@ void game_framework::Enemy::chouseMode()
 
 int game_framework::Enemy::rtNearPeople()
 {
-	return static_cast<int>(nearPerson.size());
+    return static_cast<int>(nearPerson.size());
 }
 
 void game_framework::Enemy::getNearItems()
@@ -168,6 +168,7 @@ void game_framework::Enemy::getNearItems()
         isMovingUp = 1;
     else if (nearitems.at(0)->GetY() > this->y + 10)
         isMovingDown = 1;
+
     moveDelay = 2;
 }
 
@@ -189,7 +190,7 @@ void game_framework::Enemy::getNeatBullet()
 void game_framework::Enemy::movetoplace()
 {
     random = 1;
-
+	movevector = 2;//---------------------------------------------------------------------------------------------------------
     switch (movevector)
     {
         case 1://¤W
@@ -247,7 +248,7 @@ void game_framework::Enemy::CatchItem(items it)
 
 void game_framework::Enemy::setnearperson(persona* ps)
 {
-	nearPerson.push_back(*ps);
+    nearPerson.push_back(*ps);
 }
 
 int game_framework::Enemy::hasItom()
@@ -267,11 +268,61 @@ int game_framework::Enemy::hasbullet()
 
 bool game_framework::Enemy::isActing()
 {
-	return is_acting;
+    return is_acting;
 }
 
 int game_framework::Enemy::catchitemID()
 {
-	return hasitem.at(0).getID();
+    return hasitem.at(0).getID();
+}
+
+bool game_framework::Enemy::tutchbox(Box* box, int _where)
+{
+    int Ox1 = box->GetX(), Oy1 = box->GetY();
+    int Ox2 = Ox1 + box->GetWidth(), Oy2 = Oy1 + box->GetHeight();
+    int Px1 = x , Py1 = y;
+    int Px2 = Px1 + (int)(Width*showMagnification), Py2 = Py1 + (int)(Height*showMagnification);
+
+    switch (_where)
+    {
+        case 1:
+            Py2 -= 10;
+            Py1 -= 10;
+            break;
+
+        case 2:
+            Py2 += 10;
+            Py1 += 10;
+            break;
+
+        case 3:
+            Px2 -= 10;
+            Px1 -= 10;
+            break;
+
+        case 4:
+            Px2 += 10;
+            Px1 += 10;
+            break;
+    }
+
+    //return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+    bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
+    return tem;
+}
+
+void game_framework::Enemy::hitBox(Box* box)
+{
+    if (tutchbox(box, 1))
+        isMovingUp = 0;
+
+    if (tutchbox(box, 2))
+        isMovingDown = 0;
+
+    if (tutchbox(box, 3))
+        isMovingLeft = 0;
+
+    if (tutchbox(box, 4))
+        isMovingRight = 0;
 }
 

@@ -48,7 +48,7 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
 {
     int Ox1 = box->GetX(), Oy1 = box->GetY();
     int Ox2 = Ox1 + box->GetWidth(), Oy2 = Oy1 + box->GetHeight();
-    int Px1 = x+45, Py1 = y+45;
+    int Px1 = x + 45, Py1 = y + 45;
     int Px2 = Px1 + 60, Py2 = Py1 + 60;
 
     switch (_where)
