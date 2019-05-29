@@ -83,6 +83,38 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
     return tem;
 }
 
+bool game_framework::persona::HitBorder(int _where)
+{
+	int Px1 = x + 45, Py1 = y + 45;
+	int Px2 = Px1 + 60, Py2 = Py1 + 60;
+
+	switch (_where)
+	{
+	case 1:
+		Py2 -= 10;
+		Py1 -= 10;
+		break;
+
+	case 2:
+		Py2 += 10;
+		Py1 += 10;
+		break;
+
+	case 3:
+		Px2 -= 10;
+		Px1 -= 10;
+		break;
+
+	case 4:
+		Px2 += 10;
+		Px1 += 10;
+		break;
+	}
+
+	bool tem = (Px2> 2770 || Px1 < 10 || Py2 > 2770 || Py1 < 10);
+	return tem;
+}
+
 void game_framework::persona::LoadBitMap()
 {
     bmp[0][0].LoadBitmap(IDB_PLAYER1, RGB(0, 0, 0));

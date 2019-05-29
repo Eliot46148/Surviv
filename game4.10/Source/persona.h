@@ -2,6 +2,7 @@
 #include "BasicObject.h"
 #include "items.h"
 #include "Box.h"
+#include "Map.h"
 
 
 
@@ -12,6 +13,7 @@ class persona : public BasicObject
         persona();
         void CatchItem(items take);
 		bool HitObstacle(Box * box, int _where);
+		bool HitBorder(int _where);
         virtual void LoadBitMap();
         virtual void OnShow();
 		virtual void OnMove();						// Recoil計時和移動

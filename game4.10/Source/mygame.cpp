@@ -253,6 +253,30 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         }
     }
 
+	if (player1.HitBorder(1))
+	{
+		camera.setMovingMode(2, 0);
+		player1.setMovingMode(1, 0);
+	}
+
+	if (player1.HitBorder(2))
+	{
+		camera.setMovingMode(1, 0);
+		player1.setMovingMode(2, 0);
+	}
+
+	if (player1.HitBorder(3))
+	{
+		camera.setMovingMode(4, 0);
+		player1.setMovingMode(3, 0);
+	}
+
+	if (player1.HitBorder(4))
+	{
+		camera.setMovingMode(3, 0);
+		player1.setMovingMode(4, 0);
+	}
+
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
         enemy.at(i).rrdelay += enemy.at(i).rrdelay < 0 ? 0 : -1;
@@ -533,6 +557,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     //////////// 移動 //////////////////////////////////////
     if (nChar == KEY_LEFT)           // 左
     {
+		
         camera.setMovingMode(4, 1);
         player1.setMovingMode(3, 1);
     }
