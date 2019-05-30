@@ -261,10 +261,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         if (abs(player1.GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(player1.GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2)
             enemy.at(i).setnearperson(&player1);
 
-        for (int j = 0; j < static_cast<int>(box.size()); j++)
-        {
-            enemy.at(i).hitBox(&box.at(j));
-        }
+
 
         for (int j = 0; j < static_cast<int>(enemy.size()); j++)
             if ((abs(enemy.at(j).GetHitpointX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(enemy.at(j).GetHitpointY() - enemy.at(i).GetY()) < SIZE_Y / 2) && j != i)
@@ -279,7 +276,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 enemy.at(i).SetNearBullet(&bullet.at(j));
 
         enemy.at(i).chouseMode();
-
+		for (int j = 0; j < static_cast<int>(box.size()); j++)
+		{
+			enemy.at(i).hitBox(&box.at(j));
+		}
         if (enemy.at(i).isActing())
         {
             if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0 )
