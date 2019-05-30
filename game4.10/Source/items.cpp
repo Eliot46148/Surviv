@@ -37,6 +37,10 @@ void game_framework::items::LoadBitMap()
             bmp.LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));          // ÄÅ¼uºj
             break;
 
+		case 4:
+			bmp.LoadBitmap(IDB_Bandage, RGB(0, 0, 0));          // Á^±a
+			break;
+
         default:
             break;
     }

@@ -108,6 +108,8 @@
 #define IDB_BITMAP4                     251
 #define IDB_BULLET3                     251
 #define IDB_PNG1                        253
+#define IDB_BITMAP5                     255
+#define IDB_Bandage                     255
 #define IDB_PLAYER_MACHINEGUN1          300
 #define IDB_PLAYER_SHOTGUN1             301
 #define IDB_PLAYER_SHOTGUN2             302
@@ -161,9 +163,6 @@
 #define IDB_RELOADING2                  350
 #define IDB_RELOADING3                  351
 #define IDB_RELOADING4                  352
-
-
-
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -176,7 +175,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        255
+#define _APS_NEXT_RESOURCE_VALUE        256
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

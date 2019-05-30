@@ -240,16 +240,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\bitmap3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\map2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\bmp00001.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bitmap4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\bmp00002.bmp">
@@ -313,9 +307,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\player8.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bitmap2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\MachineGun.bmp">
@@ -528,9 +519,6 @@
     <Image Include="RES\Bullet03.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bitmap5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="RES\player_ShotGun1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -673,6 +661,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\player_Pistol24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bnadage.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\reloading1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\reloading2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\reloading3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\reloading4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

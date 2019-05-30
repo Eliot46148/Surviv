@@ -46,6 +46,7 @@ void game_framework::UI::LoadBitMap()
 	items_img[0].LoadBitmap(IDB_PISTOL1, RGB(0, 0, 0));
 	items_img[1].LoadBitmap(IDB_MachineGun, RGB(0, 0, 0));
 	items_img[2].LoadBitmap(IDB_ShotGun, RGB(0, 0, 0));
+	items_img[3].LoadBitmap(IDB_Bandage, RGB(0, 0, 0));
 
 	bullet_img[0].LoadBitmap(IDB_BULLET);
 	bullet_img[1].LoadBitmap(IDB_BULLET2);
@@ -147,12 +148,8 @@ void game_framework::UI::ShowItems()
 
 void game_framework::UI::ShowBullets()
 {	
-	bullet_img[0].SetTopLeft(10, 372);
+	bullet_img[0].SetTopLeft(10, 435);
 	bullet_img[0].ShowBitmap(1.2);
-	bullet_img[1].SetTopLeft(10, 406);
-	bullet_img[1].ShowBitmap(1.2);
-	bullet_img[2].SetTopLeft(10, 440);
-	bullet_img[2].ShowBitmap(1.2);
 
 	CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
 	CFont f, *fp;
@@ -162,12 +159,10 @@ void game_framework::UI::ShowBullets()
 	pDC->SetBkMode(TRANSPARENT);
 	pDC->SetTextColor(RGB(255, 255, 255));
 	sprintf(buf, "%d", Megazine);
-	pDC->TextOut(50, 367, buf);
-	pDC->TextOut(87, 367, "/");
+	pDC->TextOut(50, 430, buf);
+	pDC->TextOut(87, 430, "/");
 	sprintf(buf, "%d", Ammo);
-	pDC->TextOut(100, 367, buf);
-	pDC->TextOut(50, 401, "0");
-	pDC->TextOut(50, 435, "0");
+	pDC->TextOut(100, 430, buf);
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }

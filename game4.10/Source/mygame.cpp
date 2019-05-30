@@ -165,12 +165,13 @@ CGameStateRun::CGameStateRun(CGame* g)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
+        item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
     }
 
     item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
     item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
+	item.push_back(items(550, 400, 4, (float)0.4));
     enemy.push_back(Enemy(100, 100, 2));
 
     /*
@@ -541,74 +542,76 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    const char KEY_LEFT  = 0x41;		 // keyboard  [A]
-    const char KEY_UP    = 0x57;		 // keyboard  [W]
-    const char KEY_RIGHT = 0x44;		 // keyboard  [D]
-    const char KEY_DOWN  = 0x53;		 // keyboard  [S]
-    const char KEY_GET   = 0x46;		 // keyboard  [F]
+	const char KEY_LEFT = 0x41;		 // keyboard  [A]
+	const char KEY_UP = 0x57;		 // keyboard  [W]
+	const char KEY_RIGHT = 0x44;		 // keyboard  [D]
+	const char KEY_DOWN = 0x53;		 // keyboard  [S]
+	const char KEY_GET = 0x46;		 // keyboard  [F]
 	const char KEY_Reload = 0x52;        // keyboard  [R]
-    const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
-    const char KEY_CHEAT = 0x43;		 // keyboard  [C]
-    const char KEY_First = 0x31;		 // keyboard  [1]
-    const char KEY_Second = 0x32;		 // keyboard  [2]
-    const char KEY_Fist = 0x33;			 // keyboard  [3]
-    const char KEY_Escape = 0x18;        // keyboard  [Esc]
+	const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
+	const char KEY_CHEAT = 0x43;		 // keyboard  [C]
+	const char KEY_First = 0x31;		 // keyboard  [1]
+	const char KEY_Second = 0x32;		 // keyboard  [2]
+	const char KEY_Fist = 0x33;			 // keyboard  [3]
+	const char KEY_Escape = 0x18;        // keyboard  [Esc]
 
-    //////////// 移動 //////////////////////////////////////
-    if (nChar == KEY_LEFT)           // 左
-    {
-		
-        camera.setMovingMode(4, 1);
-        player1.setMovingMode(3, 1);
-    }
-
-    if (nChar == KEY_RIGHT)          // 右
-    {
-        camera.setMovingMode(3, 1);
-        player1.setMovingMode(4, 1);
-    }
-
-    if (nChar == KEY_UP)             // 上
-    {
-        camera.setMovingMode(2, 1);
-        player1.setMovingMode(1, 1);
-    }
-
-    if (nChar == KEY_DOWN)           // 下
-    {
-        camera.setMovingMode(1, 1);
-        player1.setMovingMode(2, 1);
-    }
-
-    /////////////////////////////////////////////////////////
-
-    /////////    動作         ///////////////////////////////
-    if (nChar == KEY_GET)
-    {
-        player1.SetGetting(true);
-    }
-
-	if (nChar == KEY_Reload) 
+	//////////// 移動 //////////////////////////////////////
+	if (nChar == KEY_LEFT)           // 左
 	{
-		player1.SetReloading(true);
+		camera.setMovingMode(4, 1);
+		player1.setMovingMode(3, 1);
 	}
 
-    if (nChar == KEY_RTBLOOD)
-    {
-        player1.returnBlood();
-    }
+	if (nChar == KEY_RIGHT)          // 右
+	{
+		camera.setMovingMode(3, 1);
+		player1.setMovingMode(4, 1);
+	}
 
-    /////////////////////////////////////////////////////////
+	if (nChar == KEY_UP)             // 上
+	{
+		camera.setMovingMode(2, 1);
+		player1.setMovingMode(1, 1);
+	}
 
-    //////////     切換武器       ///////////////////////////////////////
-    if (nChar == KEY_First && player1.getHasitemNum() >= 1)
-        player1.setHoldingItem(0);
+	if (nChar == KEY_DOWN)           // 下
+	{
+		camera.setMovingMode(1, 1);
+		player1.setMovingMode(2, 1);
+	}
 
-    if (nChar == KEY_Second && player1.getHasitemNum() >= 2)
-        player1.setHoldingItem(1);
+	/////////////////////////////////////////////////////////
 
-    if (nChar == KEY_Fist)
-        player1.setHoldingItem(2);
+	if (!player1.isReloading())
+	{
+		/////////    動作         ///////////////////////////////
+		if (nChar == KEY_GET)
+		{
+			player1.SetGetting(true);
+		}
+
+		if (nChar == KEY_Reload && player1.getHasitemNum() > 0)
+		{
+			player1.SetReloading(true);
+		}
+
+		if (nChar == KEY_RTBLOOD)
+		{
+			player1.returnBlood();
+		}
+
+		/////////////////////////////////////////////////////////
+
+		//////////     切換武器       ///////////////////////////////////////
+		if (nChar == KEY_First && player1.getHasitemNum() >= 1)
+			player1.setHoldingItem(0);
+
+		if (nChar == KEY_Second && player1.getHasitemNum() >= 2)
+			player1.setHoldingItem(1);
+
+		if (nChar == KEY_Fist)
+			player1.setHoldingItem(2);
+	}
 
     /////////////////////////////////////////////////////////////////////
 

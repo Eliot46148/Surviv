@@ -30,7 +30,7 @@ namespace game_framework {
 		CMovingBitmap HealthBar[11];
 		CMovingBitmap Ammo_img;
 		CMovingBitmap ItemUI[2][2];
-		CMovingBitmap items_img[3];    //  0:¤âºj, 1:¾÷ºj, 2:ÄÅ¼uºj
+		CMovingBitmap items_img[4];    //  0:¤âºj, 1:¾÷ºj, 2:ÄÅ¼uºj 3:Á^±a
 		CMovingBitmap bullet_img[3];
 		CMovingBitmap loading[4];
 	};

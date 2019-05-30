@@ -30,7 +30,7 @@ game_framework::persona::persona(): BasicObject()
 	speed = DEFAULT_CHACRATER_SPEED;
 	megazine = 0;
 	is_Reloading = false;
-
+	reload_time = 30;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -219,7 +219,9 @@ void game_framework::persona::OnShow()
 {
     if (is_alive)
     {
-        const int ID = getHoldingItemID();
+        int ID = getHoldingItemID();
+		if (ID == 4)
+			ID = 0;
         bmp[ID][direction].SetTopLeft(x + camera_x, y + camera_y);
         bmp[ID][direction].ShowBitmap(showMagnification);
     }
@@ -233,7 +235,7 @@ void game_framework::persona::OnMove()
 
 	if (is_Reloading) {
 		reload_timer++;
-		if (reload_timer >= 30) {
+		if (reload_timer >= reload_time) {
 			reload_timer = 0;
 			is_Reloading = false;
 			temp = 30 - megazine;
@@ -342,7 +344,7 @@ void game_framework::persona::SetGetting(bool flag)
 void game_framework::persona::SetReloading(bool flag)
 {
 	if (flag) {
-		if (!is_Reloading) {
+		if (!is_Reloading && getHasitemNum()>0 && getBullet()>0) {
 			is_Reloading = flag;
 			reload_timer = 0;
 		}
@@ -505,13 +507,13 @@ void game_framework::persona::setHoldingItem(int num)
 	int Id = getHoldingItemID();
 	switch (Id) {
 	case 1:
-		reload_timer = 30;
+		reload_time = 30;
 		break;
 	case 2:
-		reload_timer = 50;
+		reload_time = 50;
 		break;
 	case 3:
-		reload_timer = 75;
+		reload_time = 90;
 		break;
 	}
 }
