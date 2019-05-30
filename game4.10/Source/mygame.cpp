@@ -322,7 +322,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                         break;
 
                     case 2:
-                        rnd = rand() % 30 - 15;
+                        rnd = rand() % 60 - 30;
                         shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
                         break;
 
@@ -415,7 +415,6 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         for (int j = 0; j < static_cast<int>(box.size()); j++)
             if ((int)shotbullets.size() > i && shotbullets.at(i).HitObstacle(&box.at(j)) )
             {
-                //				TRACE("%d\n",i);
                 box.at(j).GetDamage(shotbullets.at(i).ShowDamage());
                 shotbullets.erase(shotbullets.begin() + i);
 
