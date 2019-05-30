@@ -69,7 +69,7 @@ class CGameStateRun : public CGameState
         void OnMove();									// 移動遊戲元素
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
-        CMovingBitmap dot;							// 角落圖
+        CMovingBitmap dot;								// 角落圖
         Camera camera;
         Map map;
 		UI ui;
@@ -80,7 +80,7 @@ class CGameStateRun : public CGameState
         vector<shotBullet> shotbullets;
         vector<Texture> texture;
         vector<Enemy> enemy;
-		bool firstlife;		// 是否為第一次進入此state
+		bool firstlife;									// 是否為第一次進入此state
 };
 
 /////////////////////////////////////////////////////////////////////////////

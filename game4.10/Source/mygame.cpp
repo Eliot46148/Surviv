@@ -224,7 +224,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     random_device rndseed;
     srand(rndseed());
     int rnd;
-    ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem());				// UI接收玩家資訊
+	ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), player1.GetMegazine(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem(), player1.isReloading());				// UI接收玩家資訊
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
@@ -252,6 +252,30 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             player1.setMovingMode(4, 0);
         }
     }
+
+	if (player1.HitBorder(1))
+	{
+		camera.setMovingMode(2, 0);
+		player1.setMovingMode(1, 0);
+	}
+
+	if (player1.HitBorder(2))
+	{
+		camera.setMovingMode(1, 0);
+		player1.setMovingMode(2, 0);
+	}
+
+	if (player1.HitBorder(3))
+	{
+		camera.setMovingMode(4, 0);
+		player1.setMovingMode(3, 0);
+	}
+
+	if (player1.HitBorder(4))
+	{
+		camera.setMovingMode(3, 0);
+		player1.setMovingMode(4, 0);
+	}
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -301,7 +325,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     case 2:
                         rnd = rand() % 30 - 15;
                         shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
-                        break;
+						break;
 
                     case 3:
                         int degree = 15, temp = degree;
@@ -424,7 +448,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     if (player1.isActing())
     {
-        if (!player1.isReloading() && !player1.Recoil() && player1.getBullet() > 0)
+        if (!player1.isReloading() && !player1.Recoil() && player1.GetMegazine() > 0)
         {
             int ID = player1.getHoldingItemID();
             double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
@@ -434,32 +458,29 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             switch (ID)
             {
                 case 1:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                    player1.setBullet(-1);
-                    break;
-
+					shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+					player1.setMegazine(-1);
+					break;
                 case 2:
-                    rnd = rand() % 30 - 15;
-                    shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    player1.setBullet(-1);
+					rnd = rand() % 30 - 15;
+					shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+					player1.setMegazine(-1);
                     break;
 
                 case 3:
-                    if (player1.getBullet() >= 5)
-                    {
-                        int degree = 10, temp = degree;
-                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                        temp = degree * 2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                        temp = degree * -1;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                        temp = degree * -2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                        player1.setBullet(-5);
-                    }
-
-                    break;
+					if (player1.GetMegazine() >= 5) {
+						int degree = 10, temp = degree;
+						shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * 2;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * -1;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						temp = degree * -2;
+						shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+						player1.setMegazine(-5);
+					}
+					break;
             }
         }
     }
@@ -525,6 +546,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_RIGHT = 0x44;		 // keyboard  [D]
     const char KEY_DOWN  = 0x53;		 // keyboard  [S]
     const char KEY_GET   = 0x46;		 // keyboard  [F]
+	const char KEY_Reload = 0x52;        // keyboard  [R]
     const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
     const char KEY_CHEAT = 0x43;		 // keyboard  [C]
     const char KEY_First = 0x31;		 // keyboard  [1]
@@ -535,6 +557,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     //////////// 移動 //////////////////////////////////////
     if (nChar == KEY_LEFT)           // 左
     {
+		
         camera.setMovingMode(4, 1);
         player1.setMovingMode(3, 1);
     }
@@ -564,6 +587,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     {
         player1.SetGetting(true);
     }
+
+	if (nChar == KEY_Reload) 
+	{
+		player1.SetReloading(true);
+	}
 
     if (nChar == KEY_RTBLOOD)
     {

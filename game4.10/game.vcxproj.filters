@@ -528,5 +528,152 @@
     <Image Include="RES\Bullet03.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bitmap5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_ShotGun24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\player_Pistol24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

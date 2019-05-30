@@ -2,6 +2,7 @@
 #include "BasicObject.h"
 #include "items.h"
 #include "Box.h"
+#include "Map.h"
 
 
 
@@ -12,6 +13,7 @@ class persona : public BasicObject
         persona();
         void CatchItem(items take);
 		bool HitObstacle(Box * box, int _where);
+		bool HitBorder(int _where);
         virtual void LoadBitMap();
         virtual void OnShow();
 		virtual void OnMove();						// Recoil計時和移動
@@ -25,6 +27,7 @@ class persona : public BasicObject
 		void SetReloading(bool flag);
         void setCan_move(bool flag);
         void setBullet(int num);
+		void setMegazine(int num);
 		void setFacingPosition(double,double);
 		void setDirection();
 		void setActing(bool);
@@ -40,6 +43,7 @@ class persona : public BasicObject
 		int GetHoldingItem();
 		int getHoldingItemID();
 		int getBullet();
+		int GetMegazine();
 		int GetHP();
 		int GetAmmo();
 
@@ -58,10 +62,12 @@ class persona : public BasicObject
 		bool is_acting = false;
         vector<items> hasitem;
 		int hasitemID[2] = { 0 };
-		int holdingItem;							// 現在手持的武器
-        int bullet;
+		int holdingItem;				// 現在手持的武器
+        int bullet;						// 儲備子彈
+		int megazine;					// 彈夾裡的子彈
 		double facingX,facingY;
 		int direction;
 		int recoil_timer;
+		int reload_timer;
 };
 }

@@ -338,12 +338,27 @@ IDB_PLAYER_PISTOL23     BITMAP                  "..\\RES\\player_Pistol23.bmp"
 
 IDB_PLAYER_PISTOL24     BITMAP                  "..\\RES\\player_Pistol24.bmp"
 
+IDB_RELOADING1          BITMAP                  "..\\RES\\reloading1.bmp"
+
+IDB_RELOADING2          BITMAP                  "..\\RES\\reloading2.bmp"
+
+IDB_RELOADING3          BITMAP                  "..\\RES\\reloading3.bmp"
+
+IDB_RELOADING4          BITMAP                  "..\\RES\\reloading4.bmp"
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////

@@ -16,6 +16,10 @@ game_framework::UI::UI()
 	Enemy_Num = 0;
 	HealthStatus = 10;
 	hasitemsID = nullptr;
+	Loading_Timer = 0;
+	Loading_Index = 0;
+	Megazine = 0;
+	is_Reloading = false;
 }
 
 void game_framework::UI::LoadBitMap()
@@ -46,6 +50,11 @@ void game_framework::UI::LoadBitMap()
 	bullet_img[0].LoadBitmap(IDB_BULLET);
 	bullet_img[1].LoadBitmap(IDB_BULLET2);
 	bullet_img[2].LoadBitmap(IDB_BULLET3);
+
+	loading[0].LoadBitmap(IDB_RELOADING1, RGB(0, 0, 0));
+	loading[1].LoadBitmap(IDB_RELOADING2, RGB(0, 0, 0));
+	loading[2].LoadBitmap(IDB_RELOADING3, RGB(0, 0, 0));
+	loading[3].LoadBitmap(IDB_RELOADING4, RGB(0, 0, 0));
 }
 
 void game_framework::UI::OnShow()
@@ -54,6 +63,8 @@ void game_framework::UI::OnShow()
 	ShowInfo();
 	ShowItems();
 	ShowBullets();
+	if(is_Reloading)
+		Showloading();
 }
 
 void game_framework::UI::ShowHealthBar()
@@ -150,26 +161,56 @@ void game_framework::UI::ShowBullets()
 	fp = pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkMode(TRANSPARENT);
 	pDC->SetTextColor(RGB(255, 255, 255));
-	sprintf(buf, "%d", Ammo);
+	sprintf(buf, "%d", Megazine);
 	pDC->TextOut(50, 367, buf);
+	pDC->TextOut(87, 367, "/");
+	sprintf(buf, "%d", Ammo);
+	pDC->TextOut(100, 367, buf);
 	pDC->TextOut(50, 401, "0");
 	pDC->TextOut(50, 435, "0");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
-void game_framework::UI::TakePlayerInfo(int hp, int ammo, int enemy_num, int* hasitemsID, int holdingItem)
+void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enemy_num, int* hasitemsID, int holdingItem, bool is_Reloading)
 {
 	HP = hp;
 	Ammo = ammo;
+	Megazine = megazine;
 	Enemy_Num = enemy_num;
 	this->hasitemsID = hasitemsID;
 	this->holdingitem = holdingItem;
+	this->is_Reloading = is_Reloading;
 	SetHealthStatus();
 }
 
 void game_framework::UI::SetHealthStatus()
 {
 	HealthStatus = int((double)HP / 100 * 10);
+}
+
+void game_framework::UI::Showloading()
+{	
+	Loading_Timer++;
+	if (Loading_Timer >= 5) {
+		Loading_Timer = 0;
+		if (Loading_Index < 3)
+			Loading_Index++;
+		else
+			Loading_Index = 0;
+	}
+	loading[Loading_Index].SetTopLeft(SIZE_X / 2 - 30, SIZE_Y / 2 - 200);
+	loading[Loading_Index].ShowBitmap();
+
+	CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+	CFont f, *fp;
+	f.CreatePointFont(200, "Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp = pDC->SelectObject(&f);					// 選用 font f
+	pDC->SetBkMode(TRANSPARENT);
+	pDC->SetTextColor(RGB(255, 255, 255));
+	//pDC->TextOut(SIZE_X / 2 - 30, SIZE_Y / 2 - 130, "Reloading...");
+	pDC->TextOut(SIZE_X / 2 - 70, SIZE_Y / 2 - 130, "Reloading...");
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
