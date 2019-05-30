@@ -38,12 +38,13 @@ void game_framework::persona::CatchItem(items take)
     if (getHasitemNum() < 2)
     {
         hasitem.push_back(take);
-        holdingItem = hasitem.size() - 1;
+        setHoldingItem( hasitem.size() - 1);
         hasitemID[hasitem.size() - 1] = hasitem.back().getID();
     }
     else
     {
         hasitem.at(holdingItem) = take;
+		setHoldingItem(holdingItem);
         hasitemID[holdingItem] = take.getID();
     }
 }
@@ -238,14 +239,20 @@ void game_framework::persona::OnMove()
 		if (reload_timer >= reload_time) {
 			reload_timer = 0;
 			is_Reloading = false;
-			temp = 30 - megazine;
-			if (bullet >= temp) {
-				bullet -= temp;
-				megazine += temp;
+			if (getHoldingItemID() == 4) {
+				HP = 100;
 			}
-			else {
-				megazine += bullet;
-				bullet = 0;
+			else 
+			{
+				temp = 30 - megazine;
+				if (bullet >= temp) {
+					bullet -= temp;
+					megazine += temp;
+				}
+				else {
+					megazine += bullet;
+					bullet = 0;
+				}
 			}
 		}
 	}
@@ -322,6 +329,9 @@ bool game_framework::persona::Recoil()
             Recoil_time = 30;
             break;
 
+		case 4:
+			Recoil_time = 5;
+			break;
         default:
             Recoil_time = 100;
     }
@@ -344,7 +354,7 @@ void game_framework::persona::SetGetting(bool flag)
 void game_framework::persona::SetReloading(bool flag)
 {
 	if (flag) {
-		if (!is_Reloading && getHasitemNum()>0 && getBullet()>0) {
+		if (!is_Reloading && getHasitemNum()>0 && getBullet()>0 || getHoldingItemID()==4) {
 			is_Reloading = flag;
 			reload_timer = 0;
 		}
@@ -514,6 +524,9 @@ void game_framework::persona::setHoldingItem(int num)
 		break;
 	case 3:
 		reload_time = 90;
+		break;
+	case 4:
+		reload_time = 300;
 		break;
 	}
 }

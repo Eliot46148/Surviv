@@ -278,6 +278,18 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         player1.setMovingMode(4, 0);
     }
 
+	///////////////////角色在包紮時不能移動//////////////////////
+	if (player1.isReloading() && player1.getHoldingItemID() == 4) {
+		camera.setMovingMode(1, 0);
+		camera.setMovingMode(2, 0);
+		camera.setMovingMode(3, 0);
+		camera.setMovingMode(4, 0);
+		player1.setMovingMode(1, 0);
+		player1.setMovingMode(2, 0);
+		player1.setMovingMode(3, 0);
+		player1.setMovingMode(4, 0);
+	}
+
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
         enemy.at(i).rrdelay += enemy.at(i).rrdelay < 0 ? 0 : -1;
@@ -448,7 +460,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     if (player1.isActing())
     {
-        if (!player1.isReloading() && !player1.Recoil() && player1.GetMegazine() > 0)
+        if (!player1.isReloading() && !player1.Recoil())
         {
             int ID = player1.getHoldingItemID();
             double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
@@ -458,14 +470,20 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             switch (ID)
             {
                 case 1:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                    player1.setMegazine(-1);
+                    if (player1.GetMegazine() > 0) {
+                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+                        player1.setMegazine(-1);
+                    }
+
                     break;
 
                 case 2:
-                    rnd = rand() % 30 - 15;
-                    shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    player1.setMegazine(-1);
+                    if (player1.GetMegazine() > 0) {
+                        rnd = rand() % 30 - 15;
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        player1.setMegazine(-1);
+                    }
+
                     break;
 
                 case 3:
@@ -483,6 +501,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                         player1.setMegazine(-5);
                     }
 
+                    break;
+
+                case 4:
+                    player1.SetReloading(true);
                     break;
             }
         }
@@ -598,7 +620,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
             player1.SetGetting(true);
         }
 
-        if (nChar == KEY_Reload && player1.getHasitemNum() > 0)
+        if (nChar == KEY_Reload && player1.getHasitemNum() > 0 && player1.getHoldingItemID()!=4)
         {
             player1.SetReloading(true);
         }

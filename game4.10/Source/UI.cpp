@@ -203,8 +203,10 @@ void game_framework::UI::Showloading()
 	fp = pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkMode(TRANSPARENT);
 	pDC->SetTextColor(RGB(255, 255, 255));
-	//pDC->TextOut(SIZE_X / 2 - 30, SIZE_Y / 2 - 130, "Reloading...");
-	pDC->TextOut(SIZE_X / 2 - 70, SIZE_Y / 2 - 130, "Reloading...");
+	if(hasitemsID[holdingitem]==4)
+		pDC->TextOut(SIZE_X / 2 - 70, SIZE_Y / 2 - 130, "Bandaging...");
+	else
+		pDC->TextOut(SIZE_X / 2 - 70, SIZE_Y / 2 - 130, "Reloading...");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
