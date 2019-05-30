@@ -119,7 +119,7 @@ void game_framework::Enemy::chouseMode()
         this->is_acting = true;
     else
         this->is_acting = false;
-	random = 1;//---------------------------------------------------------------------------------------------------------------
+
     switch (random)
     {
         case 1:
@@ -190,7 +190,7 @@ void game_framework::Enemy::getNeatBullet()
 void game_framework::Enemy::movetoplace()
 {
     random = 1;
-	movevector = 2;//---------------------------------------------------------------------------------------------------------
+
     switch (movevector)
     {
         case 1://¤W
@@ -280,8 +280,8 @@ bool game_framework::Enemy::tutchbox(Box* box, int _where)
 {
     int Ox1 = box->GetX(), Oy1 = box->GetY();
     int Ox2 = Ox1 + box->GetWidth(), Oy2 = Oy1 + box->GetHeight();
-    int Px1 = x , Py1 = y;
-    int Px2 = Px1 + (int)(Width*showMagnification), Py2 = Py1 + (int)(Height*showMagnification);
+    int Px1 = x, Py1 = y;
+    int Px2 = Px1 + (int)(Width * showMagnification), Py2 = Py1 + (int)(Height * showMagnification);
 
     switch (_where)
     {
@@ -306,7 +306,6 @@ bool game_framework::Enemy::tutchbox(Box* box, int _where)
             break;
     }
 
-    //return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
     bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
     return tem;
 }
