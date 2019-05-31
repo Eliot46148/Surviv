@@ -180,7 +180,7 @@ CGameStateRun::CGameStateRun(CGame* g)
         enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
     }
 
-    for (int i = 0; i < 70; i++)
+    for (int i = 0; i < 75; i++)
         bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
 }
 
