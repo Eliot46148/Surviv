@@ -211,3 +211,16 @@ void game_framework::UI::Showloading()
 	CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
 }
 
+void game_framework::UI::Clear()
+{
+	HP = 100;
+	Ammo = 0;
+	Enemy_Num = 0;
+	HealthStatus = 10;
+	hasitemsID = nullptr;
+	Loading_Timer = 0;
+	Loading_Index = 0;
+	Megazine = 0;
+	is_Reloading = false;
+}
+

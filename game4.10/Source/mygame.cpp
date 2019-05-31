@@ -147,47 +147,7 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
-    firstlife = true;
-    unsigned seed = (unsigned)time(NULL);
-    srand(seed);
-    int randomx, randomy;
-
-    for (int i = 0; i < 15; i++)
-    {
-        randomx = rand() % (556 * 5);
-        randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
-    }
-
-    item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
-    item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
-    item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
-    item.push_back(items(550, 400, 4, (float)0.4));
-
-    for (int i = 0; i < 8; i++)
-    {
-        randomx = rand() % (556 * 5);
-        randomy = rand() % (556 * 5);
-        enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-    }
-
-	for (int i = 0; i < 10; i++)
-	{
-		randomx = rand() % (556 * 5);
-		randomy = rand() % (556 * 5);
-		
-		box.push_back(Box(randomx, randomy));								// 加入箱子
-		if (Hascover(&box.at(i)))
-		{
-			box.erase(box.begin() + i);
-			i--;
-		}
-	}
-
-
-
-    for (int i = 0; i < 75; i++)
-        bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
+    
 }
 
 CGameStateRun::~CGameStateRun()
@@ -196,14 +156,90 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {
-    if (firstlife)
-        firstlife = false;
-    else
-    {
-        player1.Retry();
-        camera.Retry();
-        shotbullets.clear();
-    }
+    player1.Retry();
+    camera.Retry();
+    shotbullets.clear();
+	enemy.clear();
+	box.clear();
+	item.clear();
+	bullet.clear();
+	ui.Clear();
+    
+	firstlife = true;
+	unsigned seed = (unsigned)time(NULL);
+	srand(seed);
+	int randomx, randomy;
+
+	for (int i = 0; i < 15; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+		item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
+	}
+
+	item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
+	item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
+	item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
+	item.push_back(items(550, 400, 4, (float)0.4));
+
+	for (int i = 0; i < 8; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+
+		box.push_back(Box(randomx, randomy));								// 加入箱子
+		if (Hascover(&box.at(i)))
+		{
+			box.erase(box.begin() + i);
+			i--;
+		}
+	}
+
+	for (int i = 0; i < 75; i++)
+		bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
+
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+		enemy[i].LoadBitMap();
+
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		box[i].LoadBitMap();
+
+	for (int i = 0; i < static_cast<int>(item.size()); i++)
+		item[i].LoadBitMap();
+
+	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+		bullet[i].LoadBitMap();
+
+	/////////// camera接收地圖物件位址 ////////////////
+	camera.AddObjects(&map);
+	camera.AddObjects(&player1);
+
+	for (int i = 0; i < static_cast<int>(box.size()); i++)
+		camera.AddObjects(&box.at(i));
+
+	for (int i = 0; i < static_cast<int>(item.size()); i++)
+		camera.AddObjects(&item.at(i));
+
+	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+		camera.AddObjects(&bullet.at(i));
+
+	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+		camera.AddObjects(&shotbullets.at(i));
+
+	for (int i = 0; i < static_cast<int>(texture.size()); i++)
+		camera.AddObjects(&texture.at(i));
+
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+		camera.AddObjects(&enemy.at(i));
+
+	////////////////////////////////////////////////////
 }
 
 bool CGameStateRun::Hascover(Box *box)
@@ -542,41 +578,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     player1.LoadBitMap();
     ui.LoadBitMap();
 
-    for (int i = 0; i < static_cast<int>(box.size()); i++)
-        box[i].LoadBitMap();
-
-    for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].LoadBitMap();
-
-    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].LoadBitMap();
-
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-        enemy[i].LoadBitMap();
-
-    /////////// camera接收地圖物件位址 ////////////////
-    camera.AddObjects(&map);
-    camera.AddObjects(&player1);
-
-    for (int i = 0; i < static_cast<int>(box.size()); i++)
-        camera.AddObjects(&box.at(i));
-
-    for (int i = 0; i < static_cast<int>(item.size()); i++)
-        camera.AddObjects(&item.at(i));
-
-    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        camera.AddObjects(&bullet.at(i));
-
-    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        camera.AddObjects(&shotbullets.at(i));
-
-    for (int i = 0; i < static_cast<int>(texture.size()); i++)
-        camera.AddObjects(&texture.at(i));
-
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-        camera.AddObjects(&enemy.at(i));
-
-    ////////////////////////////////////////////////////
+    
     //dot.LoadBitmap(IDB_BALL);
 }
 

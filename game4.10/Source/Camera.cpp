@@ -83,6 +83,7 @@ void game_framework::Camera::Retry()
 	speed = DEFAULT_OBJECTIVE_SPEED;
 	isMovingUp = isMovingLeft = isMovingRight = isMovingDown = false;
 	x = y = 0;
+	Objects.clear();
 }
 
 int game_framework::Camera::GetObjectsSize()

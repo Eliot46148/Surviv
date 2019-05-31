@@ -299,6 +299,9 @@ void game_framework::persona::Retry()
     holdingItem = 2;
     speed = DEFAULT_CHACRATER_SPEED;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
+	hasitem.clear();
+	for (int i = 0; i < 2; i++)
+		hasitemID[i] = 0;
 }
 
 
