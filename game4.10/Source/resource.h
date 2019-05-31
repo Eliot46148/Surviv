@@ -11,10 +11,6 @@
 #define IDB_ERASER1                     131
 #define IDB_BITMAP1                     132
 #define IDB_CORNER                      133
-#define IDB_BALL1                       134
-#define IDB_BALL2                       135
-#define IDB_BALL3                       136
-#define IDB_BALL4                       137
 #define IDB_MINUS                       148
 #define IDB_CENTER                      149
 #define IDB_ERASER2                     150
@@ -163,6 +159,7 @@
 #define IDB_RELOADING2                  350
 #define IDB_RELOADING3                  351
 #define IDB_RELOADING4                  352
+#define IDB_BALL2						353
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

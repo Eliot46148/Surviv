@@ -147,7 +147,6 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 CGameStateRun::CGameStateRun(CGame* g)
     : CGameState(g)  //初始化設定
 {
-    
 }
 
 CGameStateRun::~CGameStateRun()
@@ -159,98 +158,99 @@ void CGameStateRun::OnBeginState()
     player1.Retry();
     camera.Retry();
     shotbullets.clear();
-	enemy.clear();
-	box.clear();
-	item.clear();
-	bullet.clear();
-	ui.Clear();
-    
-	firstlife = true;
-	unsigned seed = (unsigned)time(NULL);
-	srand(seed);
-	int randomx, randomy;
+    enemy.clear();
+    box.clear();
+    item.clear();
+    bullet.clear();
+    ui.Clear();
+    firstlife = true;
+    unsigned seed = (unsigned)time(NULL);
+    srand(seed);
+    int randomx, randomy;
 
-	for (int i = 0; i < 15; i++)
-	{
-		randomx = rand() % (556 * 5);
-		randomy = rand() % (556 * 5);
-		item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
-	}
+    for (int i = 0; i < 15; i++)
+    {
+        randomx = rand() % (556 * 5);
+        randomy = rand() % (556 * 5);
+        item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
+    }
 
-	item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
-	item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
-	item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
-	item.push_back(items(550, 400, 4, (float)0.4));
+    item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
+    item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
+    item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
+    item.push_back(items(550, 400, 4, (float)0.4));
 
-	for (int i = 0; i < 8; i++)
-	{
-		randomx = rand() % (556 * 5);
-		randomy = rand() % (556 * 5);
-		enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
-	}
+    for (int i = 0; i < 8; i++)
+    {
+        randomx = rand() % (556 * 5);
+        randomy = rand() % (556 * 5);
+        enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
+    }
 
-	for (int i = 0; i < 10; i++)
-	{
-		randomx = rand() % (556 * 5);
-		randomy = rand() % (556 * 5);
+    for (int i = 0; i < 10; i++)
+    {
+        randomx = rand() % (556 * 5);
+        randomy = rand() % (556 * 5);
+        box.push_back(Box(randomx, randomy));								// 加入箱子
 
-		box.push_back(Box(randomx, randomy));								// 加入箱子
-		if (Hascover(&box.at(i)))
-		{
-			box.erase(box.begin() + i);
-			i--;
-		}
-	}
+        if (Hascover(&box.at(i)))
+        {
+            box.erase(box.begin() + i);
+            i--;
+        }
+    }
 
-	for (int i = 0; i < 75; i++)
-		bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
+    for (int i = 0; i < 75; i++)
+        bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
 
-	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-		enemy[i].LoadBitMap();
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+        enemy[i].LoadBitMap();
 
-	for (int i = 0; i < static_cast<int>(box.size()); i++)
-		box[i].LoadBitMap();
+    for (int i = 0; i < static_cast<int>(box.size()); i++)
+        box[i].LoadBitMap();
 
-	for (int i = 0; i < static_cast<int>(item.size()); i++)
-		item[i].LoadBitMap();
+    for (int i = 0; i < static_cast<int>(item.size()); i++)
+        item[i].LoadBitMap();
 
-	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-		bullet[i].LoadBitMap();
+    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+        bullet[i].LoadBitMap();
 
-	/////////// camera接收地圖物件位址 ////////////////
-	camera.AddObjects(&map);
-	camera.AddObjects(&player1);
+    /////////// camera接收地圖物件位址 ////////////////
+    camera.AddObjects(&map);
+    camera.AddObjects(&player1);
 
-	for (int i = 0; i < static_cast<int>(box.size()); i++)
-		camera.AddObjects(&box.at(i));
+    for (int i = 0; i < static_cast<int>(box.size()); i++)
+        camera.AddObjects(&box.at(i));
 
-	for (int i = 0; i < static_cast<int>(item.size()); i++)
-		camera.AddObjects(&item.at(i));
+    for (int i = 0; i < static_cast<int>(item.size()); i++)
+        camera.AddObjects(&item.at(i));
 
-	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-		camera.AddObjects(&bullet.at(i));
+    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+        camera.AddObjects(&bullet.at(i));
 
-	for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-		camera.AddObjects(&shotbullets.at(i));
+    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
+        camera.AddObjects(&shotbullets.at(i));
 
-	for (int i = 0; i < static_cast<int>(texture.size()); i++)
-		camera.AddObjects(&texture.at(i));
+    for (int i = 0; i < static_cast<int>(texture.size()); i++)
+        camera.AddObjects(&texture.at(i));
 
-	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-		camera.AddObjects(&enemy.at(i));
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+        camera.AddObjects(&enemy.at(i));
 
-	////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
 }
 
-bool CGameStateRun::Hascover(Box *box)
+bool CGameStateRun::Hascover(Box* box)
 {
-	if (player1.HitObstacle(box, 0))return false;
-	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-	{
-		if(enemy.at(i).tutchbox(box,0))
-			return false;
-	}
-	return 0;
+    if (player1.HitObstacle(box, 0))return false;
+
+    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+    {
+        if(enemy.at(i).tutchbox(box, 0))
+            return false;
+    }
+
+    return 0;
 }
 
 
@@ -330,17 +330,17 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         player1.setMovingMode(4, 0);
     }
 
-	///////////////////角色在包紮時不能移動//////////////////////
-	if (player1.isReloading() && player1.getHoldingItemID() == 4) {
-		camera.setMovingMode(1, 0);
-		camera.setMovingMode(2, 0);
-		camera.setMovingMode(3, 0);
-		camera.setMovingMode(4, 0);
-		player1.setMovingMode(1, 0);
-		player1.setMovingMode(2, 0);
-		player1.setMovingMode(3, 0);
-		player1.setMovingMode(4, 0);
-	}
+    ///////////////////角色在包紮時不能移動//////////////////////
+    if (player1.isReloading() && player1.getHoldingItemID() == 4) {
+        camera.setMovingMode(1, 0);
+        camera.setMovingMode(2, 0);
+        camera.setMovingMode(3, 0);
+        camera.setMovingMode(4, 0);
+        player1.setMovingMode(1, 0);
+        player1.setMovingMode(2, 0);
+        player1.setMovingMode(3, 0);
+        player1.setMovingMode(4, 0);
+    }
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -384,24 +384,24 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 switch (ID)
                 {
                     case 1:
-                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         break;
 
                     case 2:
                         rnd = rand() % 60 - 30;
-                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         break;
 
                     case 3:
                         int degree = 15, temp = degree;
-                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         temp = degree * 2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         temp = degree * -1;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         temp = degree * -2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
                         break;
                 }
             }
@@ -523,7 +523,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             {
                 case 1:
                     if (player1.GetMegazine() > 0) {
-                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1, 1));
                         player1.setMegazine(-1);
                     }
 
@@ -532,7 +532,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 case 2:
                     if (player1.GetMegazine() > 0) {
                         rnd = rand() % 30 - 15;
-                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         player1.setMegazine(-1);
                     }
 
@@ -542,14 +542,14 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     if (player1.GetMegazine() >= 5)
                     {
                         int degree = 10, temp = degree;
-                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1, 1));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         temp = degree * 2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         temp = degree * -1;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         temp = degree * -2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         player1.setMegazine(-5);
                     }
 
@@ -577,8 +577,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     map.LoadBitMap();
     player1.LoadBitMap();
     ui.LoadBitMap();
-
-    
     //dot.LoadBitmap(IDB_BALL);
 }
 
@@ -638,7 +636,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
             player1.SetGetting(true);
         }
 
-        if (nChar == KEY_Reload && player1.getHasitemNum() > 0 && player1.getHoldingItemID()!=4)
+        if (nChar == KEY_Reload && player1.getHasitemNum() > 0 && player1.getHoldingItemID() != 4)
         {
             player1.SetReloading(true);
         }

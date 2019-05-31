@@ -348,6 +348,7 @@ IDB_RELOADING4          BITMAP                  "..\\RES\\reloading4.bmp"
 
 IDB_Bandage             BITMAP                  "..\\RES\\bnadage.bmp"
 
+IDB_BALL2               BITMAP                  "..\\RES\\ball2.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

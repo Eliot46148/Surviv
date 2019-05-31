@@ -14,7 +14,7 @@ namespace game_framework {
 		void TakePlayerInfo(int,int,int,int,int*,int,bool);	// 接收 HP, 儲備數目, 彈夾子彈數目, 敵人數目, hasitemID, holdingitem 資料，並呼叫 SetHealthStatus()
 		void SetHealthStatus();								// 切換 HealthBar 狀態
 		void Showloading();									// 顯示 Loading
-		void Clear();
+		void Clear();										// 重置資料
 	private:
 		int HP;
 		int Ammo;

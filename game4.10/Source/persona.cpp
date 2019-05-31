@@ -288,6 +288,7 @@ void game_framework::persona::Retry()
     x = SIZE_X / 2 - 75;
     y = SIZE_Y / 2 - 75;
     bullet = 0;
+	megazine = 0;
     Height = 128;
     Width = 128;
     facingX = 0;
