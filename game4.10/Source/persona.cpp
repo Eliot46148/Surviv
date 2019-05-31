@@ -77,6 +77,8 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
             Px2 += 10;
             Px1 += 10;
             break;
+		case 0:
+			break;
     }
 
     //return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);

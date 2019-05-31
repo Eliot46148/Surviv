@@ -304,6 +304,8 @@ bool game_framework::Enemy::tutchbox(Box* box, int _where)
             Px2 += 10;
             Px1 += 10;
             break;
+		case 0:
+			break;
     }
 
     bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);

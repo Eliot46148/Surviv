@@ -56,6 +56,7 @@ class CGameStateRun : public CGameState
         ~CGameStateRun();
         void OnBeginState();							// 設定每次重玩所需的變數
         void ChangeMovingMode(int _where, bool type);
+		bool Hascover(Box *box);
         void OnInit();  								// 遊戲的初值及圖形設定
         void OnKeyDown(UINT, UINT, UINT);
         void OnKeyUp(UINT, UINT, UINT);

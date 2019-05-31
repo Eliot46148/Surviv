@@ -152,15 +152,6 @@ CGameStateRun::CGameStateRun(CGame* g)
     srand(seed);
     int randomx, randomy;
 
-    for (int i = 0; i < 10; i++)
-    {
-        randomx = rand() % (556 * 5);
-        randomy = rand() % (556 * 5);
-        box.push_back(Box(randomx, randomy));								// 加入箱子
-    }
-
-    // box.push_back(Box(100, 200));								// 加入箱子
-
     for (int i = 0; i < 15; i++)
     {
         randomx = rand() % (556 * 5);
@@ -173,14 +164,27 @@ CGameStateRun::CGameStateRun(CGame* g)
     item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
     item.push_back(items(550, 400, 4, (float)0.4));
 
-    //    enemy.push_back(Enemy(100, 100, 2));
-
     for (int i = 0; i < 8; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
         enemy.push_back(Enemy(randomx, randomy, randomx % 3 + 1));
     }
+
+	for (int i = 0; i < 10; i++)
+	{
+		randomx = rand() % (556 * 5);
+		randomy = rand() % (556 * 5);
+		
+		box.push_back(Box(randomx, randomy));								// 加入箱子
+		if (Hascover(&box.at(i)))
+		{
+			box.erase(box.begin() + i);
+			i--;
+		}
+	}
+
+
 
     for (int i = 0; i < 75; i++)
         bullet.push_back(Bullet(rand() % (556 * 5 + 1), rand() % (556 * 5 + 1)));
@@ -201,6 +205,18 @@ void CGameStateRun::OnBeginState()
         shotbullets.clear();
     }
 }
+
+bool CGameStateRun::Hascover(Box *box)
+{
+	if (player1.HitObstacle(box, 0))return false;
+	for (int i = 0; i < static_cast<int>(enemy.size()); i++)
+	{
+		if(enemy.at(i).tutchbox(box,0))
+			return false;
+	}
+	return 0;
+}
+
 
 void CGameStateRun::ChangeMovingMode(int _where, bool type)
 {
