@@ -165,12 +165,14 @@ CGameStateRun::CGameStateRun(CGame* g)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, i % 3 + 1, (float)0.4));
+        item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
     }
 
     item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
     item.push_back(items(450, 400, 2, (float)0.4));				// 加入機槍
     item.push_back(items(500, 400, 3, (float)0.4));				// 加入霰彈槍
+    item.push_back(items(550, 400, 4, (float)0.4));
+
     //    enemy.push_back(Enemy(100, 100, 2));
 
     for (int i = 0; i < 8; i++)
@@ -275,6 +277,18 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         camera.setMovingMode(3, 0);
         player1.setMovingMode(4, 0);
     }
+
+	///////////////////角色在包紮時不能移動//////////////////////
+	if (player1.isReloading() && player1.getHoldingItemID() == 4) {
+		camera.setMovingMode(1, 0);
+		camera.setMovingMode(2, 0);
+		camera.setMovingMode(3, 0);
+		camera.setMovingMode(4, 0);
+		player1.setMovingMode(1, 0);
+		player1.setMovingMode(2, 0);
+		player1.setMovingMode(3, 0);
+		player1.setMovingMode(4, 0);
+	}
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
@@ -446,7 +460,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     if (player1.isActing())
     {
-        if (!player1.isReloading() && !player1.Recoil() && player1.GetMegazine() > 0)
+        if (!player1.isReloading() && !player1.Recoil())
         {
             int ID = player1.getHoldingItemID();
             double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
@@ -456,14 +470,20 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             switch (ID)
             {
                 case 1:
-                    shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
-                    player1.setMegazine(-1);
+                    if (player1.GetMegazine() > 0) {
+                        shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1));
+                        player1.setMegazine(-1);
+                    }
+
                     break;
 
                 case 2:
-                    rnd = rand() % 30 - 15;
-                    shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
-                    player1.setMegazine(-1);
+                    if (player1.GetMegazine() > 0) {
+                        rnd = rand() % 30 - 15;
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1));
+                        player1.setMegazine(-1);
+                    }
+
                     break;
 
                 case 3:
@@ -481,6 +501,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                         player1.setMegazine(-5);
                     }
 
+                    break;
+
+                case 4:
+                    player1.SetReloading(true);
                     break;
             }
         }
@@ -568,6 +592,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         player1.setMovingMode(4, 1);
     }
 
+    if (nChar == KEY_RIGHT)          // 右
+    {
+        camera.setMovingMode(3, 1);
+        player1.setMovingMode(4, 1);
+    }
+
     if (nChar == KEY_UP)             // 上
     {
         camera.setMovingMode(2, 1);
@@ -582,33 +612,36 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
     /////////////////////////////////////////////////////////
 
-    /////////    動作         ///////////////////////////////
-    if (nChar == KEY_GET)
+    if (!player1.isReloading())
     {
-        player1.SetGetting(true);
+        /////////    動作         ///////////////////////////////
+        if (nChar == KEY_GET)
+        {
+            player1.SetGetting(true);
+        }
+
+        if (nChar == KEY_Reload && player1.getHasitemNum() > 0 && player1.getHoldingItemID()!=4)
+        {
+            player1.SetReloading(true);
+        }
+
+        if (nChar == KEY_RTBLOOD)
+        {
+            player1.returnBlood();
+        }
+
+        /////////////////////////////////////////////////////////
+
+        //////////     切換武器       ///////////////////////////////////////
+        if (nChar == KEY_First && player1.getHasitemNum() >= 1)
+            player1.setHoldingItem(0);
+
+        if (nChar == KEY_Second && player1.getHasitemNum() >= 2)
+            player1.setHoldingItem(1);
+
+        if (nChar == KEY_Fist)
+            player1.setHoldingItem(2);
     }
-
-    if (nChar == KEY_Reload)
-    {
-        player1.SetReloading(true);
-    }
-
-    if (nChar == KEY_RTBLOOD)
-    {
-        player1.returnBlood();
-    }
-
-    /////////////////////////////////////////////////////////
-
-    //////////     切換武器       ///////////////////////////////////////
-    if (nChar == KEY_First && player1.getHasitemNum() >= 1)
-        player1.setHoldingItem(0);
-
-    if (nChar == KEY_Second && player1.getHasitemNum() >= 2)
-        player1.setHoldingItem(1);
-
-    if (nChar == KEY_Fist)
-        player1.setHoldingItem(2);
 
     /////////////////////////////////////////////////////////////////////
 

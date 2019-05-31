@@ -69,5 +69,6 @@ class persona : public BasicObject
 		int direction;
 		int recoil_timer;
 		int reload_timer;
+		int reload_time;				// 裝填子彈所需時間
 };
 }

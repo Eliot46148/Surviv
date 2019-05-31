@@ -15,5 +15,6 @@ class items : public BasicObject
 															//	  ¤âºj   : 1
 															//	  ¾÷ºj   : 2
 															//	  ÄÅ¼uºj : 3
+															//    Á^±a   : 4
 };
 }

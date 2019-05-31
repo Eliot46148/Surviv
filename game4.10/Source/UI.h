@@ -11,7 +11,7 @@ namespace game_framework {
 		void ShowInfo();									// 剩餘敵人
 		void ShowItems();									// 持有武器
 		void ShowBullets();									// 持有子彈
-		void TakePlayerInfo(int,int,int,int,int*,int,bool);		// 接收 HP, 儲備數目, 彈夾子彈數目, 敵人數目, hasitemID, holdingitem 資料，並呼叫 SetHealthStatus()
+		void TakePlayerInfo(int,int,int,int,int*,int,bool);	// 接收 HP, 儲備數目, 彈夾子彈數目, 敵人數目, hasitemID, holdingitem 資料，並呼叫 SetHealthStatus()
 		void SetHealthStatus();								// 切換 HealthBar 狀態
 		void Showloading();									// 顯示 Loading
 	private:
@@ -30,7 +30,7 @@ namespace game_framework {
 		CMovingBitmap HealthBar[11];
 		CMovingBitmap Ammo_img;
 		CMovingBitmap ItemUI[2][2];
-		CMovingBitmap items_img[3];    //  0:手槍, 1:機槍, 2:霰彈槍
+		CMovingBitmap items_img[4];    //  0:手槍, 1:機槍, 2:霰彈槍 3:繃帶
 		CMovingBitmap bullet_img[3];
 		CMovingBitmap loading[4];
 	};

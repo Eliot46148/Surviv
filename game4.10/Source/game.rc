@@ -346,19 +346,15 @@ IDB_RELOADING3          BITMAP                  "..\\RES\\reloading3.bmp"
 
 IDB_RELOADING4          BITMAP                  "..\\RES\\reloading4.bmp"
 
+IDB_Bandage             BITMAP                  "D:\\Class\\107_2\\OOP\\Surviv\\Surviv\\game4.10\\RES\\bnadage.bmp"
+
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////
