@@ -350,6 +350,8 @@ IDB_Bandage             BITMAP                  "..\\RES\\bnadage.bmp"
 
 IDB_BALL2               BITMAP                  "..\\RES\\ball2.bmp"
 
+IDB_BLOOD               BITMAP                  "..\\RES\\blood.bmp"
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor

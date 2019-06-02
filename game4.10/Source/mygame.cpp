@@ -495,6 +495,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 }
             }
     }
+	for (vector<Blood>::iterator i = blood.begin(); i != blood.end(); i++)
+		if (i->IsDead())
+			blood.erase(i);
+	
 
     ////////////////  OnMove區塊  ////////////////////////////////////////////////////////////////////////////////////
     player1.OnMove();
@@ -505,6 +509,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     for (unsigned int i = 0; i < shotbullets.size(); i++)
         shotbullets[i].OnMove();
+
+	for (unsigned int i = 0; i < blood.size(); i++)
+		blood[i].OnMove();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

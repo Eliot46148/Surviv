@@ -160,6 +160,7 @@
 #define IDB_RELOADING3                  351
 #define IDB_RELOADING4                  352
 #define IDB_BALL2						353
+#define IDB_BLOOD						354
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
