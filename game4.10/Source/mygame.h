@@ -12,6 +12,7 @@
 #include "Enemy.h"
 #include "Camera.h"
 #include "UI.h"
+#include "Blood.h"
 
 namespace game_framework {
 
@@ -81,6 +82,7 @@ class CGameStateRun : public CGameState
         vector<shotBullet> shotbullets;
         vector<Texture> texture;
         vector<Enemy> enemy;
+		vector<Blood> blood;
 		bool firstlife;									// 是否為第一次進入此state
 };
 

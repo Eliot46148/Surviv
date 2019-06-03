@@ -14,9 +14,10 @@ game_framework::shotBullet::shotBullet(): BasicObject()
     Width = 20;
 	damage = 10;
     speed = DEFAULT_BULLET_SPEED;
+	ID = 1;
 }
 
-game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y,int hshout)
+game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y,int hshout, int ID)
 {
     LoadBitMap();
     Height = 20;
@@ -27,10 +28,12 @@ game_framework::shotBullet::shotBullet(int x, int y, int position_x, int positio
     this->y = position_y + y;
 	this->camera_x = camera_x;
 	this->camera_y = camera_y;
+	this->ID = ID;
 	
     dx = int(2 * x / 10);
     dy = int(2 * y / 10);
 	shooter = hshout;
+	LoadBitMap();
 }
 
 void game_framework::shotBullet::OnMove()
@@ -54,7 +57,10 @@ void game_framework::shotBullet::OnMove()
 
 void game_framework::shotBullet::LoadBitMap()
 {
-    bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));
+	if(ID ==1)
+		bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));
+	else if (ID==2)
+		bmp.LoadBitmap(IDB_BALL2, RGB(0, 0, 0));
 }
 
 bool game_framework::shotBullet::HitPlayer(persona* player)
