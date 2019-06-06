@@ -495,9 +495,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 }
             }
     }
-	for (vector<Blood>::iterator i = blood.begin(); i != blood.end(); i++)
-		if (i->IsDead())
-			blood.erase(i);
+	/*for (unsigned int i = 0; i < blood.size(); i++) {
+		if (blood.at(i).IsDead())
+			TRACE("0");
+	}*/
 	
 
     ////////////////  OnMove區塊  ////////////////////////////////////////////////////////////////////////////////////
