@@ -151,12 +151,12 @@ CGameStateRun::CGameStateRun(CGame* g)
     unsigned seed = (unsigned)time(NULL);
     srand(seed);
     int randomx, randomy;
-
+	int ls[] = { 1,2,4 };
     for (int i = 0; i < 15; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, i % 4 + 1, (float)0.4));
+        item.push_back(items(randomx, randomy, ls[i%3], (float)0.4));
     }
 
     item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
@@ -434,8 +434,13 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 if (enemy.at(j).GetHP() <= 0)
                 {
                     texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-
-                    for (unsigned int i = 0; i < texture.size(); i++)
+					for (int k = 0; k < enemy.at(j).sizeitom(); k++)
+					{
+						item.push_back(items(enemy.at(j).GetX() + 5 * k, enemy.at(j).GetY() + rand() % 3 * k, enemy.at(j).rtItom(k), (float)0.4));
+						item.at(item.size() - 1).LoadBitMap();
+						camera.AddObjects(&item.at(item.size() - 1));
+					}
+					for (unsigned int i = 0; i < texture.size(); i++)
                         camera.AddObjects(&texture.at(i));
 
                     enemy.erase(enemy.begin() + j);
@@ -451,10 +456,15 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 if (box.at(j).ShowHP() <= 0)
                 {
                     texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+					item.push_back(items(box.at(j).GetX(), box.at(j).GetY(), 3, (float)0.4));
+					item.at(item.size() - 1).LoadBitMap();
+					camera.AddObjects(&item.at(item.size() - 1));
+					
+					for (unsigned int i = 0; i < texture.size(); i++)
+					{
+						camera.AddObjects(&texture.at(i));
 
-                    for (unsigned int i = 0; i < texture.size(); i++)
-                        camera.AddObjects(&texture.at(i));
-
+					}
                     box.erase(box.begin() + j);
                 }
             }

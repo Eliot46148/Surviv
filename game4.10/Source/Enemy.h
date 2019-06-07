@@ -29,7 +29,9 @@ class Enemy : public persona
         void CatchItem(items it);
         void setnearperson(persona* ps);
         int hasItom();
+		int rtItom(int no);
         void setbullt(int num);
+		int sizeitom();
         int hasbullet();
         bool isActing();
         int catchitemID();

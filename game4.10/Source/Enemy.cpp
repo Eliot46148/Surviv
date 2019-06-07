@@ -256,9 +256,19 @@ int game_framework::Enemy::hasItom()
     return hasitem.size();
 }
 
+int game_framework::Enemy::rtItom(int no)
+{
+	return hasitem[no].getID();
+}
+
 void game_framework::Enemy::setbullt(int num)
 {
     bullet += num;
+}
+
+int game_framework::Enemy::sizeitom()
+{
+	return hasitem.size();
 }
 
 int game_framework::Enemy::hasbullet()
