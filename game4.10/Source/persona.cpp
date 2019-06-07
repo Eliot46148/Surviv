@@ -288,6 +288,7 @@ void game_framework::persona::Retry()
     x = SIZE_X / 2 - 75;
     y = SIZE_Y / 2 - 75;
     bullet = 0;
+	megazine = 0;
     Height = 128;
     Width = 128;
     facingX = 0;
@@ -299,6 +300,9 @@ void game_framework::persona::Retry()
     holdingItem = 2;
     speed = DEFAULT_CHACRATER_SPEED;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
+	hasitem.clear();
+	for (int i = 0; i < 2; i++)
+		hasitemID[i] = 0;
 }
 
 

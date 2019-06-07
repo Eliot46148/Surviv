@@ -9,7 +9,7 @@ namespace game_framework {
 	class shotBullet : public BasicObject {
 	public:
 		shotBullet();
-		shotBullet(int,int,int,int,int,int,int);
+		shotBullet(int,int,int,int,int,int,int,int);
 		void OnMove();
 		void LoadBitMap();
 		bool HitPlayer(persona *player);
@@ -21,5 +21,6 @@ namespace game_framework {
 	private:
 		int damage;
 		int shooter;
+		int ID;         // 1¡G ¬õ(ª±®a) , 2¡G ÂÅ(¼Ä¤H)
 	};
 }
