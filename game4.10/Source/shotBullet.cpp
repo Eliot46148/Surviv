@@ -19,7 +19,6 @@ game_framework::shotBullet::shotBullet(): BasicObject()
 
 game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y,int hshout, int ID)
 {
-    LoadBitMap();
     Height = 20;
 	damage = 10;
     Width = 20;

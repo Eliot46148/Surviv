@@ -7,7 +7,7 @@ class BasicObject
         BasicObject();								//初始化
         void OnMove();								//物件的移動
 
-        void OnShow();
+        virtual void OnShow();
         void setMovingMode(int, bool);
 		void SetCamera(int, int);
 

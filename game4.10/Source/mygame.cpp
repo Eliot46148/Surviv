@@ -450,6 +450,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&player1) && shotbullets.at(i).getshooter() != -1)
         {
             player1.getDemage(shotbullets.at(i).ShowDamage());
+			blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
+			for (unsigned int i = 0; i < blood.size(); i++)
+				camera.AddObjects(&blood.at(i));
             shotbullets.erase(shotbullets.begin() + i);
 
             if (player1.GetHP() <= 0)
@@ -465,7 +468,11 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if ((int)shotbullets.size() > i && (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitEnemy(&enemy.at(j)) && shotbullets.at(i).getshooter() != j))
             {
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
+				blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
+				for(unsigned int i=0;i<blood.size();i++)
+					camera.AddObjects(&blood.at(i));
                 shotbullets.erase(shotbullets.begin() + i);
+				
 
                 if (enemy.at(j).GetHP() <= 0)
                 {
@@ -499,15 +506,15 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 					for (unsigned int i = 0; i < texture.size(); i++)
 					{
 						camera.AddObjects(&texture.at(i));
-
 					}
                     box.erase(box.begin() + j);
                 }
             }
     }
-	/*for (unsigned int i = 0; i < blood.size(); i++) {
-		if (blood.at(i).IsDead())
-			TRACE("0");
+	/*for (int i = 0; i < static_cast<int>(blood.size()); i++) {
+		if (blood.at(i).IsDead()) {
+			blood.erase(blood.begin() + i);
+		}
 	}*/
 	
 
@@ -515,8 +522,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     player1.OnMove();
     camera.OnMove();
 
-    for (unsigned int i = 0; i < enemy.size(); i++)
-        enemy.at(i).OnMove();
+	for (unsigned int i = 0; i < enemy.size(); i++) 
+		enemy.at(i).OnMove();
 
     for (unsigned int i = 0; i < shotbullets.size(); i++)
         shotbullets[i].OnMove();
@@ -788,6 +795,15 @@ void CGameStateRun::OnShow()
     for (int i = 0; i < static_cast<int>(texture.size()); i++)
         texture[i].OnShow();
 
+	for (int i = 0; i < static_cast<int>(blood.size()); i++)
+		blood.at(i).OnShow();
+
+	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+		bullet[i].OnShow();
+
+	for (int i = 0; i < static_cast<int>(item.size()); i++)
+		item[i].OnShow();
+
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
         enemy[i].OnShow();
 
@@ -796,17 +812,9 @@ void CGameStateRun::OnShow()
     for (int i = 0; i < static_cast<int>(box.size()); i++)
         box[i].OnShow();
 
-    for (int i = 0; i < static_cast<int>(item.size()); i++)
-        item[i].OnShow();
-
-    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        bullet[i].OnShow();
-
     for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
         shotbullets[i].OnShow();
 
     ui.OnShow();
-    //dot.SetTopLeft(SIZE_X / 2, SIZE_Y / 2);
-    //dot.ShowBitmap();
 }
 }

@@ -5,7 +5,9 @@ namespace game_framework {
 	class Blood : public BasicObject {
 	public:
 		Blood();
+		Blood(int x, int y);
 		void OnMove();
+		void OnShow();
 		void LoadBitMap();
 		bool IsDead();
 	private:

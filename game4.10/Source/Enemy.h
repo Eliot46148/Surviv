@@ -14,6 +14,7 @@ class Enemy : public persona
         Enemy(int, int, int);
         void LoadBitMap();
         void OnShow();
+		void OnMove();
         void GetDamage(int);
         int moveDelay;
         void SetNearBox(Box* nbox);
@@ -53,5 +54,6 @@ class Enemy : public persona
         int random, movevector;
         int skin;
         bool is_acting;
+		int recoil_timer;
 };
 }
