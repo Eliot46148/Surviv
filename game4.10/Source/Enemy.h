@@ -29,23 +29,23 @@ class Enemy : public persona
         void CatchItem(items it);
         void setnearperson(persona* ps);
         int hasItom();
-		int rtItom(int no);
+        int rtItom(int no);
         void setbullt(int num);
-		int sizeitom();
+        int sizeitom();
         int hasbullet();
         bool isActing();
         int catchitemID();
         int Recoil_delay;
         vector<persona> nearPerson;
+        vector<Box*> nearBox;
         int rrdelay = 0;
         bool tutchbox(Box* box, int _where);
-        void hitBox(Box* box);
+        bool hitBox(Box* box);
     private:
         CMovingBitmap bmp[8];
         bool is_Gettting = false;
         bool is_Reloading = false;
         vector<items> hasitem;
-        vector<Box*> nearBox;
         vector<Bullet*> nearBuller;
         vector<items*> nearitems;
         int bullet;
