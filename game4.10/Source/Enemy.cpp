@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "Box.h"
 #include "shotBullet.h"
+#include "persona.h"
 #include "Enemy.h"
 
 game_framework::Enemy::Enemy()
@@ -71,6 +72,27 @@ void game_framework::Enemy::OnShow()
         bmp[direction].SetTopLeft(x + dx + camera_x, y + dy + camera_y);
         bmp[direction].ShowBitmap(showMagnification);
     }
+}
+
+void game_framework::Enemy::OnMove()
+{
+	if (recoil_timer < 100)
+		recoil_timer++;
+
+	if (!(can_move && is_alive))
+		return;
+
+	if (isMovingLeft)
+		x -= speed;
+
+	if (isMovingRight)
+		x += speed;
+
+	if (isMovingUp)
+		y -= speed;
+
+	if (isMovingDown)
+		y += speed;
 }
 
 void game_framework::Enemy::GetDamage(int damage)
