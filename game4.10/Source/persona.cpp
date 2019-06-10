@@ -427,6 +427,11 @@ bool game_framework::persona::isCan_UP()
     return isMovingUp;
 }
 
+bool game_framework::persona::isMoving()
+{
+	return isMovingDown || isMovingUp || isMovingLeft || isMovingRight;
+}
+
 
 
 void game_framework::persona::setCan_move(bool flag)
@@ -568,6 +573,7 @@ void game_framework::persona::setBloodLock()
 {
 	bloodLock = !bloodLock;
 }
+
 
 double game_framework::persona::getFacingX()
 {

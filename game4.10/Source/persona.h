@@ -53,11 +53,12 @@ class persona : public BasicObject
         bool isCan_Left();
         bool isCan_Down();
         bool isCan_UP();
+		bool isMoving();
     private:
         CMovingBitmap bmp[4][25];		// 0:®±ÀY 1:ºj 2:¾÷ºj 3:ÄÅ¼uºj
         bool is_Gettting = false;
 		bool is_Reloading = false;
-		bool is_acting = false;
+		bool is_acting = false;;
 		bool bloodLock = false;			// ¬O§_Âê¦å
         vector<items> hasitem;
         int hasitemID[2] = { 0 };

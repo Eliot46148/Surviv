@@ -20,16 +20,23 @@ namespace game_framework {
 CGameStateInit::CGameStateInit(CGame* g)
     : CGameState(g)
 {
+	
 }
 
 void CGameStateInit::OnInit()
 {
     ShowInitProgress(0);	// 一開始的loading進度為0%
     logo.LoadBitmap(IDB_LOGO);
+	
 }
 
 void CGameStateInit::OnBeginState()
-{
+{	
+	if (!isMusicLoaded) {
+		CAudio::Instance()->Load(AUDIO_TITLE, "sounds\\title.mp3");
+		isMusicLoaded = true;
+	}
+	CAudio::Instance()->Play(AUDIO_TITLE, true);
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -93,6 +100,7 @@ void CGameStateOver::OnMove()
     {
         delay = 0;
         showTip = !showTip;
+		is_delayed = true;
     }
     else
         delay++;
@@ -100,6 +108,7 @@ void CGameStateOver::OnMove()
 
 void CGameStateOver::OnBeginState()
 {
+	is_delayed = false;
 }
 
 void CGameStateOver::OnInit()
@@ -219,6 +228,7 @@ void CGameStateRun::OnBeginState()
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
         bullet[i].LoadBitMap();
 
+	CAudio::Instance()->Stop(AUDIO_TITLE);
 }
 
 bool CGameStateRun::Hascover(Box* box)
@@ -617,7 +627,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     map.LoadBitMap();
     player1.LoadBitMap();
     ui.LoadBitMap();
-    //dot.LoadBitmap(IDB_BALL);
+	CAudio::Instance()->Load(AUDIO_STEP, "sounds\\step.mp3");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -637,16 +647,14 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_Escape = 0x18;        // keyboard  [Esc]
 
     //////////// 移動 //////////////////////////////////////
+	if ((nChar == KEY_LEFT || nChar == KEY_RIGHT || nChar == KEY_UP || nChar == KEY_DOWN) && !player1.isMoving()) {
+		CAudio::Instance()->Play(AUDIO_STEP, true);;
+	}
+
     if (nChar == KEY_LEFT)           // 左
     {
         camera.setMovingMode(4, 1);
         player1.setMovingMode(3, 1);
-    }
-
-    if (nChar == KEY_RIGHT)          // 右
-    {
-        camera.setMovingMode(3, 1);
-        player1.setMovingMode(4, 1);
     }
 
     if (nChar == KEY_RIGHT)          // 右
@@ -666,6 +674,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         camera.setMovingMode(1, 1);
         player1.setMovingMode(2, 1);
     }
+
+	
 
     /////////////////////////////////////////////////////////
 
@@ -719,6 +729,8 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_DOWN = 0x53;  // keyboard  [S]
     const char KEY_GET = 0x46;   // keyboard  [F]
 
+	
+
     if (nChar == KEY_LEFT)
     {
         camera.setMovingMode(4, 0);
@@ -742,6 +754,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
         camera.setMovingMode(1, 0);
         player1.setMovingMode(2, 0);
     }
+
+	if ((nChar == KEY_LEFT || nChar == KEY_RIGHT || nChar == KEY_UP || nChar == KEY_DOWN) && !player1.isMoving()) {
+		CAudio::Instance()->Stop(AUDIO_STEP);
+	}
+
+	
 
     if (nChar == KEY_GET)
     {
