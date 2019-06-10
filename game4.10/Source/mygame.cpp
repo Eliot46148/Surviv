@@ -168,12 +168,13 @@ void CGameStateRun::OnBeginState()
     unsigned seed = (unsigned)time(NULL);
     srand(seed);
     int randomx, randomy;
-	int ls[] = { 1,2,4 };
+    int ls[] = { 1, 2, 4 };
+
     for (int i = 0; i < 15; i++)
     {
         randomx = rand() % (556 * 5);
         randomy = rand() % (556 * 5);
-        item.push_back(items(randomx, randomy, ls[i%3], (float)0.4));
+        item.push_back(items(randomx, randomy, ls[i % 3], (float)0.4));
     }
 
     item.push_back(items(400, 400, 1, (float)0.4));				// 加入手槍
@@ -333,7 +334,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     }
 
     ///////////////////角色在包紮時不能移動//////////////////////
-    if (player1.isReloading() && player1.getHoldingItemID() == 4) {
+    if (player1.isReloading() && player1.getHoldingItemID() == 4)
+    {
         camera.setMovingMode(1, 0);
         camera.setMovingMode(2, 0);
         camera.setMovingMode(3, 0);
@@ -346,6 +348,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
     {
+        int shoutbox = -1;
         enemy.at(i).rrdelay += enemy.at(i).rrdelay < 0 ? 0 : -1;
         enemy.at(i).ClearBBIPvector();
 
@@ -364,24 +367,42 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if (abs(bullet.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(bullet.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
                 enemy.at(i).SetNearBullet(&bullet.at(j));
 
+		for (int j = 0; j < static_cast<int>(box.size()); j++)
+			if (abs(box.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(box.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
+				enemy.at(i).SetNearBox(&box.at(j));
+
+
         enemy.at(i).chouseMode();
 
         for (int j = 0; j < static_cast<int>(box.size()); j++)
-        {
-            enemy.at(i).hitBox(&box.at(j));
-        }
+            if (enemy.at(i).hitBox(&box.at(j)))
+                shoutbox = j;
 
         if (enemy.at(i).isActing())
         {
-            if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0 )
+            if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0&& enemy.at(i).hasItom() != 0)
             {
                 enemy.at(i).rrdelay = enemy.at(i).Recoil_delay;
-                int randomp = rand() % enemy.at(i).rtNearPeople();
-                int ID = enemy.at(i).catchitemID();
-                double dx = enemy.at(i).nearPerson.at(randomp).GetHitpointX() - enemy.at(i).GetX(), dy = enemy.at(i).nearPerson.at(randomp).GetHitpointY() - enemy.at(i).GetY();
-                double r = sqrt(dx * dx + dy * dy);
+                int randomp, ID;
+                double dx, dy, r, x, y;
                 const int distance = 100;			// 子彈發射時距離自身的距離
-                double x = (dx / r) * distance, y = (dy / r) * distance;
+
+                if (shoutbox == -1)
+                {
+                    randomp = rand() % enemy.at(i).rtNearPeople();
+                    dx = enemy.at(i).nearPerson.at(randomp).GetHitpointX() - enemy.at(i).GetX();
+                    dy = enemy.at(i).nearPerson.at(randomp).GetHitpointY() - enemy.at(i).GetY();
+                }
+                else
+                {
+                    dx = box.at(shoutbox).GetX() - enemy.at(i).GetX();
+                    dy = box.at(shoutbox).GetY() - enemy.at(i).GetY();
+                }
+
+                ID = enemy.at(i).catchitemID();
+                r = sqrt(dx * dx + dy * dy);
+                x = (dx / r) * distance;
+                y = (dy / r) * distance;
 
                 switch (ID)
                 {
@@ -479,13 +500,15 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 if (enemy.at(j).GetHP() <= 0)
                 {
                     texture.push_back(Texture(enemy.at(j).GetX(), enemy.at(j).GetY(), 2));
-					for (int k = 0; k < enemy.at(j).sizeitom(); k++)
-					{
-						item.push_back(items(enemy.at(j).GetX() + 5 * k, enemy.at(j).GetY() + rand() % 3 * k, enemy.at(j).rtItom(k), (float)0.4));
-						item.at(item.size() - 1).LoadBitMap();
-						camera.AddObjects(&item.at(item.size() - 1));
-					}
-					for (unsigned int i = 0; i < texture.size(); i++)
+
+                    for (int k = 0; k < enemy.at(j).sizeitom(); k++)
+                    {
+                        item.push_back(items(enemy.at(j).GetX() + 5 * k, enemy.at(j).GetY() + rand() % 3 * k, enemy.at(j).rtItom(k), (float)0.4));
+                        item.at(item.size() - 1).LoadBitMap();
+                        camera.AddObjects(&item.at(item.size() - 1));
+                    }
+
+                    for (unsigned int i = 0; i < texture.size(); i++)
                         camera.AddObjects(&texture.at(i));
 
                     enemy.erase(enemy.begin() + j);
@@ -501,6 +524,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 if (box.at(j).ShowHP() <= 0)
                 {
                     texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
+
 					item.push_back(items(box.at(j).GetX(), box.at(j).GetY(), 3, (float)0.4));
 					item.at(item.size() - 1).LoadBitMap();
 					camera.AddObjects(&item.at(item.size() - 1));
@@ -520,6 +544,10 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 	}*/
 	
 
+    /*for (unsigned int i = 0; i < blood.size(); i++) {
+    	if (blood.at(i).IsDead())
+    		TRACE("0");
+    }*/
     ////////////////  OnMove區塊  ////////////////////////////////////////////////////////////////////////////////////
     player1.OnMove();
     camera.OnMove();
@@ -530,8 +558,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     for (unsigned int i = 0; i < shotbullets.size(); i++)
         shotbullets[i].OnMove();
 
-	for (unsigned int i = 0; i < blood.size(); i++)
-		blood[i].OnMove();
+    for (unsigned int i = 0; i < blood.size(); i++)
+        blood[i].OnMove();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -549,7 +577,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             switch (ID)
             {
                 case 1:
-                    if (player1.GetMegazine() > 0) {
+                    if (player1.GetMegazine() > 0)
+                    {
                         shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1, 1));
                         player1.setMegazine(-1);
                     }
@@ -557,7 +586,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     break;
 
                 case 2:
-                    if (player1.GetMegazine() > 0) {
+                    if (player1.GetMegazine() > 0)
+                    {
                         rnd = rand() % 30 - 15;
                         shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         player1.setMegazine(-1);

@@ -102,6 +102,7 @@ void game_framework::Enemy::GetDamage(int damage)
 
 void game_framework::Enemy::SetNearBox(Box* nbox)
 {
+    nearBox.push_back(nbox);
 }
 
 void game_framework::Enemy::ClearBBIPvector()
@@ -280,7 +281,7 @@ int game_framework::Enemy::hasItom()
 
 int game_framework::Enemy::rtItom(int no)
 {
-	return hasitem[no].getID();
+    return hasitem[no].getID();
 }
 
 void game_framework::Enemy::setbullt(int num)
@@ -290,7 +291,7 @@ void game_framework::Enemy::setbullt(int num)
 
 int game_framework::Enemy::sizeitom()
 {
-	return hasitem.size();
+    return hasitem.size();
 }
 
 int game_framework::Enemy::hasbullet()
@@ -336,26 +337,49 @@ bool game_framework::Enemy::tutchbox(Box* box, int _where)
             Px2 += 10;
             Px1 += 10;
             break;
-		case 0:
-			break;
+
+        case 0:
+            break;
     }
 
     bool tem = (Ox2 >= Px1 && Ox1 <= Px2 && Oy2 >= Py1 && Oy1 <= Py2);
     return tem;
 }
 
-void game_framework::Enemy::hitBox(Box* box)
+bool game_framework::Enemy::hitBox(Box* box)
 {
+    int count = 0;
+
     if (tutchbox(box, 1))
-        isMovingUp = 0;
+    {
+        count++;
+        isMovingDown = 1;
+    }
 
     if (tutchbox(box, 2))
-        isMovingDown = 0;
+    {
+        count++;
+        isMovingUp = 1;
+    }
 
     if (tutchbox(box, 3))
-        isMovingLeft = 0;
+    {
+        count++;
+        isMovingRight = 1;
+    }
 
     if (tutchbox(box, 4))
-        isMovingRight = 0;
+    {
+        count++;
+        isMovingLeft = 1;
+    }
+
+    if (count != 0)
+    {
+        is_acting = true;
+        return true;
+    }
+
+    return false;
 }
 

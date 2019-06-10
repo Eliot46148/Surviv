@@ -8,13 +8,13 @@ class items : public BasicObject
         items();
         items(int x, int y, int id, float showsize);
         void LoadBitMap();
-		int getID();
+        int getID();
     private:
         int itemsdamage;
-		int itemsID;										// ID 拳頭   : 0
-															//	  手槍   : 1
-															//	  機槍   : 2
-															//	  霰彈槍 : 3
-															//    繃帶   : 4
+        int itemsID;										// ID 拳頭   : 0
+        //	  手槍   : 1
+        //	  機槍   : 2
+        //	  霰彈槍 : 3
+        //    繃帶   : 4
 };
 }

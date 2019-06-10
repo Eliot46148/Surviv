@@ -7,9 +7,9 @@
 #include "BasicObject.h"
 #include "Blood.h"
 
-game_framework::Blood::Blood():BasicObject()
+game_framework::Blood::Blood(): BasicObject()
 {
-	LoadBitMap();
+    LoadBitMap();
 }
 
 game_framework::Blood::Blood(int x, int y)
@@ -23,10 +23,11 @@ game_framework::Blood::Blood(int x, int y)
 
 void game_framework::Blood::OnMove()
 {
-	if(!is_Dead)
-		timer++;
-	if (timer > survival_time)
-		is_Dead = true;
+    if(!is_Dead)
+        timer++;
+
+    if (timer > survival_time)
+        is_Dead = true;
 }
 
 void game_framework::Blood::OnShow()
@@ -42,5 +43,5 @@ void game_framework::Blood::LoadBitMap()
 
 bool game_framework::Blood::IsDead()
 {
-	return is_Dead;
+    return is_Dead;
 }

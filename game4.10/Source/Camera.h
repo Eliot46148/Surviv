@@ -16,16 +16,16 @@ namespace game_framework {
 		void LoadBitMap(int);
 		void Retry();
 
-		int GetObjectsSize();
+        int GetObjectsSize();
 
-		int GetCameraX();
-		int GetCameraY();
-	private:
-		int x, y;
-		int speed;
-		bool isMovingUp, isMovingLeft, isMovingRight, isMovingDown;
+        int GetCameraX();
+        int GetCameraY();
+    private:
+        int x, y;
+        int speed;
+        bool isMovingUp, isMovingLeft, isMovingRight, isMovingDown;
 
-		/*地圖物件位址*/
-		vector<BasicObject*> Objects;				
-	};
+        /*地圖物件位址*/
+        vector<BasicObject*> Objects;
+};
 }

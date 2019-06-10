@@ -45,7 +45,7 @@ void game_framework::persona::CatchItem(items take)
     else
     {
         hasitem.at(holdingItem) = take;
-		setHoldingItem(holdingItem);
+        setHoldingItem(holdingItem);
         hasitemID[holdingItem] = take.getID();
     }
 }
@@ -78,8 +78,9 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
             Px2 += 10;
             Px1 += 10;
             break;
-		case 0:
-			break;
+
+        case 0:
+            break;
     }
 
     //return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
@@ -89,34 +90,34 @@ bool game_framework::persona::HitObstacle(Box* box, int _where)
 
 bool game_framework::persona::HitBorder(int _where)
 {
-	int Px1 = x + 45, Py1 = y + 45;
-	int Px2 = Px1 + 60, Py2 = Py1 + 60;
+    int Px1 = x + 45, Py1 = y + 45;
+    int Px2 = Px1 + 60, Py2 = Py1 + 60;
 
-	switch (_where)
-	{
-	case 1:
-		Py2 -= 10;
-		Py1 -= 10;
-		break;
+    switch (_where)
+    {
+        case 1:
+            Py2 -= 10;
+            Py1 -= 10;
+            break;
 
-	case 2:
-		Py2 += 10;
-		Py1 += 10;
-		break;
+        case 2:
+            Py2 += 10;
+            Py1 += 10;
+            break;
 
-	case 3:
-		Px2 -= 10;
-		Px1 -= 10;
-		break;
+        case 3:
+            Px2 -= 10;
+            Px1 -= 10;
+            break;
 
-	case 4:
-		Px2 += 10;
-		Px1 += 10;
-		break;
-	}
+        case 4:
+            Px2 += 10;
+            Px1 += 10;
+            break;
+    }
 
-	bool tem = (Px2> 2770 || Px1 < 10 || Py2 > 2770 || Py1 < 10);
-	return tem;
+    bool tem = (Px2 > 2770 || Px1 < 10 || Py2 > 2770 || Py1 < 10);
+    return tem;
 }
 
 void game_framework::persona::LoadBitMap()
@@ -224,41 +225,52 @@ void game_framework::persona::OnShow()
     if (is_alive)
     {
         int ID = getHoldingItemID();
-		if (ID == 4)
-			ID = 0;
+
+        if (ID == 4)
+            ID = 0;
+
         bmp[ID][direction].SetTopLeft(x + camera_x, y + camera_y);
         bmp[ID][direction].ShowBitmap(showMagnification);
     }
 }
 
 void game_framework::persona::OnMove()
-{	
-	int temp;
+{
+    int temp;
+
     if (recoil_timer < 100)
         recoil_timer++;
 
-	if (is_Reloading) {
-		reload_timer++;
-		if (reload_timer >= reload_time) {
-			reload_timer = 0;
-			is_Reloading = false;
-			if (getHoldingItemID() == 4) {
-				HP = 100;
-			}
-			else 
-			{
-				temp = 30 - megazine;
-				if (bullet >= temp) {
-					bullet -= temp;
-					megazine += temp;
-				}
-				else {
-					megazine += bullet;
-					bullet = 0;
-				}
-			}
-		}
-	}
+    if (is_Reloading)
+    {
+        reload_timer++;
+
+        if (reload_timer >= reload_time)
+        {
+            reload_timer = 0;
+            is_Reloading = false;
+
+            if (getHoldingItemID() == 4)
+            {
+                HP = 100;
+            }
+            else
+            {
+                temp = 30 - megazine;
+
+                if (bullet >= temp)
+                {
+                    bullet -= temp;
+                    megazine += temp;
+                }
+                else
+                {
+                    megazine += bullet;
+                    bullet = 0;
+                }
+            }
+        }
+    }
 
     if (!(can_move && is_alive))
         return;
@@ -289,7 +301,7 @@ void game_framework::persona::Retry()
     x = SIZE_X / 2 - 75;
     y = SIZE_Y / 2 - 75;
     bullet = 0;
-	megazine = 0;
+    megazine = 0;
     Height = 128;
     Width = 128;
     facingX = 0;
@@ -301,9 +313,10 @@ void game_framework::persona::Retry()
     holdingItem = 2;
     speed = DEFAULT_CHACRATER_SPEED;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
-	hasitem.clear();
-	for (int i = 0; i < 2; i++)
-		hasitemID[i] = 0;
+    hasitem.clear();
+
+    for (int i = 0; i < 2; i++)
+        hasitemID[i] = 0;
 }
 
 
@@ -341,9 +354,10 @@ bool game_framework::persona::Recoil()
             Recoil_time = 30;
             break;
 
-		case 4:
-			Recoil_time = 5;
-			break;
+        case 4:
+            Recoil_time = 5;
+            break;
+
         default:
             Recoil_time = 100;
     }
@@ -365,14 +379,16 @@ void game_framework::persona::SetGetting(bool flag)
 
 void game_framework::persona::SetReloading(bool flag)
 {
-	if (flag) {
-		if (!is_Reloading && getHasitemNum()>0 && getBullet()>0 || getHoldingItemID()==4) {
-			is_Reloading = flag;
-			reload_timer = 0;
-		}
-	}
-	else
-		is_Reloading = flag;
+    if (flag)
+    {
+        if (!is_Reloading && getHasitemNum() > 0 && getBullet() > 0 || getHoldingItemID() == 4)
+        {
+            is_Reloading = flag;
+            reload_timer = 0;
+        }
+    }
+    else
+        is_Reloading = flag;
 }
 
 bool game_framework::persona::isGetting()
@@ -419,17 +435,16 @@ void game_framework::persona::setCan_move(bool flag)
 }
 
 void game_framework::persona::setBullet(int num)
-{	
-	 bullet += num;
+{
+    bullet += num;
 
-	if (bullet > 90)
-		bullet = 90;
+    if (bullet > 90)
+        bullet = 90;
 }
 
 void game_framework::persona::setMegazine(int num)
 {
-	megazine += num;
-
+    megazine += num;
 }
 
 void game_framework::persona::setFacingPosition(double x, double y)
@@ -527,21 +542,26 @@ void game_framework::persona::getDemage(int damage)
 void game_framework::persona::setHoldingItem(int num)
 {
     holdingItem = num;
-	int Id = getHoldingItemID();
-	switch (Id) {
-	case 1:
-		reload_time = 30;
-		break;
-	case 2:
-		reload_time = 50;
-		break;
-	case 3:
-		reload_time = 90;
-		break;
-	case 4:
-		reload_time = 300;
-		break;
-	}
+    int Id = getHoldingItemID();
+
+    switch (Id)
+    {
+        case 1:
+            reload_time = 30;
+            break;
+
+        case 2:
+            reload_time = 50;
+            break;
+
+        case 3:
+            reload_time = 90;
+            break;
+
+        case 4:
+            reload_time = 300;
+            break;
+    }
 }
 
 void game_framework::persona::setBloodLock()
@@ -601,5 +621,5 @@ int game_framework::persona::getBullet()
 
 int game_framework::persona::GetMegazine()
 {
-	return megazine;
+    return megazine;
 }

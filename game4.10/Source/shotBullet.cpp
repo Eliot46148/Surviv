@@ -12,27 +12,26 @@ game_framework::shotBullet::shotBullet(): BasicObject()
     LoadBitMap();
     Height = 20;
     Width = 20;
-	damage = 10;
+    damage = 10;
     speed = DEFAULT_BULLET_SPEED;
-	ID = 1;
+    ID = 1;
 }
 
-game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y,int hshout, int ID)
+game_framework::shotBullet::shotBullet(int x, int y, int position_x, int position_y, int camera_x, int camera_y, int hshout, int ID)
 {
     Height = 20;
-	damage = 10;
+    damage = 10;
     Width = 20;
     speed = DEFAULT_BULLET_SPEED;
     this->x = position_x + x;
     this->y = position_y + y;
-	this->camera_x = camera_x;
-	this->camera_y = camera_y;
-	this->ID = ID;
-	
+    this->camera_x = camera_x;
+    this->camera_y = camera_y;
+    this->ID = ID;
     dx = int(2 * x / 10);
     dy = int(2 * y / 10);
-	shooter = hshout;
-	LoadBitMap();
+    shooter = hshout;
+    LoadBitMap();
 }
 
 void game_framework::shotBullet::OnMove()
@@ -56,10 +55,10 @@ void game_framework::shotBullet::OnMove()
 
 void game_framework::shotBullet::LoadBitMap()
 {
-	if(ID ==1)
-		bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));
-	else if (ID==2)
-		bmp.LoadBitmap(IDB_BALL2, RGB(0, 0, 0));
+    if(ID == 1)
+        bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));
+    else if (ID == 2)
+        bmp.LoadBitmap(IDB_BALL2, RGB(0, 0, 0));
 }
 
 bool game_framework::shotBullet::HitPlayer(persona* player)
@@ -69,11 +68,11 @@ bool game_framework::shotBullet::HitPlayer(persona* player)
     return HitSomething(px1, py1, px2, py2);
 }
 
-bool game_framework::shotBullet::HitEnemy(Enemy * enemy)
+bool game_framework::shotBullet::HitEnemy(Enemy* enemy)
 {
-	int px1 = enemy->GetX(), py1 = enemy->GetY();
-	int px2 = enemy->GetX() + enemy->GetWidth(), py2 = enemy->GetY() + enemy->GetHeight();
-	return HitSomething(px1, py1, px2, py2);
+    int px1 = enemy->GetX(), py1 = enemy->GetY();
+    int px2 = enemy->GetX() + enemy->GetWidth(), py2 = enemy->GetY() + enemy->GetHeight();
+    return HitSomething(px1, py1, px2, py2);
 }
 
 bool game_framework::shotBullet::HitObstacle(Box* box)
@@ -90,10 +89,10 @@ bool game_framework::shotBullet::HitSomething(int tx1, int ty1, int tx2, int ty2
 }
 int game_framework::shotBullet::ShowDamage()
 {
-	return damage;
+    return damage;
 }
 
 int game_framework::shotBullet::getshooter()
 {
-	return shooter;
+    return shooter;
 }
