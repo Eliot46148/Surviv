@@ -30,8 +30,10 @@ void game_framework::Camera::OnMove()
 		y += speed;
 
 	for (unsigned int i = 0; i < Objects.size(); i++) {
-		if (Objects.at(i) == NULL)
+		if (Objects.at(i) == nullptr) {
 			Objects.erase(Objects.begin() + i);
+			i--;
+		}
 		else
 			Objects.at(i)->SetCamera(x, y);
 	}
@@ -71,6 +73,16 @@ void game_framework::Camera::setMovingMode(int path, bool flag)
 void game_framework::Camera::AddObjects(BasicObject *object)
 {
 	Objects.push_back(object);
+}
+
+void game_framework::Camera::CleanObjects()
+{
+	for (unsigned int i = 0; i < Objects.size(); i++) {
+		if (Objects[i] == nullptr) {
+			Objects.erase(Objects.begin() + i);
+			i--;
+		}
+	}
 }
 
 void game_framework::Camera::LoadBitMap(int index)

@@ -75,9 +75,10 @@ void BasicObject::setMovingMode(int path, bool flag)
     }
 }
 void BasicObject::SetCamera(int x, int y)
-{
-	camera_x = x;
-	camera_y = y;
+{	if(this != NULL && this->HP!=NULL) {
+		camera_x = x;
+		camera_y = y;
+	}
 }
 void BasicObject::SetXY(int nx, int ny)
 {

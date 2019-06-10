@@ -9,6 +9,7 @@
 #include "mygame.h"
 #include "BasicObject.h"
 #include "persona.h"
+#include "Blood.h"
 
 
 namespace game_framework {
@@ -60,7 +61,7 @@ void CGameStateInit::OnShow()
         fp = pDC->SelectObject(&f);					// 選用 font f
         pDC->SetBkMode(TRANSPARENT);
         pDC->SetTextColor(RGB(255, 255, 255));
-        pDC->TextOut(200, 300, "Press LButton to Start!");
+        pDC->TextOut(230, 300, "Press LButton to Start!");
         pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
         CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
     }
@@ -129,7 +130,7 @@ void CGameStateOver::OnShow()
         fp = pDC->SelectObject(&f);					// 選用 font f
         pDC->SetBkMode(TRANSPARENT);
         pDC->SetTextColor(RGB(255, 255, 255));
-        pDC->TextOut(180, 300, "Press LButton to Restart!");
+        pDC->TextOut(210, 300, "Press LButton to Restart!");
         pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
         CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
     }
@@ -277,7 +278,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     random_device rndseed;
     srand(rndseed());
     int rnd;
-    ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), player1.GetMegazine(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem(), player1.isReloading());				// UI接收玩家資訊
+    ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), player1.GetMegazine(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem(), player1.isReloading(), player1.GetBloodLock());				// UI接收玩家資訊
+	camera.CleanObjects();
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
@@ -614,6 +616,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_GET   = 0x46;		 // keyboard  [F]
     const char KEY_Reload = 0x52;        // keyboard  [R]
     const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
+	const char KEY_BloodLock = 0x54;     // keyboard  [T]
     const char KEY_CHEAT = 0x43;		 // keyboard  [C]
     const char KEY_First = 0x31;		 // keyboard  [1]
     const char KEY_Second = 0x32;		 // keyboard  [2]
@@ -690,6 +693,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     {
         Cheat();
     }
+
+	if (nChar == KEY_BloodLock)
+		player1.setBloodLock();
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)

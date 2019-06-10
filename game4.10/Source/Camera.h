@@ -12,6 +12,7 @@ namespace game_framework {
 		void OnShow();
 		void setMovingMode(int, bool);
 		void AddObjects(BasicObject*);
+		void CleanObjects();
 		void LoadBitMap(int);
 		void Retry();
 

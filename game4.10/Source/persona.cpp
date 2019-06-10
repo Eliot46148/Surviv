@@ -31,6 +31,7 @@ game_framework::persona::persona(): BasicObject()
 	megazine = 0;
 	is_Reloading = false;
 	reload_time = 30;
+	bloodLock = false;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -316,6 +317,11 @@ int game_framework::persona::GetAmmo()
     return bullet;
 }
 
+bool game_framework::persona::GetBloodLock()
+{
+	return bloodLock;
+}
+
 bool game_framework::persona::Recoil()
 {
     int ID = getHoldingItemID();
@@ -514,7 +520,8 @@ void game_framework::persona::setActing(bool flag)
 
 void game_framework::persona::getDemage(int damage)
 {
-    HP -= damage;
+	if(!bloodLock)
+		HP -= damage;
 }
 
 void game_framework::persona::setHoldingItem(int num)
@@ -535,6 +542,11 @@ void game_framework::persona::setHoldingItem(int num)
 		reload_time = 300;
 		break;
 	}
+}
+
+void game_framework::persona::setBloodLock()
+{
+	bloodLock = !bloodLock;
 }
 
 double game_framework::persona::getFacingX()

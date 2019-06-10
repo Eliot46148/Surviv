@@ -33,6 +33,7 @@ class persona : public BasicObject
 		void setActing(bool);
 		void getDemage(int);
 		void setHoldingItem(int);
+		void setBloodLock();
 
 		double getFacingX();
 		double getFacingY();
@@ -47,6 +48,7 @@ class persona : public BasicObject
 		int GetHP();
 		int GetAmmo();
 
+		bool GetBloodLock();
         bool isGetting();
 		bool isReloading();
 		bool isActing();
@@ -60,6 +62,7 @@ class persona : public BasicObject
         bool is_Gettting = false;
 		bool is_Reloading = false;
 		bool is_acting = false;
+		bool bloodLock = false;			// 是否鎖血
         vector<items> hasitem;
 		int hasitemID[2] = { 0 };
 		int holdingItem;				// 現在手持的武器

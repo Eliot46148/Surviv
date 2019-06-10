@@ -20,6 +20,7 @@ game_framework::UI::UI()
 	Loading_Index = 0;
 	Megazine = 0;
 	is_Reloading = false;
+	bloodLock = false;
 }
 
 void game_framework::UI::LoadBitMap()
@@ -106,6 +107,10 @@ void game_framework::UI::ShowInfo()
 	pDC->TextOut(450, 0, "Enemies:");
 	pDC->TextOut(600, 2, buf);
 
+	if (bloodLock) {
+		pDC->TextOut(450, 0, "HP is Locked");
+	}
+
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 
@@ -167,7 +172,7 @@ void game_framework::UI::ShowBullets()
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
-void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enemy_num, int* hasitemsID, int holdingItem, bool is_Reloading)
+void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enemy_num, int* hasitemsID, int holdingItem, bool is_Reloading, bool bloolLock)
 {
 	HP = hp;
 	Ammo = ammo;
@@ -176,6 +181,7 @@ void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enem
 	this->hasitemsID = hasitemsID;
 	this->holdingitem = holdingItem;
 	this->is_Reloading = is_Reloading;
+	this->bloodLock = bloodLock;
 	SetHealthStatus();
 }
 
