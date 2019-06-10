@@ -19,7 +19,11 @@ namespace game_framework {
 enum AUDIO_ID  				// 定義各種音效的編號
 {
     AUDIO_TITLE,
-	AUDIO_STEP
+	AUDIO_STEP,
+	AUDIO_PISTOL,
+	AUDIO_MACHINEGUN,
+	AUDIO_SHOTGUN,
+	AUDIO_BANDAGE
 };
 static bool isWin = false;
 

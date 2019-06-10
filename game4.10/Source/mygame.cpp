@@ -109,6 +109,7 @@ void CGameStateOver::OnMove()
 void CGameStateOver::OnBeginState()
 {
 	is_delayed = false;
+	CAudio::Instance()->Pause();
 }
 
 void CGameStateOver::OnInit()
@@ -544,6 +545,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     if (player1.GetMegazine() > 0)
                     {
                         shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1, 1));
+						CAudio::Instance()->Play(AUDIO_PISTOL, false);
                         player1.setMegazine(-1);
                     }
 
@@ -571,6 +573,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                         shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         temp = degree * -2;
                         shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
+						CAudio::Instance()->Play(AUDIO_SHOTGUN, false);
                         player1.setMegazine(-5);
                     }
 
@@ -628,6 +631,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     player1.LoadBitMap();
     ui.LoadBitMap();
 	CAudio::Instance()->Load(AUDIO_STEP, "sounds\\step.mp3");
+	CAudio::Instance()->Load(AUDIO_PISTOL, "sounds\\pistol.mp3");
+	CAudio::Instance()->Load(AUDIO_MACHINEGUN, "sounds\\machinegun.mp3");
+	CAudio::Instance()->Load(AUDIO_SHOTGUN, "sounds\\shotgun.mp3");
+	CAudio::Instance()->Load(AUDIO_BANDAGE, "sounds\\bandage.mp3");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -790,11 +797,16 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
     player1.setActing(true);
+	if(player1.getHoldingItemID()==2)
+		CAudio::Instance()->Play(AUDIO_MACHINEGUN, true);
+	if (player1.getHoldingItemID() == 4)
+		CAudio::Instance()->Play(AUDIO_BANDAGE, false);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
     player1.setActing(false);
+	CAudio::Instance()->Stop(AUDIO_MACHINEGUN);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作

@@ -314,6 +314,7 @@ void game_framework::persona::Retry()
     speed = DEFAULT_CHACRATER_SPEED;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
     hasitem.clear();
+	is_Reloading = false;
 
     for (int i = 0; i < 2; i++)
         hasitemID[i] = 0;
@@ -343,7 +344,7 @@ bool game_framework::persona::Recoil()
     switch (ID)
     {
         case 1:
-            Recoil_time = 20;
+            Recoil_time = 30;
             break;
 
         case 2:
@@ -564,7 +565,7 @@ void game_framework::persona::setHoldingItem(int num)
             break;
 
         case 4:
-            reload_time = 300;
+            reload_time = 180;
             break;
     }
 }
