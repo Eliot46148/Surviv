@@ -123,6 +123,12 @@ void game_framework::Enemy::SetNearItem(items* nitem)
     nearitems.push_back(nitem);
 }
 
+void game_framework::Enemy::SetCamera(int x, int y)
+{
+	camera_x = x;
+	camera_y = y;
+}
+
 void game_framework::Enemy::chouseMode()
 {
     // ²¾°Ê--1   §ðÀ»--2  °Å¨ú--3

@@ -72,9 +72,9 @@ class CGameStateRun : public CGameState
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
         CMovingBitmap dot;								// 角落圖
-        Camera camera;
         Map map;
 		UI ui;
+		Camera camera;
         vector<Box> box;
         vector<items> item;
         persona player1;
