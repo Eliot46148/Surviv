@@ -68,8 +68,10 @@ void CGameStateInit::OnShow()
 	pDC->TextOut(40, 240, "操作方法：");
 	pDC->TextOut(40, 270, "使用WASD鍵移動");
 	pDC->TextOut(40, 300, "F鍵拾取物品");
-	pDC->TextOut(40, 330, "滑鼠移動控制準心瞄準");
-	pDC->TextOut(40, 360, "滑鼠左鍵射擊或使用道具");
+	pDC->TextOut(40, 330, "R鍵重新裝填子彈");
+	pDC->TextOut(40, 360, "滑鼠移動控制準心瞄準");
+	pDC->TextOut(40, 390, "滑鼠左鍵射擊或使用道具");
+	pDC->TextOut(40, 420, "數字鍵1 2 切換武器/道具");
 
 	pDC->TextOut(330, 240, "密技：");
 	pDC->TextOut(330, 270, "O鍵回復生命值");
@@ -79,7 +81,7 @@ void CGameStateInit::OnShow()
 	pDC->SetTextColor(RGB(255, 255, 0));
     if (showTip)
     {
-        pDC->TextOut(230, 400, "Press LButton to Start!");
+        pDC->TextOut(330, 390, "Press LButton to Start!");
     }
 
     pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
