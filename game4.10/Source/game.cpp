@@ -160,6 +160,8 @@ protected:
 	afx_msg void OnReadme();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedOk();
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -179,6 +181,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//{{AFX_MSG_MAP(CAboutDlg)
 	ON_BN_CLICKED(IDC_README, OnReadme)
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDOK, &CAboutDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
@@ -207,4 +210,11 @@ void CAboutDlg::OnReadme()
 {
 	// TODO: Add your control notification handler code here
 	system("notepad.exe ReadMe.txt");
+}
+
+
+void CAboutDlg::OnBnClickedOk()
+{
+	// TODO: 在此加入控制項告知處理常式程式碼
+	CDialog::OnOK();
 }

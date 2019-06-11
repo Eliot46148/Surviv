@@ -684,5 +684,14 @@
     <Image Include="RES\reloading4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\ball2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\blood.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\icon.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
