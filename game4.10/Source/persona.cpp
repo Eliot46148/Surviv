@@ -23,14 +23,15 @@ game_framework::persona::persona(): BasicObject()
     facingY = 0;
     showMagnification = (float)0.5;
     direction = 0;
-    HP = 100;
-    recoil_timer = 0;
-    reload_timer = 0;
-    holdingItem = 2;
-    speed = DEFAULT_CHACRATER_SPEED;
-    megazine = 0;
-    is_Reloading = false;
-    reload_time = 30;
+	HP = 100;
+	recoil_timer = 0;
+	reload_timer = 0;
+	holdingItem = 2;
+	speed = DEFAULT_CHACRATER_SPEED;
+	megazine = 0;
+	is_Reloading = false;
+	reload_time = 30;
+	bloodLock = false;
 }
 
 void game_framework::persona::CatchItem(items take)
@@ -313,6 +314,7 @@ void game_framework::persona::Retry()
     speed = DEFAULT_CHACRATER_SPEED;
     isMovingDown = isMovingLeft = isMovingRight = isMovingUp = false;
     hasitem.clear();
+	is_Reloading = false;
 
     for (int i = 0; i < 2; i++)
         hasitemID[i] = 0;
@@ -329,6 +331,11 @@ int game_framework::persona::GetAmmo()
     return bullet;
 }
 
+bool game_framework::persona::GetBloodLock()
+{
+	return bloodLock;
+}
+
 bool game_framework::persona::Recoil()
 {
     int ID = getHoldingItemID();
@@ -337,7 +344,7 @@ bool game_framework::persona::Recoil()
     switch (ID)
     {
         case 1:
-            Recoil_time = 20;
+            Recoil_time = 30;
             break;
 
         case 2:
@@ -419,6 +426,11 @@ bool game_framework::persona::isCan_Down()
 bool game_framework::persona::isCan_UP()
 {
     return isMovingUp;
+}
+
+bool game_framework::persona::isMoving()
+{
+	return isMovingDown || isMovingUp || isMovingLeft || isMovingRight;
 }
 
 
@@ -529,7 +541,8 @@ void game_framework::persona::setActing(bool flag)
 
 void game_framework::persona::getDemage(int damage)
 {
-    HP -= damage;
+	if(!bloodLock)
+		HP -= damage;
 }
 
 void game_framework::persona::setHoldingItem(int num)
@@ -552,10 +565,16 @@ void game_framework::persona::setHoldingItem(int num)
             break;
 
         case 4:
-            reload_time = 300;
+            reload_time = 180;
             break;
     }
 }
+
+void game_framework::persona::setBloodLock()
+{
+	bloodLock = !bloodLock;
+}
+
 
 double game_framework::persona::getFacingX()
 {

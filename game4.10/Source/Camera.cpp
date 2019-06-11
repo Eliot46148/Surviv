@@ -29,19 +29,6 @@ void game_framework::Camera::OnMove()
     if (isMovingDown)
         y += speed;
 
-    for (unsigned int i = 0; i < Objects.size(); i++)
-    {
-        if (Objects.at(i) == NULL)
-            Objects.erase(Objects.begin() + i);
-        else
-            Objects.at(i)->SetCamera(x, y);
-    }
-}
-
-void game_framework::Camera::OnShow()
-{
-    for (unsigned i = 0; i < Objects.size(); i++)
-        Objects.at(i)->OnShow();
 }
 
 void game_framework::Camera::setMovingMode(int path, bool flag)
@@ -69,35 +56,19 @@ void game_framework::Camera::setMovingMode(int path, bool flag)
     }
 }
 
-void game_framework::Camera::AddObjects(BasicObject* object)
-{
-    Objects.push_back(object);
-}
-
-void game_framework::Camera::LoadBitMap(int index)
-{
-    Objects.at(index)->LoadBitMap();
-}
-
 void game_framework::Camera::Retry()
 {
     speed = DEFAULT_OBJECTIVE_SPEED;
     isMovingUp = isMovingLeft = isMovingRight = isMovingDown = false;
     x = y = 0;
-    Objects.clear();
 }
 
-int game_framework::Camera::GetObjectsSize()
-{
-    return Objects.size();
-}
-
-int game_framework::Camera::GetCameraX()
+int game_framework::Camera::GetX()
 {
     return x;
 }
 
-int game_framework::Camera::GetCameraY()
+int game_framework::Camera::GetY()
 {
     return y;
 }

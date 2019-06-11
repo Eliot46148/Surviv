@@ -18,9 +18,12 @@ namespace game_framework {
 
 enum AUDIO_ID  				// 定義各種音效的編號
 {
-    AUDIO_DING,				// 0
-    AUDIO_LAKE,				// 1
-    AUDIO_NTUT				// 2
+    AUDIO_TITLE,
+	AUDIO_STEP,
+	AUDIO_PISTOL,
+	AUDIO_MACHINEGUN,
+	AUDIO_SHOTGUN,
+	AUDIO_BANDAGE
 };
 static bool isWin = false;
 
@@ -44,6 +47,7 @@ class CGameStateInit : public CGameState
         CMovingBitmap logo;								// csie的logo
 		int delay = 0;
 		bool showTip = true;
+		bool isMusicLoaded = false;
 };
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
@@ -72,9 +76,9 @@ class CGameStateRun : public CGameState
         void OnShow();									// 顯示這個狀態的遊戲畫面
     private:
         CMovingBitmap dot;								// 角落圖
-        Camera camera;
         Map map;
 		UI ui;
+		Camera camera;
         vector<Box> box;
         vector<items> item;
         persona player1;
@@ -106,6 +110,7 @@ class CGameStateOver : public CGameState
 		CMovingBitmap logo[2];
 		int delay = 0;
 		bool showTip = true;
+		bool is_delayed = false;
 };
 
 }

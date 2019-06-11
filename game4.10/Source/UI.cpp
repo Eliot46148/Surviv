@@ -11,15 +11,17 @@
 
 game_framework::UI::UI()
 {
-    HP = 100;
-    Ammo = 0;
-    Enemy_Num = 0;
-    HealthStatus = 10;
-    hasitemsID = nullptr;
-    Loading_Timer = 0;
-    Loading_Index = 0;
-    Megazine = 0;
-    is_Reloading = false;
+	HP = 100;
+	Ammo = 0;
+	Enemy_Num = 0;
+	HealthStatus = 10;
+	hasitemsID = nullptr;
+	Loading_Timer = 0;
+	Loading_Index = 0;
+	Megazine = 0;
+	is_Reloading = false;
+	bloodLock = false;
+
 }
 
 void game_framework::UI::LoadBitMap()
@@ -87,20 +89,29 @@ void game_framework::UI::ShowHealthBar()
 
 void game_framework::UI::ShowInfo()
 {
-    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
-    CFont f, *fp;
-    char buf[32];
-    f.CreatePointFont(240, "Times New Roman");	// 產生 font f; 160表示16 point的字
-    fp = pDC->SelectObject(&f);					// 選用 font f
-    pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(RGB(255, 0, 0));
-    sprintf(buf, "%d", Enemy_Num);
-    pDC->TextOut(450, 0, "Enemies:");
-    pDC->TextOut(600, 2, buf);
-    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
-    //Ammo_img.SetTopLeft(600, 430);
-    //Ammo_img.ShowBitmap(0.1);
+	CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+	CFont f, *fp;
+	char buf[32];
+
+	f.CreatePointFont(240, "Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp = pDC->SelectObject(&f);					// 選用 font f
+	pDC->SetBkMode(TRANSPARENT);
+	
+	pDC->SetTextColor(RGB(255, 0, 0));
+	sprintf(buf, "%d", Enemy_Num);
+	pDC->TextOut(450, 0, "Enemies:");
+	pDC->TextOut(600, 2, buf);
+
+	if (bloodLock) {
+		pDC->TextOut(450, 0, "HP is Locked");
+	}
+
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+
+	//Ammo_img.SetTopLeft(600, 430);
+	//Ammo_img.ShowBitmap(0.1);
+
 }
 
 void game_framework::UI::ShowItems()
@@ -162,16 +173,17 @@ void game_framework::UI::ShowBullets()
     CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
-void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enemy_num, int* hasitemsID, int holdingItem, bool is_Reloading)
+void game_framework::UI::TakePlayerInfo(int hp, int ammo, int megazine, int enemy_num, int* hasitemsID, int holdingItem, bool is_Reloading, bool bloolLock)
 {
-    HP = hp;
-    Ammo = ammo;
-    Megazine = megazine;
-    Enemy_Num = enemy_num;
-    this->hasitemsID = hasitemsID;
-    this->holdingitem = holdingItem;
-    this->is_Reloading = is_Reloading;
-    SetHealthStatus();
+	HP = hp;
+	Ammo = ammo;
+	Megazine = megazine;
+	Enemy_Num = enemy_num;
+	this->hasitemsID = hasitemsID;
+	this->holdingitem = holdingItem;
+	this->is_Reloading = is_Reloading;
+	this->bloodLock = bloodLock;
+	SetHealthStatus();
 }
 
 void game_framework::UI::SetHealthStatus()
@@ -213,14 +225,15 @@ void game_framework::UI::Showloading()
 
 void game_framework::UI::Clear()
 {
-    HP = 100;
-    Ammo = 0;
-    Enemy_Num = 0;
-    HealthStatus = 10;
-    hasitemsID = nullptr;
-    Loading_Timer = 0;
-    Loading_Index = 0;
-    Megazine = 0;
-    is_Reloading = false;
+	HP = 100;
+	Ammo = 0;
+	Enemy_Num = 0;
+	HealthStatus = 10;
+	hasitemsID = nullptr;
+	Loading_Timer = 0;
+	Loading_Index = 0;
+	Megazine = 0;
+	is_Reloading = false;
+	bloodLock = false;
 }
 

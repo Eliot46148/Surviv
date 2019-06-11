@@ -21,6 +21,7 @@ class Enemy : public persona
         void ClearBBIPvector();
         void SetNearBullet(Bullet* nbullet);
         void SetNearItem(items* nitem);
+		void SetCamera(int, int);
         void chouseMode();
         int rtNearPeople();
         void getNearItems();
@@ -43,6 +44,7 @@ class Enemy : public persona
         bool tutchbox(Box* box, int _where);
         bool hitBox(Box* box);
     private:
+		int camera_x, camera_y;
         CMovingBitmap bmp[8];
         bool is_Gettting = false;
         bool is_Reloading = false;

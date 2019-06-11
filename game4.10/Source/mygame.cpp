@@ -9,6 +9,7 @@
 #include "mygame.h"
 #include "BasicObject.h"
 #include "persona.h"
+#include "Blood.h"
 
 
 namespace game_framework {
@@ -29,6 +30,12 @@ void CGameStateInit::OnInit()
 
 void CGameStateInit::OnBeginState()
 {
+    if (!isMusicLoaded) {
+        CAudio::Instance()->Load(AUDIO_TITLE, "sounds\\title.mp3");
+        isMusicLoaded = true;
+    }
+
+    CAudio::Instance()->Play(AUDIO_TITLE, true);
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -52,18 +59,33 @@ void CGameStateInit::OnShow()
     logo.SetTopLeft(0, 0);
     logo.ShowBitmap();
 
+    CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+    CFont f, *fp;
+    f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+    fp = pDC->SelectObject(&f);					// 選用 font f
+    pDC->SetBkMode(TRANSPARENT);
+    pDC->SetTextColor(RGB(255, 255, 255));
+	pDC->TextOut(40, 240, "操作方法：");
+	pDC->TextOut(40, 270, "使用WASD鍵移動");
+	pDC->TextOut(40, 300, "F鍵拾取物品");
+	pDC->TextOut(40, 330, "R鍵重新裝填子彈");
+	pDC->TextOut(40, 360, "滑鼠移動控制準心瞄準");
+	pDC->TextOut(40, 390, "滑鼠左鍵射擊或使用道具");
+	pDC->TextOut(40, 420, "數字鍵1 2 切換武器/道具");
+
+	pDC->TextOut(330, 240, "密技：");
+	pDC->TextOut(330, 270, "O鍵回復生命值");
+	pDC->TextOut(330, 300, "T鍵進入無敵模式(不會損血)");
+	pDC->TextOut(330, 330, "C鍵直接勝利");
+
+	pDC->SetTextColor(RGB(255, 255, 0));
     if (showTip)
     {
-        CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
-        CFont f, *fp;
-        f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
-        fp = pDC->SelectObject(&f);					// 選用 font f
-        pDC->SetBkMode(TRANSPARENT);
-        pDC->SetTextColor(RGB(255, 255, 255));
-        pDC->TextOut(200, 300, "Press LButton to Start!");
-        pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-        CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+        pDC->TextOut(330, 390, "Press LButton to Start!");
     }
+
+    pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+    CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }
 
 void CGameStateInit::OnMove()
@@ -92,6 +114,7 @@ void CGameStateOver::OnMove()
     {
         delay = 0;
         showTip = !showTip;
+        is_delayed = true;
     }
     else
         delay++;
@@ -99,6 +122,8 @@ void CGameStateOver::OnMove()
 
 void CGameStateOver::OnBeginState()
 {
+    is_delayed = false;
+    CAudio::Instance()->Pause();
 }
 
 void CGameStateOver::OnInit()
@@ -129,7 +154,7 @@ void CGameStateOver::OnShow()
         fp = pDC->SelectObject(&f);					// 選用 font f
         pDC->SetBkMode(TRANSPARENT);
         pDC->SetTextColor(RGB(255, 255, 255));
-        pDC->TextOut(180, 300, "Press LButton to Restart!");
+        pDC->TextOut(210, 300, "Press LButton to Restart!");
         pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
         CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
     }
@@ -162,6 +187,8 @@ void CGameStateRun::OnBeginState()
     box.clear();
     item.clear();
     bullet.clear();
+    texture.clear();
+    blood.clear();
     ui.Clear();
     firstlife = true;
     unsigned seed = (unsigned)time(NULL);
@@ -216,29 +243,7 @@ void CGameStateRun::OnBeginState()
     for (int i = 0; i < static_cast<int>(bullet.size()); i++)
         bullet[i].LoadBitMap();
 
-    /////////// camera接收地圖物件位址 ////////////////
-    camera.AddObjects(&map);
-    camera.AddObjects(&player1);
-
-    for (int i = 0; i < static_cast<int>(box.size()); i++)
-        camera.AddObjects(&box.at(i));
-
-    for (int i = 0; i < static_cast<int>(item.size()); i++)
-        camera.AddObjects(&item.at(i));
-
-    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-        camera.AddObjects(&bullet.at(i));
-
-    for (int i = 0; i < static_cast<int>(shotbullets.size()); i++)
-        camera.AddObjects(&shotbullets.at(i));
-
-    for (int i = 0; i < static_cast<int>(texture.size()); i++)
-        camera.AddObjects(&texture.at(i));
-
-    for (int i = 0; i < static_cast<int>(enemy.size()); i++)
-        camera.AddObjects(&enemy.at(i));
-
-    ////////////////////////////////////////////////////
+    CAudio::Instance()->Stop(AUDIO_TITLE);
 }
 
 bool CGameStateRun::Hascover(Box* box)
@@ -278,7 +283,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
     random_device rndseed;
     srand(rndseed());
     int rnd;
-    ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), player1.GetMegazine(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem(), player1.isReloading());				// UI接收玩家資訊
+    ui.TakePlayerInfo(player1.GetHP(), player1.GetAmmo(), player1.GetMegazine(), enemy.size(), player1.GetHasItemID(), player1.GetHoldingItem(), player1.isReloading(), player1.GetBloodLock());				// UI接收玩家資訊
 
     for (int i = 0; i < static_cast<int>(box.size()); i++)
     {
@@ -365,10 +370,9 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if (abs(bullet.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(bullet.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
                 enemy.at(i).SetNearBullet(&bullet.at(j));
 
-		for (int j = 0; j < static_cast<int>(box.size()); j++)
-			if (abs(box.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(box.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
-				enemy.at(i).SetNearBox(&box.at(j));
-
+        for (int j = 0; j < static_cast<int>(box.size()); j++)
+            if (abs(box.at(j).GetX() - enemy.at(i).GetX()) < SIZE_X / 2 && abs(box.at(j).GetY() - enemy.at(i).GetY()) < SIZE_Y / 2)
+                enemy.at(i).SetNearBox(&box.at(j));
 
         enemy.at(i).chouseMode();
 
@@ -378,7 +382,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
 
         if (enemy.at(i).isActing())
         {
-            if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0&& enemy.at(i).hasItom() != 0)
+            if (enemy.at(i).hasbullet() != 0 && enemy.at(i).rrdelay < 0 && enemy.at(i).hasItom() != 0)
             {
                 enemy.at(i).rrdelay = enemy.at(i).Recoil_delay;
                 int randomp, ID;
@@ -405,24 +409,24 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 switch (ID)
                 {
                     case 1:
-                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         break;
 
                     case 2:
                         rnd = rand() % 60 - 30;
-                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(rnd * M_PI / 180) - y * sin(rnd * M_PI / 180)), int(x * sin(rnd * M_PI / 180) + y * cos(rnd * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         break;
 
                     case 3:
                         int degree = 15, temp = degree;
-                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet((int)x, (int)y, enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         temp = degree * 2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         temp = degree * -1;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         temp = degree * -2;
-                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetCameraX(), camera.GetCameraY(), i, 2));
+                        shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), enemy.at(i).GetX(), enemy.at(i).GetY(), camera.GetX(), camera.GetY(), i, 2));
                         break;
                 }
             }
@@ -471,9 +475,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
         if (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitPlayer(&player1) && shotbullets.at(i).getshooter() != -1)
         {
             player1.getDemage(shotbullets.at(i).ShowDamage());
-			blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
-			for (unsigned int i = 0; i < blood.size(); i++)
-				camera.AddObjects(&blood.at(i));
+            blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
             shotbullets.erase(shotbullets.begin() + i);
 
             if (player1.GetHP() <= 0)
@@ -489,11 +491,8 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             if ((int)shotbullets.size() > i && (static_cast<int>(shotbullets.size()) != i && shotbullets.at(i).HitEnemy(&enemy.at(j)) && shotbullets.at(i).getshooter() != j))
             {
                 enemy.at(j).GetDamage(shotbullets.at(i).ShowDamage());
-				blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
-				for(unsigned int i=0;i<blood.size();i++)
-					camera.AddObjects(&blood.at(i));
+                blood.push_back(Blood(shotbullets.at(i).GetX(), shotbullets.at(i).GetY()));
                 shotbullets.erase(shotbullets.begin() + i);
-				
 
                 if (enemy.at(j).GetHP() <= 0)
                 {
@@ -503,11 +502,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     {
                         item.push_back(items(enemy.at(j).GetX() + 5 * k, enemy.at(j).GetY() + rand() % 3 * k, enemy.at(j).rtItom(k), (float)0.4));
                         item.at(item.size() - 1).LoadBitMap();
-                        camera.AddObjects(&item.at(item.size() - 1));
                     }
-
-                    for (unsigned int i = 0; i < texture.size(); i++)
-                        camera.AddObjects(&texture.at(i));
 
                     enemy.erase(enemy.begin() + j);
                 }
@@ -522,36 +517,19 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                 if (box.at(j).ShowHP() <= 0)
                 {
                     texture.push_back(Texture(box.at(j).GetX(), box.at(j).GetY(), 1));
-
-					item.push_back(items(box.at(j).GetX(), box.at(j).GetY(), 3, (float)0.4));
-					item.at(item.size() - 1).LoadBitMap();
-					camera.AddObjects(&item.at(item.size() - 1));
-					
-					for (unsigned int i = 0; i < texture.size(); i++)
-					{
-						camera.AddObjects(&texture.at(i));
-					}
+                    item.push_back(items(box.at(j).GetX(), box.at(j).GetY(), 3, (float)0.4));
+                    item.at(item.size() - 1).LoadBitMap();
                     box.erase(box.begin() + j);
                 }
             }
     }
-	/*for (int i = 0; i < static_cast<int>(blood.size()); i++) {
-		if (blood.at(i).IsDead()) {
-			blood.erase(blood.begin() + i);
-		}
-	}*/
-	
 
-    /*for (unsigned int i = 0; i < blood.size(); i++) {
-    	if (blood.at(i).IsDead())
-    		TRACE("0");
-    }*/
     ////////////////  OnMove區塊  ////////////////////////////////////////////////////////////////////////////////////
     player1.OnMove();
     camera.OnMove();
 
-	for (unsigned int i = 0; i < enemy.size(); i++) 
-		enemy.at(i).OnMove();
+    for (unsigned int i = 0; i < enemy.size(); i++)
+        enemy.at(i).OnMove();
 
     for (unsigned int i = 0; i < shotbullets.size(); i++)
         shotbullets[i].OnMove();
@@ -570,7 +548,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             int ID = player1.getHoldingItemID();
             double x = player1.getFacingX() * 10, y = player1.getFacingY() * 10;
             int position_x = player1.GetHitpointX(), position_y = player1.GetHitpointY();
-            int camera_x = camera.GetCameraX(), camera_y = camera.GetCameraY();
+            int camera_x = camera.GetX(), camera_y = camera.GetY();
 
             switch (ID)
             {
@@ -578,6 +556,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                     if (player1.GetMegazine() > 0)
                     {
                         shotbullets.push_back(shotBullet((int)x, (int)y, position_x, position_y, camera_x, camera_y, -1, 1));
+                        CAudio::Instance()->Play(AUDIO_PISTOL, false);
                         player1.setMegazine(-1);
                     }
 
@@ -605,6 +584,7 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
                         shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
                         temp = degree * -2;
                         shotbullets.push_back(shotBullet(int(x * cos(temp * M_PI / 180) - y * sin(temp * M_PI / 180)), int(x * sin(temp * M_PI / 180) + y * cos(temp * M_PI / 180)), position_x, position_y, camera_x, camera_y, -1, 1));
+                        CAudio::Instance()->Play(AUDIO_SHOTGUN, false);
                         player1.setMegazine(-5);
                     }
 
@@ -616,6 +596,34 @@ void CGameStateRun::OnMove()											// 移動遊戲元素
             }
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////// Camera /////////////////////////////////////////////////////////////////////////////////////
+
+    for (unsigned int i = 0; i < enemy.size(); i++)
+        enemy.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < blood.size(); i++)
+        blood.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < texture.size(); i++)
+        texture.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < item.size(); i++)
+        item.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < bullet.size(); i++)
+        bullet.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < shotbullets.size(); i++)
+        shotbullets.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    for (unsigned int i = 0; i < box.size(); i++)
+        box.at(i).SetCamera(camera.GetX(), camera.GetY());
+
+    map.SetCamera(camera.GetX(), camera.GetY());
+    player1.SetCamera(camera.GetX(), camera.GetY());
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (static_cast<int>(enemy.size()) == 0)
@@ -632,7 +640,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     map.LoadBitMap();
     player1.LoadBitMap();
     ui.LoadBitMap();
-    //dot.LoadBitmap(IDB_BALL);
+    CAudio::Instance()->Load(AUDIO_STEP, "sounds\\step.mp3");
+    CAudio::Instance()->Load(AUDIO_PISTOL, "sounds\\pistol.mp3");
+    CAudio::Instance()->Load(AUDIO_MACHINEGUN, "sounds\\machinegun.mp3");
+    CAudio::Instance()->Load(AUDIO_SHOTGUN, "sounds\\shotgun.mp3");
+    CAudio::Instance()->Load(AUDIO_BANDAGE, "sounds\\bandage.mp3");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -644,6 +656,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_GET   = 0x46;		 // keyboard  [F]
     const char KEY_Reload = 0x52;        // keyboard  [R]
     const char KEY_RTBLOOD = 0x4F;		 // keyboard  [O]
+    const char KEY_BloodLock = 0x54;     // keyboard  [T]
     const char KEY_CHEAT = 0x43;		 // keyboard  [C]
     const char KEY_First = 0x31;		 // keyboard  [1]
     const char KEY_Second = 0x32;		 // keyboard  [2]
@@ -651,16 +664,14 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     const char KEY_Escape = 0x18;        // keyboard  [Esc]
 
     //////////// 移動 //////////////////////////////////////
+    if ((nChar == KEY_LEFT || nChar == KEY_RIGHT || nChar == KEY_UP || nChar == KEY_DOWN) && !player1.isMoving()) {
+        CAudio::Instance()->Play(AUDIO_STEP, true);;
+    }
+
     if (nChar == KEY_LEFT)           // 左
     {
         camera.setMovingMode(4, 1);
         player1.setMovingMode(3, 1);
-    }
-
-    if (nChar == KEY_RIGHT)          // 右
-    {
-        camera.setMovingMode(3, 1);
-        player1.setMovingMode(4, 1);
     }
 
     if (nChar == KEY_RIGHT)          // 右
@@ -720,6 +731,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     {
         Cheat();
     }
+
+    if (nChar == KEY_BloodLock)
+        player1.setBloodLock();
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -754,6 +768,10 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
         player1.setMovingMode(2, 0);
     }
 
+    if ((nChar == KEY_LEFT || nChar == KEY_RIGHT || nChar == KEY_UP || nChar == KEY_DOWN) && !player1.isMoving()) {
+        CAudio::Instance()->Stop(AUDIO_STEP);
+    }
+
     if (nChar == KEY_GET)
     {
         for (int i = 0; i < static_cast<int>(item.size()); i++)
@@ -783,11 +801,18 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
     player1.setActing(true);
+
+    if(player1.getHoldingItemID() == 2)
+        CAudio::Instance()->Play(AUDIO_MACHINEGUN, true);
+
+    if (player1.getHoldingItemID() == 4)
+        CAudio::Instance()->Play(AUDIO_BANDAGE, false);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
     player1.setActing(false);
+    CAudio::Instance()->Stop(AUDIO_MACHINEGUN);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -825,14 +850,14 @@ void CGameStateRun::OnShow()
     for (int i = 0; i < static_cast<int>(texture.size()); i++)
         texture[i].OnShow();
 
-	for (int i = 0; i < static_cast<int>(blood.size()); i++)
-		blood.at(i).OnShow();
+    for (int i = 0; i < static_cast<int>(blood.size()); i++)
+        blood.at(i).OnShow();
 
-	for (int i = 0; i < static_cast<int>(bullet.size()); i++)
-		bullet[i].OnShow();
+    for (int i = 0; i < static_cast<int>(bullet.size()); i++)
+        bullet[i].OnShow();
 
-	for (int i = 0; i < static_cast<int>(item.size()); i++)
-		item[i].OnShow();
+    for (int i = 0; i < static_cast<int>(item.size()); i++)
+        item[i].OnShow();
 
     for (int i = 0; i < static_cast<int>(enemy.size()); i++)
         enemy[i].OnShow();

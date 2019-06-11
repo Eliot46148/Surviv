@@ -24,24 +24,28 @@ class persona : public BasicObject
         void SetReloading(bool flag);
         void setCan_move(bool flag);
         void setBullet(int num);
-        void setMegazine(int num);
-        void setFacingPosition(double, double);
-        void setDirection();
-        void setActing(bool);
-        void getDemage(int);
-        void setHoldingItem(int);
-        double getFacingX();
-        double getFacingY();
-        int GetHitpointX();
-        int GetHitpointY();
-        int getHasitemNum();
-        int* GetHasItemID();
-        int GetHoldingItem();
-        int getHoldingItemID();
-        int getBullet();
-        int GetMegazine();
-        int GetHP();
-        int GetAmmo();
+		void setMegazine(int num);
+		void setFacingPosition(double,double);
+		void setDirection();
+		void setActing(bool);
+		void getDemage(int);
+		void setHoldingItem(int);
+		void setBloodLock();
+
+		double getFacingX();
+		double getFacingY();
+		int GetHitpointX();
+		int GetHitpointY();
+		int getHasitemNum();
+		int* GetHasItemID();
+		int GetHoldingItem();
+		int getHoldingItemID();
+		int getBullet();
+		int GetMegazine();
+		int GetHP();
+		int GetAmmo();
+
+		bool GetBloodLock();
         bool isGetting();
         bool isReloading();
         bool isActing();
@@ -49,11 +53,13 @@ class persona : public BasicObject
         bool isCan_Left();
         bool isCan_Down();
         bool isCan_UP();
+		bool isMoving();
     private:
         CMovingBitmap bmp[4][25];		// 0:拳頭 1:槍 2:機槍 3:霰彈槍
         bool is_Gettting = false;
-        bool is_Reloading = false;
-        bool is_acting = false;
+		bool is_Reloading = false;
+		bool is_acting = false;;
+		bool bloodLock = false;			// 是否鎖血
         vector<items> hasitem;
         int hasitemID[2] = { 0 };
         int holdingItem;				// 現在手持的武器
