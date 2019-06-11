@@ -23,7 +23,8 @@ enum AUDIO_ID  				// 定義各種音效的編號
 	AUDIO_PISTOL,
 	AUDIO_MACHINEGUN,
 	AUDIO_SHOTGUN,
-	AUDIO_BANDAGE
+	AUDIO_BANDAGE,
+	AUDIO_BATTLE
 };
 static bool isWin = false;
 

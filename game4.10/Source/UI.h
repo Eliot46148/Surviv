@@ -1,6 +1,7 @@
 #pragma once
 #include "BasicObject.h"
 
+/* 控制UI */
 namespace game_framework {
 	class UI : public BasicObject {
 	public:
@@ -11,7 +12,7 @@ namespace game_framework {
 		void ShowInfo();									// 剩餘敵人
 		void ShowItems();									// 持有武器
 		void ShowBullets();									// 持有子彈
-		void TakePlayerInfo(int,int,int,int,int*,int,bool,bool);// 接收 HP, 儲備數目, 彈夾子彈數目, 敵人數目, hasitemID, holdingitem 資料，並呼叫 SetHealthStatus()
+		void TakePlayerInfo(int,int,int,int,int*,int,bool,bool);// 接收 HP, 儲備數目, 彈夾子彈數目, 敵人數目, hasitemID, holdingitem 資料...，並呼叫 SetHealthStatus()
 		void SetHealthStatus();								// 切換 HealthBar 狀態
 		void Showloading();									// 顯示 Loading
 		void Clear();										// 重置資料

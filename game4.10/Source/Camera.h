@@ -4,19 +4,20 @@
 #include "Box.h"
 #include "persona.h"
 
+/* 控制Camera */
 namespace game_framework {
 	class Camera {
 	public:
 		Camera();
-		void OnMove();
-		void setMovingMode(int, bool);
-		void Retry();
+		void OnMove();					// 移動
+		void setMovingMode(int, bool);  // 設定移動模式
+		void Retry();					// 在Beginstate重設參數
 
-        int GetX();
-        int GetY();
+        int GetX();						// 回傳X座標
+        int GetY();						// 回傳Y座標
     private:
-        int x, y;
-        int speed;
+        int x, y;						// Camera座標
+        int speed;						// 移動速度
         bool isMovingUp, isMovingLeft, isMovingRight, isMovingDown;
 };
 }

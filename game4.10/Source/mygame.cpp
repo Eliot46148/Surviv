@@ -244,6 +244,7 @@ void CGameStateRun::OnBeginState()
         bullet[i].LoadBitMap();
 
     CAudio::Instance()->Stop(AUDIO_TITLE);
+	CAudio::Instance()->Play(AUDIO_BATTLE,true);
 }
 
 bool CGameStateRun::Hascover(Box* box)
@@ -645,6 +646,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
     CAudio::Instance()->Load(AUDIO_MACHINEGUN, "sounds\\machinegun.mp3");
     CAudio::Instance()->Load(AUDIO_SHOTGUN, "sounds\\shotgun.mp3");
     CAudio::Instance()->Load(AUDIO_BANDAGE, "sounds\\bandage.mp3");
+	CAudio::Instance()->Load(AUDIO_BATTLE, "sounds\\battle.mp3");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
